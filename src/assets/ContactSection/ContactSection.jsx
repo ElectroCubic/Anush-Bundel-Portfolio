@@ -103,8 +103,7 @@ function ContactSection()
                     </div>
 
                     <div className={styles.metaLine}>
-                        <span className={styles.dot} aria-hidden="true" />
-                        <span> Usually replies within 24-48hrs </span>
+                        <span> Replies usually within 24-48hrs </span>
                     </div>
                 </div>
             </div>
@@ -126,7 +125,7 @@ function ContactSection()
 
             <div className={styles.footer}>
                 <div className={styles.footerText}>
-                    &copy; {new Date().getFullYear()} Anush Bundel | ElectroCubic
+                    &copy; {new Date().getFullYear()} Anush Bundel | ElectroCubic <br/>
                 </div>
             </div>
         </div>

@@ -164,6 +164,7 @@
 
 .tooltipNarrow {
   transform: translate(-50%, calc(-100% - 16px));
+  max-width: min(90vw, 240px);
 }
 
 .tooltipNarrow::after {
@@ -180,6 +181,18 @@
   border-top: 10px solid rgba(14, 11, 39, 0.88);
 
   filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.35));
+}
+
+.tooltipBelow {
+  transform: translate(-50%, 16px);
+}
+
+.tooltipBelow::after {
+  top: -10px;
+  bottom: auto;
+
+  border-top: none;
+  border-bottom: 10px solid rgba(14, 11, 39, 0.88);
 }
 
 @media (max-width: 1100px) {

@@ -112,6 +112,50 @@ function SkillsSection() {
     });
   };
 
+  // Narrow: clamp & flip tooltip
+  const positionTooltipNarrow = (id) => {
+    const stageEl = stageRef.current;
+    const tipEl = tooltipRef.current;
+    const c = centers.get(id);
+
+    if (!stageEl || !tipEl || !c) return;
+
+    const stageRect = stageEl.getBoundingClientRect();
+    const tipRect = tipEl.getBoundingClientRect();
+
+    const pad = 12;
+    const arrowGap = 16;
+
+    // Base position (centered on node)
+    const base = svgToStageXY(c.x, c.y);
+
+    let left = base.left;
+    let top = base.top;
+
+    // For Horizontal Space
+    const halfW = tipRect.width / 2;
+
+    if (left - halfW < pad) {
+      left = halfW + pad;
+    }
+
+    if (left + halfW > stageRect.width - pad) {
+      left = stageRect.width - halfW - pad;
+    }
+
+    // For Vertical space
+    const aboveTop = top - tipRect.height - arrowGap;
+
+    if (aboveTop < pad) {
+      tipEl.classList.add(styles.tooltipBelow);
+    } else {
+      tipEl.classList.remove(styles.tooltipBelow);
+    }
+
+    tipEl.style.left = `${left}px`;
+    tipEl.style.top = `${top}px`;
+  };
+
   const showTooltipFor = (id, evt) => {
     const meta = getNodeMeta(id);
     const title = meta?.label ?? id;
@@ -127,8 +171,10 @@ function SkillsSection() {
     // Narrow: anchor to node
     const c = centers.get(id);
     if (!c) return;
+
     const pos = svgToStageXY(c.x, c.y);
     setTooltip({ id, title, desc, x: pos.left, y: pos.top });
+    requestAnimationFrame(() => { positionTooltipNarrow(id) });
   };
 
   const hideTooltip = () => setTooltip(null);
