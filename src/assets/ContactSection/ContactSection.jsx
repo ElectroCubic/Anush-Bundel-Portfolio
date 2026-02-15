@@ -10,6 +10,7 @@ const LINKS = {
     itch: "https://electrocubic.itch.io",
     youtube: "https://www.youtube.com/@ElectroCubicYT",
     discord: "https://discord.com/users/806390493113614346",
+    websiteCode: "https://github.com/ElectroCubic/anush-bundel-portfolio"
 }
 
 function openExternal(url) 
@@ -36,6 +37,7 @@ function openMail() {
     const openItchio = () => openExternal(LINKS["itch"]);
     const openYouTube = () => openExternal(LINKS["youtube"]);
     const openDiscord = () => openExternal(LINKS["discord"]);
+    const openWebsiteGithubRepo = () => openExternal(LINKS["websiteCode"]);
 
 
 function ContactSection() 
@@ -125,9 +127,23 @@ function ContactSection()
 
             <div className={styles.footer}>
                 <div className={styles.footerText}>
-                    &copy; {new Date().getFullYear()} Anush Bundel | ElectroCubic <br/>
+                    <div>
+                    &copy; {new Date().getFullYear()} Anush Bundel | ElectroCubic
+                    </div>
+
+                    <div className={styles.footerSub}>
+                        Built using React.js & Vanilla CSS -{" "}
+                        <button
+                            type="button"
+                            className={styles.footerLink}
+                            onClick={openWebsiteGithubRepo}
+                        >
+                            View Code
+                        </button>
+                    </div>
                 </div>
             </div>
+
         </div>
     );
 }
