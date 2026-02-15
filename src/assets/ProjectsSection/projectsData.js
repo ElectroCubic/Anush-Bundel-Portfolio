@@ -1,10 +1,7 @@
 
-import test from "../Screenshots/Test.png"
-
 export const PROJECTS = [
   {
     id: "p1",
-    img: test,
     title: "Testing",
     description: "I am a test project",
     alt: "alt Desc",
