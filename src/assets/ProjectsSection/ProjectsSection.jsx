@@ -4,6 +4,7 @@ import { faArrowRight, faArrowLeft} from "@fortawesome/free-solid-svg-icons";
 import ProjectCard from "../ProjectCard/ProjectCard.jsx";
 import profilePic from "../ElectroCubicLogo_New.png";
 import styles from "./ProjectsSection.module.css";
+import { PROJECTS } from "./projectsData.js";
 
 function shuffleArray(arr) {
   const a = [...arr];
@@ -28,71 +29,7 @@ function getWindowCircular(list, start, k) {
 }
 
 function ProjectsSection() {
-  const projects = useMemo(
-    () => [
-      {
-        id: "p1",
-        title: "Project Title",
-        description: "One line description about the Project...",
-        tags: ["Godot", "FL Studio", "Solo", "Game Jam", "Puzzle"],
-      },
-      {
-        id: "p2",
-        title: "Project Title",
-        description: "One line description about the Project...",
-        tags: ["Godot", "FL Studio", "Android", "Prototype", "Puzzle"],
-      },
-      {
-        id: "p3",
-        title: "Project Title",
-        description: "One line description about the Project...",
-        tags: ["Python", "Pygame", "Software", "Simulator"],
-      },
-      {
-        id: "p4",
-        title: "Project Title",
-        description: "One line description about the Project...",
-        tags: ["Godot", "Puzzle", "Programmer", "GDScript"],
-      },
-      {
-        id: "p5",
-        title: "Project Title",
-        description: "One line description about the Project...",
-        tags: ["Unity", "C#", "Prototype", "Designer", "Puzzle"],
-      },
-            {
-        id: "p6",
-        title: "Project Title",
-        description: "One line description about the Project...",
-        tags: ["Godot", "FL Studio", "Solo", "Game Jam", "Puzzle"],
-      },
-      {
-        id: "p7",
-        title: "Project Title",
-        description: "One line description about the Project...",
-        tags: ["Godot", "FL Studio", "Android", "Prototype", "Puzzle"],
-      },
-      {
-        id: "p8",
-        title: "Project Title",
-        description: "One line description about the Project...",
-        tags: ["Python", "Pygame", "Software", "Simulator"],
-      },
-      {
-        id: "p9",
-        title: "Project Title",
-        description: "One line description about the Project...",
-        tags: ["Godot", "Puzzle", "Programmer", "GDScript"],
-      },
-      {
-        id: "p10",
-        title: "Project Title",
-        description: "One line description about the Project...",
-        tags: ["Unity", "C#", "Prototype", "Designer", "Puzzle"],
-      },
-    ],
-    []
-  );
+  const projects = PROJECTS;
 
   const sectionRef = useRef(null);
   const deckRef = useRef(null);
@@ -304,9 +241,12 @@ function ProjectsSection() {
               <ProjectCard
                 key={p.id}
                 ref={(el) => (cardRefs.current[i] = el)}
+                imgUrl={p.img}
                 title={p.title}
                 description={p.description}
+                altDesc={p.alt}
                 tags={p.tags}
+                projectLink={p.projectLink}
                 onClick={(e) => { e.stopPropagation(); onCardTap(p.id);}}
                 className={[
                   styles.dealCard,
@@ -332,7 +272,7 @@ function ProjectsSection() {
           </button>
         </div>
         
-        {/* For tapping deck for later use */}
+        {/* Tapping deck func for later use */}
         <div ref={deckRef} className={styles.deck} onClick={tapDeck} aria-hidden="true">
           <img src={profilePic} alt="ElectroCubic Logo"/>
         </div>

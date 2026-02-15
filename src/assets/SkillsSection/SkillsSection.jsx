@@ -19,7 +19,7 @@ function SkillsSection() {
   const svgRef = useRef(null);
   const tooltipRef = useRef(null);
 
-  // Smooth tracking
+  // Tooltip tracking
   const rafRef = useRef(0);
   const lastPointerRef = useRef({ x: 0, y: 0 });
 
@@ -60,7 +60,7 @@ function SkillsSection() {
     };
   };
 
-  // Position tooltip near cursor + flip/clamp
+  // Position tooltip near cursor and flip/clamp
   const positionTooltipAtClient = (clientX, clientY) => {
     const stageEl = stageRef.current;
     const tipEl = tooltipRef.current;

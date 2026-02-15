@@ -1,5 +1,5 @@
-import PropTypes from "prop-types";
 import { forwardRef } from "react";
+import PropTypes from "prop-types";
 import styles from "./ProjectCard.module.css";
 import placeholderPic from "../Placeholder.png";
 
@@ -104,9 +104,10 @@ const ProjectCard = forwardRef(function ProjectCard(
     className = "",
     style = undefined,
     onClick = undefined,
+    projectLink = "",
   },
-  ref
-) {
+  ref ) 
+  {
   const type = getTypeFromTags(tags);
   const typeClass = getTypeClass(type);
 
@@ -146,7 +147,10 @@ const ProjectCard = forwardRef(function ProjectCard(
         <button
           className={styles.cta}
           type="button"
-          onClick={(e) => e.stopPropagation()}
+          onClick={(e) => {
+            e.stopPropagation(); 
+            window.open(projectLink, "_blank", "noopener,noreferrer");
+          }}
         >
           VIEW PROJECT
         </button>
@@ -164,6 +168,7 @@ ProjectCard.propTypes = {
   className: PropTypes.string,
   style: PropTypes.object,
   onClick: PropTypes.func,
+  link: PropTypes.string,
 };
 
 export default ProjectCard;

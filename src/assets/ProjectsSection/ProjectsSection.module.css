@@ -149,20 +149,20 @@
 }
 
 @keyframes wobbleLoop {
-  0%, 100% { --wobble-angle: 0deg; }
-  10%      { --wobble-angle: 0.4deg; }
-  20%,40%,60% { --wobble-angle: -0.8deg; }
-  30%,50%,70% { --wobble-angle: 0.8deg; }
-  80%      { --wobble-angle: -0.4deg; }
-  90%      { --wobble-angle: 0.4deg; }
+  0%, 100%      { --wobble-angle: 0deg; }
+  10%           { --wobble-angle: 0.4deg; }
+  20%,40%,60%   { --wobble-angle: -0.8deg; }
+  30%,50%,70%   { --wobble-angle: 0.8deg; }
+  80%           { --wobble-angle: -0.4deg; }
+  90%           { --wobble-angle: 0.4deg; }
 }
 
 @keyframes wobbleVertical {
-  0%, 100% { --wobble-y: 0px; }
-  10%,30%,50%,70% { --wobble-y: -2.8px; }
-  20%,40%,60%     { --wobble-y: 2.8px; }
-  80%             { --wobble-y: 2.2px; }
-  90%             { --wobble-y: -2.2px; }
+  0%, 100%          { --wobble-y: 0px; }
+  10%,30%,50%,70%   { --wobble-y: -2.8px; }
+  20%,40%,60%       { --wobble-y: 2.8px; }
+  80%               { --wobble-y: 2.2px; }
+  90%               { --wobble-y: -2.2px; }
 }
 
 .settled {
