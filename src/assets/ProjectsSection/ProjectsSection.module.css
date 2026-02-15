@@ -1,7 +1,7 @@
 .projectsSection {
   max-width: 1480px;
   margin: 0 auto;
-  padding: 2rem 0.8rem 5rem;
+  padding: 2rem 0.9rem 5rem;
 }
 
 .headingBar {
@@ -76,13 +76,9 @@
 .carousel {
   width: 100%;
   display: grid;
-  grid-template-columns: 44px minmax(0, 1fr) 44px;
-  gap: 20px;
+  grid-template-columns: 70px minmax(0, 1fr) 70px;
   align-items: center;
-}
-
-.icon {
-    font-size: 1.2rem;
+  place-items: center;
 }
 
 .cardsRow {
@@ -203,7 +199,7 @@
   height: 44px;
   width: 44px;
   border-radius: 999px;
-  border: 1px solid rgba(9, 230, 246, 0.35);
+  border: 1px solid var(--primary-color2);
   background: rgba(14, 11, 39, 0.55);
   box-shadow: 0 14px 34px rgba(0, 0, 0, 0.45);
   color: var(--text-color1);
@@ -213,6 +209,10 @@
   transition: transform 140ms ease, border-color 140ms ease, box-shadow 140ms ease;
   position: relative;
   z-index: 10;
+}
+
+.icon {
+  scale: 1.5;
 }
 
 .arrow:active {
