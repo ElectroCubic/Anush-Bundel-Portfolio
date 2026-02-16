@@ -1,12 +1,13 @@
 .projectsSection {
   max-width: 1480px;
   margin: 0 auto;
-  padding: 2rem 0.5rem 5rem;
+  padding: 0 0.5rem 5rem;
+  position: relative;
 }
 
 .headingBar {
   text-align: center;
-  padding: 3.25rem 1rem 2.75rem;
+  padding: 3.25rem 1rem 1.2rem;
   border-bottom: 1px solid var(--accent-color2);
   border-bottom-left-radius: 48px;
   border-bottom-right-radius: 48px;
@@ -25,11 +26,42 @@
   font-size: clamp(1.05rem, 1.4vw, 1.6rem);
 }
 
+.tabs {
+  margin-top: 1.4rem;
+  display: flex;
+  justify-content: center;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+}
+
+.tabBtn {
+  background: var(--bg-color3);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: var(--text-color2);
+  padding: 6px 16px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  transition: all 150ms ease;
+}
+
+.tabBtn:hover {
+  border-color: var(--accent-color2);
+  color: var(--text-color1);
+}
+
+.activeTab {
+  border-color: var(--accent-color2);
+  color: var(--accent-color2);
+  box-shadow: 0 0 8px var(--primary-color2);
+}
+
 .cardsViewport {
   position: relative;
-  margin-top: 5rem;
+  margin-top: 3.5rem;
   padding-bottom: 0.5rem;
-  overflow: visible;
 }
 
 .deck {
@@ -84,6 +116,7 @@
 
 .cardsRow {
   min-width: 0;
+  min-height: 480px;
   display: grid;
   grid-template-columns: repeat(var(--cols, 1), 255px);
   gap: 1.1rem;
@@ -201,13 +234,13 @@
   width: 44px;
   border-radius: 999px;
   border: 1px solid var(--primary-color2);
-  background: rgba(14, 11, 39, 0.55);
+  background: var(--bg-color2);
   box-shadow: 0 14px 34px rgba(0, 0, 0, 0.45);
   color: var(--text-color1);
   display: grid;
   place-items: center;
   cursor: pointer;
-  transition: transform 140ms ease, border-color 140ms ease, box-shadow 140ms ease;
+  transition: transform 140ms ease, border-color 140ms ease;
   position: relative;
   z-index: 10;
 }
@@ -218,6 +251,10 @@
 
 .arrow:active {
   transform: scale(0.85);
+}
+
+.arrow:hover {
+  box-shadow: 0 0 6px var(--accent-color2);
 }
 
 .arrow:disabled {

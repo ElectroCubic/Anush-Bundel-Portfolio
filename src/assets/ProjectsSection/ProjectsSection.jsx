@@ -41,7 +41,7 @@ function ProjectsSection() {
   const settleTimeoutRef = useRef(null);
 
   const [triggered, setTriggered] = useState(false);
-  const [phase, setPhase] = useState("idle"); // idle | prep | dealing | settled
+  const [phase, setPhase] = useState("idle");         // idle | prep | dealing | settled
   const [poppedId, setPoppedId] = useState(null);
 
   const [shuffledProjects, setShuffledProjects] = useState(() => projects);
@@ -49,8 +49,9 @@ function ProjectsSection() {
   const [cardsPerPage, setCardsPerPage] = useState(1);
   const [pageStart, setPageStart] = useState(0);
   const [wobblePhaseById, setWobblePhaseById] = useState(() => new Map());
+  const [category, setCategory] = useState("Featured");
 
-  const dealDelay = 140;
+  const dealDelay = 140; // Miliseconds
 
   const tapDeck = () => {
     const el = deckRef.current;
@@ -93,27 +94,38 @@ function ProjectsSection() {
     return () => io.disconnect();
   }, [projects]);
 
+  const filteredProjects = useMemo(() => {
+    if (category === "All") 
+    {
+      return shuffledProjects;
+    }
+    return shuffledProjects.filter((p) => p.category === category);
+  }, [shuffledProjects, category]);
+
+  useEffect(() => {
+    setPageStart(0);
+    setPoppedId(null);
+  }, [category]);
+
   useEffect(() => {
     const el = carouselRef.current;
     if (!el) return;
 
-    const arrowW = 44;          // From CSS
+    const arrowW = 44;
     const gap = 5;
     const minCardWidth = 255;
     const maxCards = 5;
 
     const ro = new ResizeObserver(([entry]) => {
       const fullW = entry.contentRect.width;
-
       const cardsAreaW = Math.max(0, fullW - (arrowW * 2 + gap * 2));
       const raw = Math.floor((cardsAreaW + gap) / (minCardWidth + gap));
       const k = clamp(raw || 1, 1, maxCards);
 
       setCardsPerPage(k);
 
-      // snap start to multiple of k
       setPageStart((s) => {
-        const n = shuffledProjects.length || 1;
+        const n = filteredProjects.length || 1;
         const snapped = Math.floor(s / k) * k;
         return ((snapped % n) + n) % n;
       });
@@ -121,16 +133,16 @@ function ProjectsSection() {
 
     ro.observe(el);
     return () => ro.disconnect();
-  }, [shuffledProjects.length]);
+  }, [filteredProjects.length]);
 
   const visible = useMemo(() => {
-    const n = shuffledProjects.length;
+    const n = filteredProjects.length;
     if (n === 0) {
       return [];
     }
     const k = Math.min(cardsPerPage, n);
-    return getWindowCircular(shuffledProjects, pageStart, k);
-  }, [shuffledProjects, pageStart, cardsPerPage]);
+    return getWindowCircular(filteredProjects, pageStart, k);
+  }, [filteredProjects, pageStart, cardsPerPage]);
 
   const setOffsets = (cardEl) => {
     const deckEl = deckRef.current;
@@ -184,7 +196,7 @@ function ProjectsSection() {
     tapDeck();
     setPoppedId(null);
     setPageStart((s) => {
-      const n = shuffledProjects.length || 1;
+      const n = filteredProjects.length || 1;
       const k = Math.min(cardsPerPage, n);
       return (s - k + n) % n;
     });
@@ -194,7 +206,7 @@ function ProjectsSection() {
     tapDeck();
     setPoppedId(null);
     setPageStart((s) => {
-      const n = shuffledProjects.length || 1;
+      const n = filteredProjects.length || 1;
       const k = Math.min(cardsPerPage, n);
       return (s + k) % n;
     });
@@ -219,6 +231,19 @@ function ProjectsSection() {
       <div className={styles.headingBar}>
         <h1 className={styles.heading}>Explore My Worlds</h1>
         <p className={styles.subheading}>The <span className="hl">Cool Stuff</span> I've Worked Upon</p>
+      </div>
+
+      <div className={styles.tabs}>
+        {["All", "Featured", "Prototypes", "Other"].map((tab) => (
+          <button key={tab}
+            className={
+              `${styles.tabBtn} ${category === tab ? styles.activeTab : ""}`
+            }
+            onClick={() => setCategory(tab)}
+          >
+            {tab}
+          </button>
+        ))}
       </div>
 
       <div className={styles.cardsViewport}>

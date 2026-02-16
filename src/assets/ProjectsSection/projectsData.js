@@ -6,6 +6,7 @@ export const PROJECTS = [
     description: "I am a test project",
     alt: "alt Desc",
     tags: ["Godot", "FL Studio", "Solo", "Game Jam", "Puzzle"],
+    category: "Featured",
     projectLink: "https://anushbundel.com",
   },
   {
@@ -13,18 +14,21 @@ export const PROJECTS = [
     title: "Project Title",
     description: "One line description about the Project...",
     tags: ["Godot", "FL Studio", "Android", "Prototype", "Puzzle"],
+    category: "Prototypes",
   },
   {
     id: "p3",
     title: "Project Title",
     description: "One line description about the Project...",
     tags: ["Python", "Pygame", "Software", "Simulator"],
+    category: "Other",
   },
   {
     id: "p4",
     title: "Project Title",
     description: "One line description about the Project...",
     tags: ["Godot", "Puzzle", "Programmer", "GDScript"],
+    category: "Prototypes",
   },
   {
     id: "p5",
