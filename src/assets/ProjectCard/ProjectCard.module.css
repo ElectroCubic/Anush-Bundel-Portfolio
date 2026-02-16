@@ -23,7 +23,7 @@
 }
 
 .thumbWrap {
-    padding: 0.65rem;
+    padding: 0.45rem;
     background: linear-gradient(90deg, rgba(94, 235, 138, 0.12), rgba(9, 230, 246, 0.12));
 }
 
@@ -32,8 +32,8 @@
     height: 150px;
     object-fit: cover;
     display: block;
-    border-radius: 14px;
-    border: 2px solid rgba(9, 230, 246, 0.35);
+    border-radius: 10px;
+    border: 1px solid var(--secondary-color1);
 }
 
 .body {

@@ -1,7 +1,6 @@
-import { forwardRef } from "react";
+import { useEffect, useRef, forwardRef } from "react";
 import PropTypes from "prop-types";
 import styles from "./ProjectCard.module.css";
-import placeholderPic from "../Placeholder.png";
 
 const TAG_CATEGORY_CLASS = {
   engine: styles.tagEngine,
@@ -47,7 +46,7 @@ const TAG_CATEGORY_BY_NAME = {
 
   Puzzle: "genre",
   Platformer: "genre",
-  Roguelike: "genre",
+  Horror: "genre",
 
   Completed: "status",
   "In Progress": "status",
@@ -96,10 +95,9 @@ function getTagClass(tag) {
 
 const ProjectCard = forwardRef(function ProjectCard(
   {
-    imgUrl = placeholderPic,
+    imgUrl = "",
     title = "",
     description = "",
-    altDesc = "Project thumbnail",
     tags = [],
     category = "",
     className = "",
@@ -111,7 +109,7 @@ const ProjectCard = forwardRef(function ProjectCard(
   {
   const type = getTypeFromTags(tags);
   const typeClass = getTypeClass(type);
-
+  
   return (
     <article
       ref={ref}
@@ -125,7 +123,16 @@ const ProjectCard = forwardRef(function ProjectCard(
       }}
     >
       <div className={`${styles.thumbWrap} ${typeClass}`}>
-        <img className={styles.thumb} src={imgUrl} alt={altDesc} />
+        <video
+          className={styles.thumb}
+          src={imgUrl}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          loading="lazy"
+        />
       </div>
 
       <div className={styles.body}>
@@ -164,7 +171,6 @@ ProjectCard.propTypes = {
   imgUrl: PropTypes.string,
   title: PropTypes.string,
   description: PropTypes.string,
-  altDesc: PropTypes.string,
   tags: PropTypes.arrayOf(PropTypes.string),
   category: PropTypes.string,
   className: PropTypes.string,
