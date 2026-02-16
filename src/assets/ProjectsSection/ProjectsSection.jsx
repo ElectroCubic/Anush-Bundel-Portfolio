@@ -41,7 +41,7 @@ function ProjectsSection() {
   const settleTimeoutRef = useRef(null);
 
   const [triggered, setTriggered] = useState(false);
-  const [phase, setPhase] = useState("idle");         // idle | prep | dealing | settled
+  const [phase, setPhase] = useState("idle");
   const [poppedId, setPoppedId] = useState(null);
 
   const [shuffledProjects, setShuffledProjects] = useState(() => projects);
@@ -51,7 +51,9 @@ function ProjectsSection() {
   const [wobblePhaseById, setWobblePhaseById] = useState(() => new Map());
   const [category, setCategory] = useState("Featured");
 
-  const dealDelay = 140; // Miliseconds
+  const deckCenter = useRef({ x: 0, y: 0 });
+
+  const dealDelay = 140;
 
   const tapDeck = () => {
     const el = deckRef.current;
@@ -95,8 +97,7 @@ function ProjectsSection() {
   }, [projects]);
 
   const filteredProjects = useMemo(() => {
-    if (category === "All") 
-    {
+    if (category === "All") {
       return shuffledProjects;
     }
     return shuffledProjects.filter((p) => p.category === category);
@@ -137,22 +138,30 @@ function ProjectsSection() {
 
   const visible = useMemo(() => {
     const n = filteredProjects.length;
-    if (n === 0) {
-      return [];
-    }
+    if (n === 0) return [];
     const k = Math.min(cardsPerPage, n);
     return getWindowCircular(filteredProjects, pageStart, k);
   }, [filteredProjects, pageStart, cardsPerPage]);
 
-  const setOffsets = (cardEl) => {
+  // Calculate deck center once
+  useLayoutEffect(() => {
     const deckEl = deckRef.current;
-    if (!deckEl || !cardEl) return;
+    if (!deckEl) return;
 
-    const deck = deckEl.getBoundingClientRect();
+    const rect = deckEl.getBoundingClientRect();
+    deckCenter.current = {
+      x: rect.left + rect.width / 2,
+      y: rect.top + rect.height / 2,
+    };
+  }, []);
+
+  const setOffsets = (cardEl) => {
+    if (!cardEl) return;
+
     const card = cardEl.getBoundingClientRect();
 
-    const dx = deck.left + deck.width / 2 - (card.left + card.width / 2);
-    const dy = deck.top + deck.height / 2 - (card.top + card.height / 2);
+    const dx = deckCenter.current.x - (card.left + card.width / 2);
+    const dy = deckCenter.current.y - (card.top + card.height / 2);
 
     cardEl.style.setProperty("--deal-x", `${dx}px`);
     cardEl.style.setProperty("--deal-y", `${dy}px`);
@@ -162,12 +171,11 @@ function ProjectsSection() {
     if (settleTimeoutRef.current) clearTimeout(settleTimeoutRef.current);
 
     const k = visible.length || 1;
-    const total = 440 + (k - 1) * 140 + 80; // Small time buffer for dealing cards
+    const total = 440 + (k - 1) * 140 + 80;
 
     settleTimeoutRef.current = setTimeout(() => setPhase("settled"), total);
   };
 
-  // Deal whenever page changes OR cardsPerPage changes
   useLayoutEffect(() => {
     if (!triggered) return;
     if (!visible.length) return;
@@ -175,9 +183,22 @@ function ProjectsSection() {
     setPhase("prep");
 
     raf1.current = requestAnimationFrame(() => {
-      visible.forEach((_, i) => setOffsets(cardRefs.current[i]));
-      cardRefs.current.forEach((el) => el?.getBoundingClientRect());
-      sectionRef.current?.getBoundingClientRect();
+
+      // 🔥 Recalculate deck center RIGHT before dealing
+      const deckEl = deckRef.current;
+      if (deckEl) {
+        const rect = deckEl.getBoundingClientRect();
+        deckCenter.current = {
+          x: rect.left + rect.width / 2,
+          y: rect.top + rect.height / 2,
+        };
+      }
+
+      // Now calculate offsets
+      visible.forEach((_, i) => {
+        const el = cardRefs.current[i];
+        if (el) setOffsets(el);
+      });
 
       raf2.current = requestAnimationFrame(() => {
         setPhase("dealing");
@@ -191,6 +212,7 @@ function ProjectsSection() {
       if (settleTimeoutRef.current) clearTimeout(settleTimeoutRef.current);
     };
   }, [triggered, pageStart, cardsPerPage, visible.length]);
+
 
   const prev = () => {
     tapDeck();
@@ -217,9 +239,13 @@ function ProjectsSection() {
   };
 
   const phaseClass =
-    phase === "prep" ? styles.prep : 
-        phase === "dealing" ? styles.dealing : 
-            phase === "settled" ? styles.settled : "";
+    phase === "prep"
+      ? styles.prep
+      : phase === "dealing"
+      ? styles.dealing
+      : phase === "settled"
+      ? styles.settled
+      : "";
 
   return (
     <section
@@ -230,15 +256,18 @@ function ProjectsSection() {
     >
       <div className={styles.headingBar}>
         <h1 className={styles.heading}>Explore My Worlds</h1>
-        <p className={styles.subheading}>The <span className="hl">Cool Stuff</span> I've Worked Upon</p>
+        <p className={styles.subheading}>
+          The <span className="hl">Cool Stuff</span> I've Worked Upon
+        </p>
       </div>
 
       <div className={styles.tabs}>
         {["All", "Featured", "Prototypes", "Other"].map((tab) => (
-          <button key={tab}
-            className={
-              `${styles.tabBtn} ${category === tab ? styles.activeTab : ""}`
-            }
+          <button
+            key={tab}
+            className={`${styles.tabBtn} ${
+              category === tab ? styles.activeTab : ""
+            }`}
             onClick={() => setCategory(tab)}
           >
             {tab}
@@ -253,7 +282,7 @@ function ProjectsSection() {
             className={styles.arrow}
             onClick={prev}
             aria-label="Previous projects"
-            disabled={!triggered || shuffledProjects.length <= 1}
+            disabled={!triggered || filteredProjects.length <= 1}
           >
             <FontAwesomeIcon icon={faArrowLeft} className={styles.icon} />
           </button>
@@ -272,7 +301,10 @@ function ProjectsSection() {
                 altDesc={p.alt}
                 tags={p.tags}
                 projectLink={p.projectLink}
-                onClick={(e) => { e.stopPropagation(); onCardTap(p.id);}}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onCardTap(p.id);
+                }}
                 className={[
                   styles.dealCard,
                   phaseClass,
@@ -291,15 +323,19 @@ function ProjectsSection() {
             className={styles.arrow}
             onClick={next}
             aria-label="Next projects"
-            disabled={!triggered || shuffledProjects.length <= 1}
+            disabled={!triggered || filteredProjects.length <= 1}
           >
             <FontAwesomeIcon icon={faArrowRight} className={styles.icon} />
           </button>
         </div>
-        
-        {/* Tapping deck func for later use */}
-        <div ref={deckRef} className={styles.deck} onClick={tapDeck} aria-hidden="true">
-          <img src={profilePic} alt="ElectroCubic Logo"/>
+
+        <div
+          ref={deckRef}
+          className={styles.deck}
+          onClick={tapDeck}
+          aria-hidden="true"
+        >
+          <img src={profilePic} alt="ElectroCubic Logo" />
         </div>
       </div>
     </section>
