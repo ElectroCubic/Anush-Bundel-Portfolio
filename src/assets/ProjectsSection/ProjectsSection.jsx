@@ -98,8 +98,8 @@ function ProjectsSection() {
     if (!el) return;
 
     const arrowW = 44;          // From CSS
-    const gap = 10;
-    const minCardWidth = 250;
+    const gap = 5;
+    const minCardWidth = 255;
     const maxCards = 5;
 
     const ro = new ResizeObserver(([entry]) => {

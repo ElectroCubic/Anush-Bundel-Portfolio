@@ -76,17 +76,18 @@
 .carousel {
   width: 100%;
   display: grid;
-  grid-template-columns: 70px minmax(0, 1fr) 70px;
+  grid-template-columns: 44px minmax(0, 1fr) 44px;
   align-items: center;
   place-items: center;
+  gap: 5px;
 }
 
 .cardsRow {
   min-width: 0;
   display: grid;
-  grid-template-columns: repeat(var(--cols, 1), minmax(250px, 1fr));
+  grid-template-columns: repeat(var(--cols, 1), 255px);
   gap: 1.1rem;
-  align-items: stretch;
+  justify-content: center; 
 }
 
 @property --pop-y {
@@ -237,5 +238,20 @@
     transform: none !important;
     transition: none !important;
     animation: none !important;
+  }
+}
+
+
+@media (max-width: 1024px) {
+  .carousel {
+    grid-template-columns: 70px minmax(0, 1fr) 70px;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 400px) {
+  .carousel {
+    grid-template-columns: 44px minmax(0, 1fr) 44px;
+    gap: 0px;
   }
 }
