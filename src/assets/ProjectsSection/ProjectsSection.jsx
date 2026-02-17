@@ -1,10 +1,10 @@
-import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRight, faArrowLeft} from "@fortawesome/free-solid-svg-icons";
-import ProjectCard from "../ProjectCard/ProjectCard.jsx";
-import profilePic from "../ElectroCubicLogo_New.png";
-import styles from "./ProjectsSection.module.css";
-import { PROJECTS } from "./projectsData.js";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faArrowRight, faArrowLeft} from "@fortawesome/free-solid-svg-icons"
+import ProjectCard from "../ProjectCard/ProjectCard.jsx"
+import profilePic from "../ElectroCubicLogo_New.png"
+import styles from "./ProjectsSection.module.css"
+import { PROJECTS } from "./projectsData.js"
 
 function shuffleArray(arr) {
   const a = [...arr];
@@ -112,7 +112,7 @@ function ProjectsSection() {
     const el = carouselRef.current;
     if (!el) return;
 
-    const arrowW = 44;
+    const arrowW = 44; // CSS value
     const gap = 5;
     const minCardWidth = 255;
     const maxCards = 5;
@@ -143,7 +143,7 @@ function ProjectsSection() {
     return getWindowCircular(filteredProjects, pageStart, k);
   }, [filteredProjects, pageStart, cardsPerPage]);
 
-  // Calculate deck center once
+  // Calculate deck center pos
   useLayoutEffect(() => {
     const deckEl = deckRef.current;
     if (!deckEl) return;
@@ -183,8 +183,6 @@ function ProjectsSection() {
     setPhase("prep");
 
     raf1.current = requestAnimationFrame(() => {
-
-      // 🔥 Recalculate deck center RIGHT before dealing
       const deckEl = deckRef.current;
       if (deckEl) {
         const rect = deckEl.getBoundingClientRect();
@@ -194,7 +192,6 @@ function ProjectsSection() {
         };
       }
 
-      // Now calculate offsets
       visible.forEach((_, i) => {
         const el = cardRefs.current[i];
         if (el) setOffsets(el);
@@ -293,7 +290,7 @@ function ProjectsSection() {
           >
             {visible.map((p, i) => (
               <ProjectCard
-                key={p.id}
+                key={`${p.id}-${pageStart}`}
                 ref={(el) => (cardRefs.current[i] = el)}
                 imgUrl={p.img}
                 title={p.title}
@@ -301,6 +298,7 @@ function ProjectsSection() {
                 altDesc={p.alt}
                 tags={p.tags}
                 projectLink={p.projectLink}
+                isActive={poppedId === p.id}
                 onClick={(e) => {
                   e.stopPropagation();
                   onCardTap(p.id);

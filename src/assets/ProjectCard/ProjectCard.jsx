@@ -1,6 +1,7 @@
-import { useEffect, useRef, forwardRef } from "react";
+import { useEffect, useRef, useState, forwardRef } from "react";
 import PropTypes from "prop-types";
 import styles from "./ProjectCard.module.css";
+import placeholder from "../Placeholder.png";
 
 const TAG_CATEGORY_CLASS = {
   engine: styles.tagEngine,
@@ -55,14 +56,11 @@ const TAG_CATEGORY_BY_NAME = {
 const TYPE_TAG_PRIORITY = ["Game Jam", "Prototype", "Software"];
 
 function getTypeFromTags(tags) {
-  if (!Array.isArray(tags) || tags.length === 0) {
-    return "Other";
-  } 
+  if (!Array.isArray(tags) || tags.length === 0) return "Other";
   const tagSet = new Set(tags);
   for (const t of TYPE_TAG_PRIORITY) {
     if (tagSet.has(t)) return t;
   }
-  
   return "Other";
 }
 
@@ -99,23 +97,75 @@ const ProjectCard = forwardRef(function ProjectCard(
     title = "",
     description = "",
     tags = [],
-    category = "",
     className = "",
     style = undefined,
     onClick = undefined,
     projectLink = "",
+    isActive = false,
   },
-  ref ) 
-  {
+  ref
+) {
   const type = getTypeFromTags(tags);
   const typeClass = getTypeClass(type);
-  
+  const videoRef = useRef(null);
+  const mouseHoverCardTime = 300;
+  const [isHoverCapable, setIsHoverCapable] = useState(false);
+
+  // Detect platform
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(hover: hover)");
+    setIsHoverCapable(mediaQuery.matches);
+  }, []);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    if (!isHoverCapable) {
+      video.play().catch(() => {});
+      return;
+    }
+
+    if (isActive) {
+      video.play().catch(() => {});
+    } 
+    else {
+      video.pause();
+      video.currentTime = 0;
+    }
+  }, [isActive, isHoverCapable]);
+
+
+  let hoverTimeout = null;
+
+  const handleMouseEnter = () => {
+    if (!isHoverCapable) return;
+    if (isActive) return;
+
+    hoverTimeout = setTimeout(() => {
+      videoRef.current?.play().catch(() => {});
+    }, mouseHoverCardTime);
+  };
+
+  const handleMouseLeave = () => {
+    if (!isHoverCapable) return;
+    if (isActive) return;
+
+    clearTimeout(hoverTimeout);    
+    const video = videoRef.current;
+    if (!video) return;
+    video.pause();
+    video.currentTime = 0;
+  };
+
   return (
     <article
       ref={ref}
       className={`${styles.card} ${className}`}
       style={style}
       onClick={onClick}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
       role="button"
       tabIndex={0}
       onKeyDown={(e) => {
@@ -124,14 +174,13 @@ const ProjectCard = forwardRef(function ProjectCard(
     >
       <div className={`${styles.thumbWrap} ${typeClass}`}>
         <video
+          ref={videoRef}
           className={styles.thumb}
           src={imgUrl}
-          autoPlay
           muted
           loop
           playsInline
           preload="metadata"
-          loading="lazy"
         />
       </div>
 
@@ -145,7 +194,10 @@ const ProjectCard = forwardRef(function ProjectCard(
             if (!name) return null;
 
             return (
-              <span key={name} className={`${styles.tag} ${getTagClass(name)}`}>
+              <span
+                key={name}
+                className={`${styles.tag} ${getTagClass(name)}`}
+              >
                 {name}
               </span>
             );
@@ -156,7 +208,7 @@ const ProjectCard = forwardRef(function ProjectCard(
           className={styles.cta}
           type="button"
           onClick={(e) => {
-            e.stopPropagation(); 
+            e.stopPropagation();
             window.open(projectLink, "_blank", "noopener,noreferrer");
           }}
         >
@@ -172,11 +224,11 @@ ProjectCard.propTypes = {
   title: PropTypes.string,
   description: PropTypes.string,
   tags: PropTypes.arrayOf(PropTypes.string),
-  category: PropTypes.string,
   className: PropTypes.string,
   style: PropTypes.object,
   onClick: PropTypes.func,
-  link: PropTypes.string,
+  projectLink: PropTypes.string,
+  isActive: PropTypes.bool,
 };
 
 export default ProjectCard;

@@ -301,7 +301,7 @@ function SkillTreeSvg({
             );
           }
 
-          // NORMAL (rect)
+          // NORMAL
           return (
             <g
               key={n.id}
