@@ -5,6 +5,7 @@ import ProjectCard from "../ProjectCard/ProjectCard.jsx"
 import profilePic from "../ElectroCubicLogo_New.png"
 import styles from "./ProjectsSection.module.css"
 import { PROJECTS } from "./projectsData.js"
+import useMediaQuery from "../SkillsSection/useMediaQuery.js"; 
 
 function shuffleArray(arr) {
   const a = [...arr];
@@ -50,10 +51,11 @@ function ProjectsSection() {
   const [pageStart, setPageStart] = useState(0);
   const [wobblePhaseById, setWobblePhaseById] = useState(() => new Map());
   const [category, setCategory] = useState("Featured");
+  const isMobile = useMediaQuery("(hover: none)");
 
   const deckCenter = useRef({ x: 0, y: 0 });
 
-  const dealDelay = 140;
+  const dealDelay = 140; // milliseconds
 
   const tapDeck = () => {
     const el = deckRef.current;
@@ -325,6 +327,11 @@ function ProjectsSection() {
           >
             <FontAwesomeIcon icon={faArrowRight} className={styles.icon} />
           </button>
+        </div>
+
+        <div className={styles.tip}>
+          <p> { isMobile ? "Tap card to focus": "Hover to preview, Click to focus"} 
+          </p>
         </div>
 
         <div
