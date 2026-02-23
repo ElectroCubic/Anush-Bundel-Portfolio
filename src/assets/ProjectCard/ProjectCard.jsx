@@ -177,7 +177,7 @@ const ProjectCard = forwardRef(function ProjectCard(
           ref={videoRef}
           className={styles.thumb}
           src={imgUrl}
-          poster={placeholder}
+          // poster={placeholder}
           muted
           loop
           playsInline
