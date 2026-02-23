@@ -10,7 +10,7 @@ const LINKS = {
     itch: "https://electrocubic.itch.io",
     youtube: "https://www.youtube.com/@ElectroCubicYT",
     discord: "https://discord.com/users/806390493113614346",
-    websiteCode: "https://github.com/ElectroCubic/anush-bundel-portfolio"
+    websiteCode: "https://github.com/ElectroCubic/Anush-Bundel-Portfolio"
 }
 
 function openExternal(url) 

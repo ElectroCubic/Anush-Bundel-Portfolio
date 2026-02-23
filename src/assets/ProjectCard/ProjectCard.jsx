@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, forwardRef } from "react";
 import PropTypes from "prop-types";
 import styles from "./ProjectCard.module.css";
-import placeholder from "../Placeholder.png";
+import placeholder from "../ElectroCubicLogo_New.png";
 
 const TAG_CATEGORY_CLASS = {
   engine: styles.tagEngine,
@@ -17,14 +17,13 @@ const TAG_CATEGORY_CLASS = {
 
 const TAG_CATEGORY_BY_NAME = {
   "Game Jam": "type",
-  Prototype: "type",
   Software: "type",
 
   Godot: "engine",
   Unity: "engine",
   Unreal: "engine",
-  React: "tool",
 
+  React: "tool",
   "FL Studio": "tool",
   Aseprite: "tool",
   Blender: "tool",
@@ -32,7 +31,6 @@ const TAG_CATEGORY_BY_NAME = {
   Git: "tool",
 
   JavaScript: "language",
-  TypeScript: "language",
   Python: "language",
   "C#": "language",
   "C++": "language",
@@ -48,8 +46,10 @@ const TAG_CATEGORY_BY_NAME = {
   Puzzle: "genre",
   Platformer: "genre",
   Horror: "genre",
+  Shooter: "genre",
 
   Completed: "status",
+  Paused: "status",
   "In Progress": "status",
 };
 
@@ -177,6 +177,7 @@ const ProjectCard = forwardRef(function ProjectCard(
           ref={videoRef}
           className={styles.thumb}
           src={imgUrl}
+          poster={placeholder}
           muted
           loop
           playsInline
