@@ -6,6 +6,21 @@ import funkyBlueprints from "../Videos/FunkyBlueprints.mp4";
 import miniBrawlers from "../Videos/MiniBrawlers.mp4";
 import spaceSlimeInvasion from "../Videos/SpaceSlimeInvasion.mp4";
 
+import beatShooter from "../Screenshots/BeatShooter.png"
+import breakBlocked from "../Screenshots/BreakBlocked.png"
+import chronoBot from "../Screenshots/ChronoBot.png"
+import crashyRoads from "../Screenshots/CrashyRoads.png"
+import projectCharlie from "../Screenshots/ProjectCharlie.png"
+import squareRunAndGun from "../Screenshots/SquareRunAndGun.png"
+import fpsShooter from "../Screenshots/FPS_Shooter.png"
+import randomGameWebsite from "../Screenshots/RandomGameWebsite.png"
+import missing from "../Screenshots/missing.png"
+import recloned from "../Screenshots/Recloned.png"
+import pizzaToppingsDetector from "../Screenshots/PizzaToppingsDetector.png"
+import ticTacGo from "../Screenshots/TicTacGo.png"
+import imapps from "../Screenshots/imapps.png"
+import deadOnArrival from "../Screenshots/DeadOnArrival.png"
+
 export const PROJECTS = [
   {
     id: "p1",
@@ -63,43 +78,43 @@ export const PROJECTS = [
   },
   {
     id: "p7",
-    //img: 
+    img: ticTacGo,
     title: "Tic Tac Go!",
-    description: "",
+    description: "The classic 2-Player Pen & Paper game of Tic Tac Toe with a New Twist!",
     tags: ["Python", "Tkinter", "Casual", "2-player"],
     projectLink: "",
     category: "Other",
   },
   {
     id: "p8",
-    //img:
+    img: deadOnArrival,
     title: "Dead On Arrival",
-    description: "",
+    description: "A 2D detective mystery game where you solve cases and uncover shocking truths and mysteries.",
     tags: ["Godot", "Crime", "Mystery", "2D Detective", "Programmer",],
-    projectLink: "",
+    projectLink: "https://electrocubic.itch.io/dead-on-arrival",
     category: "Featured",
   },
   {
     id: "p9",
-    //img:
+    img: breakBlocked,
     title: "Break Blocked",
     description: "",
-    tags: ["Godot", "GDScript", "Paused"],
-    projectLink: "",
+    tags: ["Godot", "GDScript", "Arcade", "Strategy", "Paused"],
+    projectLink: "https://github.com/ElectroCubic/break_blocked",
     category: "Prototypes",
   },
   {
     id: "p10",
-    //img:
+    img: chronoBot,
     title: "Chrono Bot",
     description: "",
     tags: ["Godot", "GDScript", "Puzzle", "Figma", "Paused"],
-    projectLink: "",
+    projectLink: "https://github.com/ElectroCubic/time_travel_game_project",
     category: "Prototypes",
   },
   {
     id: "p11",
-    //img:
+    img: fpsShooter,
     title: "FPS Shooter",
     description: "",
     tags: ["Unity", "C#", "FPS", "Shooter", "In Progress"],
@@ -108,25 +123,25 @@ export const PROJECTS = [
   },
   {
     id: "p12",
-    //img:
+    img: squareRunAndGun,
     title: "Square Run n' Gun",
     description: "",
     tags: ["Python", "PyGame", "Shooter", "Platforming", "Completed"],
-    projectLink: "",
+    projectLink: "https://github.com/ElectroCubic/Square-Game",
     category: "Prototypes",
   },
   {
     id: "p13",
-    //img:
-    title: "Connections",
+    img: crashyRoads,
+    title: "Crashy Roads",
     description: "",
-    tags: ["Godot", "GDScript", "Strategy", "Puzzle", "Paused"],
+    tags: ["Godot", "Isometric", "Car", "Survival", "Paused"],
     projectLink: "",
     category: "Prototypes",
   },
   {
     id: "p14",
-    //img:
+    img: beatShooter,
     title: "Beat Shooter",
     description: "",
     tags: ["Godot", "GDScript", "Rhythm", "Bullet-Hell", "Paused"],
@@ -135,7 +150,7 @@ export const PROJECTS = [
   },
   {
     id: "p15",
-    //img:
+    img: recloned,
     title: "Recloned (REWIND)",
     description: "",
     tags: ["Unity", "C#", "Puzzle", "Platforming", "In Progress"],
@@ -144,25 +159,25 @@ export const PROJECTS = [
   },
   {
     id: "p16",
-    //img: 
+    img: imapps,
     title: "IMAPPS",
-    description: "",
+    description: "An interactive multi-agent pathfinding simulator in Python using Pygame, and multi-processing modules for parallel A* path computations and optimizations.",
     tags: ["Python", "PyGame", "Pathfinding", "Software", ],
-    projectLink: "",
+    projectLink: "https://github.com/ElectroCubic/Multi-Agent-Pathfinding-Sim",
     category: "Other",
   },
   {
     id: "p17",
-    //img: 
+    img: randomGameWebsite,
     title: "Random Game Website",
-    description: "",
+    description: "A platforming-rage game designed to test the user's patience in creating a simple account! >:)",
     tags: ["HTML", "CSS", "JavaScript", "Platforming", "Rage"],
-    projectLink: "",
+    projectLink: "https://electrocubic.github.io/RandomGameWebsite/",
     category: "Other",
   },
   {
     id: "p18",
-    //img: 
+    img: pizzaToppingsDetector,
     title: "Pizza Toppings Detector",
     description: "",
     tags: ["Python", "YOLO", "CNNs", "Image Detection", "Software"],
@@ -171,16 +186,16 @@ export const PROJECTS = [
   },
   {
     id: "p19",
-    //img: 
+    img: missing, 
     title: "???",
     description: "???",
-    tags: ["???", "In Progress"],
+    tags: ["404", "error", "In Progress"],
     projectLink: "",
     category: "Prototypes",
   },
   {
     id: "p20",
-    //img:
+    img: projectCharlie,
     title: "Project Charlie",
     description: "",
     tags: ["Godot", "GDScript", "LAN Multi-Player", "Tactical", "Paused"],

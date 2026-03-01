@@ -158,6 +158,31 @@ const ProjectCard = forwardRef(function ProjectCard(
     video.currentTime = 0;
   };
 
+  const displayImgOrVid = (url) => {
+    if (url.slice(-3) === "mp4")
+    {
+      return(
+        <video
+          ref={videoRef}
+          className={styles.thumb}
+          src={imgUrl}
+          muted
+          loop
+          playsInline
+          preload="metadata"
+        />
+      );
+    }
+    else {
+      return(
+        <img
+          className={styles.thumb}
+          src={imgUrl}
+        />
+      );
+    }
+  }
+
   return (
     <article
       ref={ref}
@@ -173,16 +198,7 @@ const ProjectCard = forwardRef(function ProjectCard(
       }}
     >
       <div className={`${styles.thumbWrap} ${typeClass}`}>
-        <video
-          ref={videoRef}
-          className={styles.thumb}
-          src={imgUrl}
-          // poster={placeholder}
-          muted
-          loop
-          playsInline
-          preload="metadata"
-        />
+        {displayImgOrVid(imgUrl)}
       </div>
 
       <div className={styles.body}>

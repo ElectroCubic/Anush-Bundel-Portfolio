@@ -14,33 +14,13 @@ const words = [
     { id: "feedback", label: "Feedback" },
 ];
 
-const RELATIONS = [
-    ["design", "gameplay"],
-    ["gameplay", "loops"],
-    ["build", "mechanics"],
-    ["mechanics", "systems"],
-    ["player", "feedback"],
-    ["iterate", "player"],
-];
-
 const SOLUTION = [
     "design", "gameplay", "loops",
     "build", "mechanics", "systems",
     "iterate", "player", "feedback",
 ];
 
-const COLS = 3;
 const DURATION = 400;
-
-function isAdjacent(i, j) {
-    const r1 = Math.floor(i / COLS);
-    const c1 = i % COLS;
-
-    const r2 = Math.floor(j / COLS);
-    const c2 = j % COLS;
-
-    return Math.abs(r1 - r2) + Math.abs(c1 - c2) === 1;
-}
 
 function shuffleArray(originalArr) {
     const arr = [...originalArr];
@@ -110,26 +90,6 @@ function AboutSection() {
 
         return set;
     }, [tiles, solutionIndexById]);
-
-    const connectedIds = useMemo(() => {
-        const set = new Set();
-
-        for (const [a, b] of RELATIONS) {
-            const ia = idToIndex.get(a);
-            const ib = idToIndex.get(b);
-
-            if (ia == null || ib == null) {
-                continue;
-            }
-
-            if (isAdjacent(ia, ib)) {
-                set.add(a);
-                set.add(b);
-            }
-        }
-
-        return set;
-    }, [idToIndex, correctPlacedIds]);
 
     const findTileIndexFromPoint = (x, y) => {
         const els = document.elementsFromPoint(x, y);
@@ -324,8 +284,8 @@ function AboutSection() {
                     onPointerCancel={onPointerUpOrCancel}
                 >
                     {tiles.map((t, idx) => {
-                        const isConnected =
-                            !solved && connectedIds.has(t.id);
+                        const isCorrectPlace =
+                            !solved && correctPlacedIds.has(t.id);
                         const isDragging =
                             drag.active && drag.from === idx;
                         const isOver =
@@ -336,17 +296,16 @@ function AboutSection() {
                         const className = [
                             isDragging ? `${styles.dragging} isActive` : "",
                             isOver ? styles.over : "",
-                            isConnected ? styles.connected : "",
+                            isCorrectPlace ? styles.correct : "",
                             solved ? styles.solved : "",
                         ].join(" ");
 
-
                         const style = isDragging
                             ? {
-                                  transform: `translate(${drag.dx}px, ${drag.dy}px) scale(1.05)`,
-                                  cursor: "grabbing",
-                                  transition: "transform 0s",
-                                  zIndex: 10,
+                                transform: `translate(${drag.dx}px, ${drag.dy}px) scale(1.05)`,
+                                cursor: "grabbing",
+                                transition: "transform 0s",
+                                zIndex: 10,
                               }
                             : undefined;
 
