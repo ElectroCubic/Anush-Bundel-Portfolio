@@ -89,7 +89,7 @@ export const PROJECTS = [
     id: "p8",
     img: deadOnArrival,
     title: "Dead On Arrival",
-    description: "A 2D detective mystery game where you solve cases and uncover shocking truths and mysteries.",
+    description: "A 2D detective-mystery game where you solve cases and uncover shocking truths and mysteries.",
     tags: ["Godot", "Crime", "Mystery", "2D Detective", "Programmer",],
     projectLink: "https://electrocubic.itch.io/dead-on-arrival",
     category: "Featured",
