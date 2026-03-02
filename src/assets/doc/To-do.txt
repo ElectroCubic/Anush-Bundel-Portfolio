@@ -7,4 +7,5 @@ To-Do:
 4. Implement interactive grid for fun
 5. Cleanup /assets folder later
 
-NOTE: Get backup from drive if its not here!
+NOTE: 
+Get backup from drive if it's not here!

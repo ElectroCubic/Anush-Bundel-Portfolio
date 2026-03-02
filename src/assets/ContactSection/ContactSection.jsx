@@ -143,7 +143,6 @@ function ContactSection()
                     </div>
                 </div>
             </div>
-
         </div>
     );
 }
