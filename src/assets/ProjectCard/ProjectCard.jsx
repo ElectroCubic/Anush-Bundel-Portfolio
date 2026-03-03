@@ -165,7 +165,7 @@ const ProjectCard = forwardRef(function ProjectCard(
         <video
           ref={videoRef}
           className={styles.thumb}
-          src={imgUrl}
+          src={url}
           muted
           loop
           playsInline
@@ -177,8 +177,26 @@ const ProjectCard = forwardRef(function ProjectCard(
       return(
         <img
           className={styles.thumb}
-          src={imgUrl}
+          src={url}
         />
+      );
+    }
+  }
+
+  const displayCta = (link) => {
+    if (link != "")
+    {
+      return(
+        <button
+          className={styles.cta}
+          type="button"
+          onClick={(e) => {
+            e.stopPropagation();
+            window.open(link, "_blank", "noopener,noreferrer");
+          }}
+        >
+          VIEW PROJECT
+        </button>
       );
     }
   }
@@ -221,16 +239,8 @@ const ProjectCard = forwardRef(function ProjectCard(
           })}
         </div>
 
-        <button
-          className={styles.cta}
-          type="button"
-          onClick={(e) => {
-            e.stopPropagation();
-            window.open(projectLink, "_blank", "noopener,noreferrer");
-          }}
-        >
-          VIEW PROJECT
-        </button>
+         {displayCta(projectLink)}
+         
       </div>
     </article>
   );
