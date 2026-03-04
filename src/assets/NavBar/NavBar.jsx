@@ -97,6 +97,8 @@ function NavBar() {
                     <img
                         src={profileLogo}
                         className={styles.avatar}
+                        draggable="false"
+                        loading="lazy"
                     />
                     <div>
                         <div className={styles.hero}>

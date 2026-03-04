@@ -340,7 +340,7 @@ function ProjectsSection() {
           onClick={tapDeck}
           aria-hidden="true"
         >
-          <img src={profilePic} alt="ElectroCubic Logo" />
+          <img src={profilePic} alt="ElectroCubic Logo" draggable="false"/>
         </div>
       </div>
     </section>

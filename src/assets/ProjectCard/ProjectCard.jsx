@@ -170,6 +170,7 @@ const ProjectCard = forwardRef(function ProjectCard(
           loop
           playsInline
           preload="metadata"
+          draggable="false"
         />
       );
     }
@@ -178,6 +179,8 @@ const ProjectCard = forwardRef(function ProjectCard(
         <img
           className={styles.thumb}
           src={url}
+          draggable="false"
+          loading="lazy"
         />
       );
     }

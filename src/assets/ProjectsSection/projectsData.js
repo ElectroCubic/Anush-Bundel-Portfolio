@@ -190,7 +190,7 @@ export const PROJECTS = [
     title: "ASQTFNKX?",
     description: "COWFP_GW_LCRGFDH_LAK_ORPLF?",
     tags: ["404", "DMZF_KI" , "Paused"],
-    projectLink: "https://anushbundel.com",
+    projectLink: "",
     category: "Prototypes",
   },
   {

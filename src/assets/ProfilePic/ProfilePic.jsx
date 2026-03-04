@@ -1,6 +1,5 @@
 import { useState } from "react"
 import styles from "./ProfilePic.module.css"
-
 import logoPic from "../ElectroCubicLogo_New.png"
 import realPic from "../AnushBundel.png" 
 
@@ -25,6 +24,7 @@ function ProfilePic() {
                 alt="Profile photo"
                 className={`${styles.pic} ${styles.photo} ${showReal ? styles.visible : ""}`}
                 draggable="false"
+                loading="lazy"
             />
         </button>
     );
