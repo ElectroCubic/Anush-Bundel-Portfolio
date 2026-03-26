@@ -121,7 +121,7 @@ export const TREE = {
                             id: "unity", 
                             label: "Unity",
                             icon: "/icons/unity.svg",
-                            desc: "2D/3D game dev: gameplay scripting, UI, prefabs, animation, builds & iteration.",  
+                            desc: "2D/3D game dev: gameplay scripting, UI, animation, mobile builds.",  
                             children: [] 
                         },
                     ],

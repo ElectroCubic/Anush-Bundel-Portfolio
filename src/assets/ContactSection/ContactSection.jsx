@@ -32,13 +32,12 @@ function openMail() {
     openExternal(gmailURL);
 }
 
-    const openGitHub = () => openExternal(LINKS["github"]);
-    const openLinkedIn = () => openExternal(LINKS["linkedin"]);
-    const openItchio = () => openExternal(LINKS["itch"]);
-    const openYouTube = () => openExternal(LINKS["youtube"]);
-    const openDiscord = () => openExternal(LINKS["discord"]);
-    const openWebsiteGithubRepo = () => openExternal(LINKS["websiteCode"]);
-
+const openGitHub = () => openExternal(LINKS["github"]);
+const openLinkedIn = () => openExternal(LINKS["linkedin"]);
+const openItchio = () => openExternal(LINKS["itch"]);
+const openYouTube = () => openExternal(LINKS["youtube"]);
+const openDiscord = () => openExternal(LINKS["discord"]);
+const openWebsiteGithubRepo = () => openExternal(LINKS["websiteCode"]);
 
 function ContactSection() 
 {
