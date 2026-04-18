@@ -1,16 +1,17 @@
 
-Ideas for website:
+ideas for my website:
 
 - landing page with background animation
+- hero profile image bg glow effect
+- cards inspired from Balatro for making project cards
+- adding my logo as a custom favicon
 - dark mode toggle? (maybe)
-- hero profile image glow effect
-- background images for project cards
-- adding a custom favicon
-- write a short "intro" page instead of a long about section
-- implement clicky buttons UI
-- interactive graphics and sprites??? (doubt)
-- make the contact section more unique
-- provide video explanations of each project
+- write a short "intro" instead of a loooong about section
+- implement clicky UI buttons
+- full interactive graphics and sprites??? (prolly not..)
+- make the contact section with secret buttons
+- provide video explanations for each project...?
 - add GIFs and screenshots for more visual variety
-- idk have some sort of scroll effect when scrolling
-- quick doc ref: https://drive.google.com/drive/folders/1EkWSiHJbV9cWH1K4CgJqYB05PrPTxj4R?usp=sharing
+- idk have some sort of scroll effect when scrolling :P
+
+- quick doc ref: https://drive.google.com/drive/folders/1EkWSiHJbV9cWH1K4CgJqYB05PrPTxj4R
