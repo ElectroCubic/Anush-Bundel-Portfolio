@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react"
 import profileLogo from "../ElectroCubicLogo_New.png"
 import styles from "./NavBar.module.css"
+import cipherHover from "./cipherHoverEffect.js"
 
 const SECTIONS = [
     { id: "home", label: "Home" },
@@ -90,6 +91,9 @@ function NavBar() {
         setMenuOpen(false);
     };
 
+    const name1 = cipherHover("Anush Bundel", "Vxfmi Vgvbav");
+    const name2 = cipherHover("ElectroCubic", "SjuylliUqrgq");
+
     return (
         <nav className={styles.navbar} ref={navRef}>
             <div className={styles.brand}>
@@ -102,9 +106,18 @@ function NavBar() {
                     />
                     <div>
                         <div className={styles.hero}>
-                            <a href="https://anushbundel.com">Anush Bundel</a>
+                            <a
+                                className={styles.nameCipher} 
+                                href="#home"
+                                onMouseEnter={name1.toCipher}
+                                onMouseLeave={name1.toPlain} 
+                            > {name1.display} </a>
                         </div>
-                        <div className={styles.alias}>@ElectroCubic</div>
+                        <div 
+                            className={styles.alias}
+                            onMouseEnter={name2.toCipher}
+                            onMouseLeave={name2.toPlain} 
+                        >@{name2.display} </div>
                     </div>
                 </div>
             </div>

@@ -44,6 +44,11 @@
     text-decoration: none;
 }
 
+.nameCipher:hover {
+  color: var(--accent-color2);
+  text-shadow: 0 0 8px var(--accent-color2);
+}
+
 .alias {
     font-size: 1rem;
     color: var(--text-color2);

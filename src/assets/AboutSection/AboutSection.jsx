@@ -20,7 +20,7 @@ const SOLUTION = [
     "iterate", "player", "feedback",
 ];
 
-const DURATION = 400;
+const DURATION = 400; // ms
 
 function shuffleArray(originalArr) {
     const arr = [...originalArr];

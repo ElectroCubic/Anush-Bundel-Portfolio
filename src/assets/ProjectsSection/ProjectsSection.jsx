@@ -61,9 +61,19 @@ function ProjectsSection() {
     const el = deckRef.current;
     if (!el) return;
 
-    el.classList.remove(styles.deckTap);
+    const classList = [styles.deckTap, "shine", "active"];
+
+    for (let i = 0; i < classList.length; i++)
+    {
+      el.classList.remove(classList[i]);
+    }
+
     void el.offsetWidth;
-    el.classList.add(styles.deckTap);
+    
+    for (let i = 0; i < classList.length; i++)
+    {
+      el.classList.add(classList[i]);
+    }
   };
 
   useEffect(() => {
