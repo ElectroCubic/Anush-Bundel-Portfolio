@@ -43,10 +43,32 @@ const UI = {
     from: "var(--accent-color1)",
     to: "var(--accent-color2)",
   },
+
+  animation: {
+    stepDelay: 160,
+
+    node: {
+      scaleFrom: 0.4,
+      duration: 800,
+      ease: "cubic-bezier(0.2,1.6,0.1,1)",
+      opacityDuration: 200,
+    },
+
+    edge: {
+      duration: 400,
+      ease: "linear",
+      dashLength: 300,
+    }
+  },
+
 };
 
 function pick(narrowVal, wideVal, isNarrow) {
   return isNarrow ? narrowVal : wideVal;
+}
+
+function getDelay(depth) {
+  return depth * UI.animation.stepDelay;
 }
 
 function SkillTreeSvg({
@@ -64,7 +86,10 @@ function SkillTreeSvg({
   onLeave,
   onTap,
   svgRef,
+  revealed,
+  depthById
 }) {
+  
   const arrowSize = pick(UI.arrow.size.narrow, UI.arrow.size.wide, isNarrow);
   const arrowOffset = pick(UI.arrow.offset.narrow, UI.arrow.offset.wide, isNarrow);
 
@@ -195,6 +220,9 @@ function SkillTreeSvg({
           const x2 = p2.x - ux * arrowOffset;
           const y2 = p2.y - uy * arrowOffset;
 
+          const depth = depthById.get(b) ?? 0; // child depth
+          const delay = getDelay(depth);
+
           return (
             <g key={`${a}->${b}`}>
               {onPath && (
@@ -220,12 +248,18 @@ function SkillTreeSvg({
                 x2={x2}
                 y2={y2}
                 vectorEffect="non-scaling-stroke"
-                markerEnd="url(#arrowHead)"
+                markerEnd={revealed ? "url(#arrowHead)" : undefined}
                 style={{
                   stroke: UI.wire.color,
                   strokeWidth: baseWireW,
                   strokeLinecap: "round",
-                  opacity: baseOpacity,
+                  opacity: revealed ? baseOpacity : 0,
+                  strokeDasharray: UI.animation.edge.dashLength,
+                  strokeDashoffset: revealed ? 0 : UI.animation.edge.dashLength,
+                  transition: `
+                    stroke-dashoffset ${UI.animation.edge.duration}ms ${UI.animation.edge.ease} ${delay}ms,
+                    opacity ${UI.animation.node.opacityDuration}ms ease ${delay}ms
+                  `,
                 }}
               />
             </g>
@@ -267,12 +301,22 @@ function SkillTreeSvg({
               : pick(UI.icon.yOffsetFromCenter.normal.narrow, UI.icon.yOffsetFromCenter.normal.wide, isNarrow);
 
           const iconY = c.y - iconOffset;
+          const depth = depthById.get(n.id) ?? 0;
+          const delay = getDelay(depth);
 
           if (type === "core") {
             return (
               <g
                 key={n.id}
                 className={`${styles.node} ${dim ? styles.dim : ""}`}
+                style={{
+                  opacity: revealed ? 1 : 0,
+                  transform: revealed ? "scale(1)" : `scale(${UI.animation.node.scaleFrom})`,
+                  transition: `
+                    transform ${UI.animation.node.duration}ms ${UI.animation.node.ease} ${delay}ms,
+                    opacity ${UI.animation.node.opacityDuration}ms ease ${delay}ms
+                  `,
+                }}
                 tabIndex={0}
                 role="button"
                 aria-label={n.label}
@@ -306,6 +350,14 @@ function SkillTreeSvg({
             <g
               key={n.id}
               className={`${styles.node} ${dim ? styles.dim : ""}`}
+              style={{
+                opacity: revealed ? 1 : 0,
+                transform: revealed ? "scale(1)" : `scale(${UI.animation.node.scaleFrom})`,
+                transition: `
+                  transform ${UI.animation.node.duration}ms ${UI.animation.node.ease} ${delay}ms,
+                  opacity ${UI.animation.node.opacityDuration}ms ease ${delay}ms
+                `,
+              }}
               tabIndex={0}
               role="button"
               aria-label={n.label}

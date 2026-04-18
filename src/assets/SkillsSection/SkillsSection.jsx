@@ -29,6 +29,43 @@ function SkillsSection() {
 
   const getNodeMeta = (id) => nodes.find((n) => n.id === id) ?? null;
 
+  const sectionRef = useRef(null);
+  const [revealed, setRevealed] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setRevealed(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.3 }
+    );
+
+    if (sectionRef.current) observer.observe(sectionRef.current);
+
+    return () => observer.disconnect();
+  }, []);
+
+  const depthById = useMemo(() => {
+    const map = new Map();
+
+    nodes.forEach((n) => {
+      let depth = 0;
+      let cur = n.id;
+
+      while (parentById.get(cur)) {
+        depth++;
+        cur = parentById.get(cur);
+      }
+
+      map.set(n.id, depth);
+    });
+
+    return map;
+  }, [nodes, parentById]);
+
   const svgToStageXY = (x, y) => {
     const stageEl = stageRef.current;
     const svgEl = svgRef.current;
@@ -253,7 +290,7 @@ function SkillsSection() {
   }, [tooltip?.id, isNarrow, centers]);
 
   return (
-    <div className={styles.skillsSection}>
+    <div ref={sectionRef} className={styles.skillsSection}>
       <div className={styles.heading}>
         <h1>My Skill Tree</h1>
         <p>Levelling Up <span className="hl2">My Expertise</span> Everyday</p>
@@ -284,6 +321,8 @@ function SkillsSection() {
           onLeave={onLeave}
           onTap={onTap}
           svgRef={svgRef}
+          revealed={revealed}
+          depthById={depthById}
         />
 
         <SkillTooltip
