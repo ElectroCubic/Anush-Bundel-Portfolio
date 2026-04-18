@@ -80,3 +80,35 @@ section {
     --linkedin-color: #2BA3EEE6;
     --itchio-color: #E7556EE6;
 }
+
+.shine {
+  position: relative;
+  overflow: hidden;
+}
+
+.shine::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255, 255, 255, 0.25),
+    transparent
+  );
+
+  transform: skewX(-25deg);
+}
+
+.shine.active::before {
+  animation: shineMove 0.6s ease;
+}
+
+@keyframes shineMove {
+  0% { left: -75%; }
+  100% { left: 125%; }
+}

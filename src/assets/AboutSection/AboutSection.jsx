@@ -59,6 +59,9 @@ function AboutSection() {
         firstRects: new Map(),
     });
 
+    const [justPlacedIds, setJustPlacedIds] = useState(new Set());
+    const prevCorrectRef = useRef(new Set());
+
     useEffect(() => {
         setTiles(shuffleArray(words));
     }, []);
@@ -89,6 +92,35 @@ function AboutSection() {
         });
 
         return set;
+    }, [tiles, solutionIndexById]);
+
+    useEffect(() => {
+        const newCorrect = new Set();
+
+        tiles.forEach((t, idx) => {
+            const correctIdx = solutionIndexById.get(t.id);
+            if (correctIdx === idx) {
+                newCorrect.add(t.id);
+            }
+        });
+
+        const newlyPlaced = new Set();
+
+        newCorrect.forEach((id) => {
+            if (!prevCorrectRef.current.has(id)) {
+                newlyPlaced.add(id);
+            }
+        });
+
+        if (newlyPlaced.size > 0) {
+            setJustPlacedIds(newlyPlaced);
+
+            setTimeout(() => {
+                setJustPlacedIds(new Set());
+            }, 600);
+        }
+
+        prevCorrectRef.current = newCorrect;
     }, [tiles, solutionIndexById]);
 
     const findTileIndexFromPoint = (x, y) => {
@@ -276,8 +308,10 @@ function AboutSection() {
             <div className={styles.wordGridContainer}>
                 <div
                     className={[
+                        "shine",
                         styles.wordGrid,
                         solved ? styles.solved : "",
+                        solved ? "active": ""
                     ].join(" ")}
                     onPointerMove={onPointerMove}
                     onPointerUp={onPointerUpOrCancel}
@@ -286,6 +320,9 @@ function AboutSection() {
                     {tiles.map((t, idx) => {
                         const isCorrectPlace =
                             !solved && correctPlacedIds.has(t.id);
+
+                        const isJustPlaced = justPlacedIds.has(t.id);
+
                         const isDragging =
                             drag.active && drag.from === idx;
                         const isOver =
@@ -294,9 +331,11 @@ function AboutSection() {
                             drag.from !== idx;
 
                         const className = [
+                            "shine",
                             isDragging ? `${styles.dragging} isActive` : "",
                             isOver ? styles.over : "",
                             isCorrectPlace ? styles.correct : "",
+                            isJustPlaced ? "active" : "",
                             solved ? styles.solved : "",
                         ].join(" ");
 
@@ -334,4 +373,4 @@ function AboutSection() {
     );
 }
 
-export default AboutSection
+export default AboutSection;
