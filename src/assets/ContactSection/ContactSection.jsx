@@ -4,7 +4,8 @@ import { faEnvelope, faPaperPlane, faHandshake, faCode, faGamepad } from "@forta
 import { faGithub, faLinkedin, faItchIo, faDiscord, faYoutube } from "@fortawesome/free-brands-svg-icons";
 import Button from "../Button/Button.jsx";
 import styles from "./ContactSection.module.css";
-import ScrewContainer from "../Tools/ScrewContainer.jsx"
+import ScrewContainer from "../Tools/ScrewContainer.jsx";
+import cord from "../CordPlug.png";
 
 const LINKS = {
     github: "https://github.com/ElectroCubic",
@@ -51,11 +52,18 @@ function ContactSection()
                 
                 <ScrewContainer 
                     screwArray={[
-                        {id: 1, x: 40, y: 300},
-                        {id: 2, x: 460, y: 300}
+                        { id: 1, x: 0.04, y: 0.88 },
+                        { id: 2, x: 0.92, y: 0.88 }
                     ]}
                     onComplete={() => setPanelOpen(true)}
                 >
+                  <div className={styles.panelWrapper}>
+
+                    {/* Hidden content */}
+                    <div className={styles.hiddenContent}>
+                        <img src={cord}></img>
+                    </div>
+
                     <div className={`${styles.card} ${styles.panel} ${panelOpen ? styles.open : ""}`}>
                         <div className={styles.contactBtns}>
                             <Button className={`${styles.brandBtn} ${styles.mailBtn}`} onClick={openMail}>
@@ -119,6 +127,7 @@ function ContactSection()
                             <span> Replies usually within 24-48hrs </span>
                         </div>
                     </div>
+                  </div>
                 </ScrewContainer>
             </div>
 

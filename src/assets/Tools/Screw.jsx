@@ -5,7 +5,10 @@ function Screw({ x, y, isActive, isRemoving }) {
   return (
     <div
       className={`${styles.screw} ${isActive ? styles.active : ""}`}
-      style={{ left: x, top: y }}
+      style={{
+        left: `${x * 100}%`,
+        top: `${y * 100}%`,
+      }}
     >
       <img 
         src={screwImg}

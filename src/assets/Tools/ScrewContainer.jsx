@@ -42,8 +42,8 @@ function ScrewContainer({ children, screwArray, onComplete }) {
 
         const target = screws.find((s) => {
             const world = {
-                x: rect.left + s.x,
-                y: rect.top + s.y,
+              x: rect.left + s.x * rect.width,
+              y: rect.top + s.y * rect.height,
             };
             return isNear(tip, world);
         });
@@ -64,7 +64,7 @@ function ScrewContainer({ children, screwArray, onComplete }) {
         const rect = ref.current?.getBoundingClientRect();
 
         const world = rect
-          ? { x: rect.left + s.x, y: rect.top + s.y }
+          ? { x: rect.left + s.x * rect.width, y: rect.top + s.y * rect.height}
           : { x: 0, y: 0 };
 
         const active =
