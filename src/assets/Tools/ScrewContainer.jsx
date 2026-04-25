@@ -6,15 +6,26 @@ function ScrewContainer({ children, screwArray, onComplete }) {
   const { currentTool, dropEvent, setDropEvent, getToolTip, isNear } = useTool();
 
   const [screws, setScrews] = useState(screwArray); // [{id, x, y}...]
+  const [removingIds, setRemovingIds] = useState([]);
 
   const ref = useRef();
 
   const removeScrew = (id) => {
-    setScrews((prev) => {
-      const updated = prev.filter((s) => s.id !== id);
-      if (updated.length === 0) onComplete?.();
-      return updated;
-    });
+    setRemovingIds((prev) => [...prev, id]);
+
+    setTimeout(() => {
+      setScrews((prev) => {
+        const updated = prev.filter((s) => s.id !== id);
+
+        if (updated.length === 0) {
+          onComplete?.();
+        }
+
+        return updated;
+      });
+
+      setRemovingIds((prev) => prev.filter((i) => i !== id));
+    }, 450); // CSS 
   };
 
     useEffect(() => {
@@ -59,7 +70,13 @@ function ScrewContainer({ children, screwArray, onComplete }) {
           isNear(getToolTip(), world);
 
         return (
-          <Screw key={s.id} x={s.x} y={s.y} isActive={active} />
+          <Screw 
+            key={s.id} 
+            x={s.x} 
+            y={s.y} 
+            isActive={active}
+            isRemoving={removingIds.includes(s.id)} 
+          />
         );
       })}
     </div>

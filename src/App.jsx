@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { ToolProvider } from "./assets/Context/ToolContext.jsx";
+import './App.css'
 import NavBar from "./assets/NavBar/NavBar.jsx"
 import HeroSection from "./assets/HeroSection/HeroSection.jsx"
 import AboutSection from "./assets/AboutSection/AboutSection.jsx"
@@ -15,6 +16,7 @@ import screwdriverImg from "./assets/Screwdriver.png"
 
 function App() {
     const [hasScrewdriver, setHasScrewdriver] = useState(false);
+    const [panelOpen, setPanelOpen] = useState(false);
 
     return(
         <>
@@ -50,9 +52,9 @@ function App() {
                         {id: 1, x: 80, y: 40},
                         {id: 2, x: 120, y:40}
                     ]}
-                    onComplete={() => console.log("opened!")}
+                    onComplete={() => setPanelOpen(true)}
                 >
-                    <div style={{ width: 200, height: 120, background: "#444"}} />
+                    <div className={`panel ${panelOpen ? "open" : ""}`} />
                 </ScrewContainer>
 
                 <section id="home">
