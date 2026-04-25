@@ -1,16 +1,14 @@
-.screwdriver {
+.tool {
   position: fixed;
   z-index: 9999;
   cursor: grab;
   filter: drop-shadow(0px 6px 12px rgba(0,0,0,0.8));
 }
 
-.screwdriver:active {
+.tool:active {
   cursor: grabbing;
 }
 
-.screwdriver img {
-  width: 64px;
-  height: 64px;
-  pointer-events: none;
+.tool img {
+    pointer-events: none;
 }
