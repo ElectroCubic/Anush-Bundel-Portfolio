@@ -1,8 +1,10 @@
+import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faPaperPlane, faHandshake, faCode, faGamepad } from "@fortawesome/free-solid-svg-icons";
 import { faGithub, faLinkedin, faItchIo, faDiscord, faYoutube } from "@fortawesome/free-brands-svg-icons";
 import Button from "../Button/Button.jsx";
 import styles from "./ContactSection.module.css";
+import ScrewContainer from "../Tools/ScrewContainer.jsx"
 
 const LINKS = {
     github: "https://github.com/ElectroCubic",
@@ -41,72 +43,83 @@ const openWebsiteGithubRepo = () => openExternal(LINKS["websiteCode"]);
 
 function ContactSection() 
 {
+    const [panelOpen, setPanelOpen] = useState(false);
+
     return (
         <div className={styles.contactSection}>
             <div className={styles.contactBlock}>
-                <div className={styles.card}>
-                    <div className={styles.contactBtns}>
-                        <Button className={`${styles.brandBtn} ${styles.mailBtn}`} onClick={openMail}>
-                            <span className={styles.iconWrapper} aria-hidden="true">
-                                <FontAwesomeIcon icon={faEnvelope} className={styles.iconPrimary}/>
-                                <FontAwesomeIcon icon={faPaperPlane} className={styles.iconSecondary}/>
-                            </span>
-                            <span>Email Me</span>
-                        </Button>
+                
+                <ScrewContainer 
+                    screwArray={[
+                        {id: 1, x: 40, y: 300},
+                        {id: 2, x: 460, y: 300}
+                    ]}
+                    onComplete={() => setPanelOpen(true)}
+                >
+                    <div className={`${styles.card} ${styles.panel} ${panelOpen ? styles.open : ""}`}>
+                        <div className={styles.contactBtns}>
+                            <Button className={`${styles.brandBtn} ${styles.mailBtn}`} onClick={openMail}>
+                                <span className={styles.iconWrapper} aria-hidden="true">
+                                    <FontAwesomeIcon icon={faEnvelope} className={styles.iconPrimary}/>
+                                    <FontAwesomeIcon icon={faPaperPlane} className={styles.iconSecondary}/>
+                                </span>
+                                <span>Email Me</span>
+                            </Button>
 
-                        <Button className={`${styles.brandBtn} ${styles.githubBtn}`} onClick={openGitHub}>
-                            <span className={styles.iconWrapper} aria-hidden="true">
-                                <FontAwesomeIcon icon={faGithub} className={styles.iconPrimary}/>
-                                <FontAwesomeIcon icon={faCode} className={styles.iconSecondary}/>
-                            </span>
-                            <span>Github</span>
-                        </Button>
+                            <Button className={`${styles.brandBtn} ${styles.githubBtn}`} onClick={openGitHub}>
+                                <span className={styles.iconWrapper} aria-hidden="true">
+                                    <FontAwesomeIcon icon={faGithub} className={styles.iconPrimary}/>
+                                    <FontAwesomeIcon icon={faCode} className={styles.iconSecondary}/>
+                                </span>
+                                <span>Github</span>
+                            </Button>
 
-                        <Button className={`${styles.brandBtn} ${styles.linkedInBtn}`} onClick={openLinkedIn}>
-                            <span className={styles.iconWrapper} aria-hidden="true">
-                                <FontAwesomeIcon icon={faLinkedin} className={styles.iconPrimary}/>
-                                <FontAwesomeIcon icon={faHandshake} className={styles.iconSecondary}/>
-                            </span>
-                            <span>LinkedIn</span>
-                        </Button>
+                            <Button className={`${styles.brandBtn} ${styles.linkedInBtn}`} onClick={openLinkedIn}>
+                                <span className={styles.iconWrapper} aria-hidden="true">
+                                    <FontAwesomeIcon icon={faLinkedin} className={styles.iconPrimary}/>
+                                    <FontAwesomeIcon icon={faHandshake} className={styles.iconSecondary}/>
+                                </span>
+                                <span>LinkedIn</span>
+                            </Button>
 
-                        <Button className={`${styles.brandBtn} ${styles.itchioBtn}`} onClick={openItchio}>
-                            <span className={styles.iconWrapper} aria-hidden="true">
-                                <FontAwesomeIcon icon={faItchIo} className={styles.iconPrimary}/>
-                                <FontAwesomeIcon icon={faGamepad} className={styles.iconSecondary}/>
-                            </span>
-                            <span>Itch.io</span>
-                        </Button>
+                            <Button className={`${styles.brandBtn} ${styles.itchioBtn}`} onClick={openItchio}>
+                                <span className={styles.iconWrapper} aria-hidden="true">
+                                    <FontAwesomeIcon icon={faItchIo} className={styles.iconPrimary}/>
+                                    <FontAwesomeIcon icon={faGamepad} className={styles.iconSecondary}/>
+                                </span>
+                                <span>Itch.io</span>
+                            </Button>
+                        </div>
+
+                        <div className={styles.extraRow}>
+                            <button
+                                className={styles.extraPill}
+                                onClick={openYouTube}
+                                type="button"
+                            >
+                                <span className={styles.pillIcon} aria-hidden="true">
+                                    <FontAwesomeIcon icon={faYoutube} />
+                                </span>
+                                <span>ElectroCubicYT</span>
+                            </button>
+
+                            <button
+                                className={styles.extraPill}
+                                onClick={openDiscord}
+                                type="button"
+                            >
+                                <span className={styles.pillIcon} aria-hidden="true">
+                                    <FontAwesomeIcon icon={faDiscord} />
+                                </span>
+                                <span>electrocubic</span>
+                            </button>
+                        </div>
+
+                        <div className={styles.metaLine}>
+                            <span> Replies usually within 24-48hrs </span>
+                        </div>
                     </div>
-
-                    <div className={styles.extraRow}>
-                        <button
-                            className={styles.extraPill}
-                            onClick={openYouTube}
-                            type="button"
-                        >
-                            <span className={styles.pillIcon} aria-hidden="true">
-                                <FontAwesomeIcon icon={faYoutube} />
-                            </span>
-                            <span>ElectroCubicYT</span>
-                        </button>
-
-                        <button
-                            className={styles.extraPill}
-                            onClick={openDiscord}
-                            type="button"
-                        >
-                            <span className={styles.pillIcon} aria-hidden="true">
-                                <FontAwesomeIcon icon={faDiscord} />
-                            </span>
-                            <span>electrocubic</span>
-                        </button>
-                    </div>
-
-                    <div className={styles.metaLine}>
-                        <span> Replies usually within 24-48hrs </span>
-                    </div>
-                </div>
+                </ScrewContainer>
             </div>
 
             <div className={styles.contactText}>

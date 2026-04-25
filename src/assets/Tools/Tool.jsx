@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useTool } from "../Context/ToolContext";
+import { useTool } from "../Context/ToolContext.jsx";
 import styles from "./Tool.module.css";
 
 function Tool({ config }) {

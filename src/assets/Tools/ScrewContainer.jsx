@@ -1,11 +1,11 @@
 import { useState, useRef, useEffect } from "react";
-import { useTool } from "../Context/ToolContext";
-import Screw from "./Screw";
+import { useTool } from "../Context/ToolContext.jsx";
+import Screw from "./Screw.jsx";
 
 function ScrewContainer({ children, screwArray, onComplete }) {
   const { currentTool, dropEvent, setDropEvent, getToolTip, isNear } = useTool();
 
-  const [screws, setScrews] = useState(screwArray); // [{id, x, y}...]
+  const [screws, setScrews] = useState(screwArray);   // [{id, x, y}...]
   const [removingIds, setRemovingIds] = useState([]);
 
   const ref = useRef();
@@ -18,7 +18,9 @@ function ScrewContainer({ children, screwArray, onComplete }) {
         const updated = prev.filter((s) => s.id !== id);
 
         if (updated.length === 0) {
-          onComplete?.();
+          setTimeout(() => {
+            onComplete?.();
+          }, 0);
         }
 
         return updated;
