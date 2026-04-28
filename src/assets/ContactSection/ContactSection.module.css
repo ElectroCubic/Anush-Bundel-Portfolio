@@ -317,14 +317,12 @@ button.extraPill:active {
   overflow: hidden;
 }
 
-/* hidden content stays inside */
-.hiddenContent {
+.backContent {
   position: absolute;
   inset: 0;
   z-index: 1;
 }
 
-/* panel sits above */
 .panel {
   position: relative;
   z-index: 2;

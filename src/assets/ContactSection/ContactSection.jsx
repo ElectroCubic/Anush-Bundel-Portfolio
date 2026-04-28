@@ -58,10 +58,8 @@ function ContactSection()
                     onComplete={() => setPanelOpen(true)}
                 >
                   <div className={styles.panelWrapper}>
-
-                    {/* Hidden content */}
-                    <div className={styles.hiddenContent}>
-                        <img src={cord}></img>
+                    <div className={styles.backContent}>
+                        <p> Yay you found me! :D</p>
                     </div>
 
                     <div className={`${styles.card} ${styles.panel} ${panelOpen ? styles.open : ""}`}>
