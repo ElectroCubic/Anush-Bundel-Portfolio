@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react"
+import { useGame } from "../Context/GameContext.jsx"
 import profileLogo from "../ElectroCubicLogo_New.png"
 import styles from "./NavBar.module.css"
 import cipherHover from "./cipherHoverEffect.js"
@@ -94,6 +95,8 @@ function NavBar() {
     const name1 = cipherHover("Anush Bundel", "Vxfmi Vgvbav");
     const name2 = cipherHover("ElectroCubic", "SjuylliUqrgq");
 
+    const { progress } = useGame();
+
     return (
         <nav className={styles.navbar} ref={navRef}>
             <div className={styles.brand}>
@@ -120,6 +123,13 @@ function NavBar() {
                         >@{name2.display} </div>
                     </div>
                 </div>
+            </div>
+
+            <div className={styles.progressBar}>
+                <div
+                    className={styles.progressFill}
+                    style={{ width: `${progress.percent}%` }}
+                />
             </div>
 
             <button

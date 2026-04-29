@@ -1,4 +1,5 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react"
+import { useGame } from "../Context/GameContext.jsx"
 import styles from "./AboutSection.module.css"
 import TilePanel from "../TilePanel/TilePanel.jsx"
 
@@ -34,6 +35,7 @@ function shuffleArray(originalArr) {
 }
 
 function AboutSection() {
+    const { updateState } = useGame();
     const [tiles, setTiles] = useState(() => shuffleArray(words));
 
     const [drag, setDrag] = useState({
@@ -75,10 +77,16 @@ function AboutSection() {
     }, [tiles]);
 
     const solved = useMemo(() => {
-        return (
-            tiles.length === SOLUTION.length &&
-            tiles.every((t, idx) => t.id === SOLUTION[idx])
-        );
+
+        if (tiles.length === SOLUTION.length &&
+            tiles.every((t, idx) => t.id === SOLUTION[idx]))
+        {
+            updateState("gridSolved");
+            return true;
+        }
+
+        return false;
+
     }, [tiles]);
 
     const correctPlacedIds = useMemo(() => {
