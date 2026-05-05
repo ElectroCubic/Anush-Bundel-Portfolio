@@ -316,10 +316,8 @@ function AboutSection() {
             <div className={styles.wordGridContainer}>
                 <div
                     className={[
-                        "shine",
                         styles.wordGrid,
                         solved ? styles.solved : "",
-                        solved ? "active": ""
                     ].join(" ")}
                     onPointerMove={onPointerMove}
                     onPointerUp={onPointerUpOrCancel}
