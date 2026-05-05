@@ -11,6 +11,8 @@
     padding: 0;
     background: transparent;
     cursor: pointer;
+    transition: transform 0.25s ease;
+    transform-origin: top center;
 }
 
 .profileContainer::before {
@@ -64,6 +66,36 @@
     opacity: 1;
     transform: scale(1);
 }
+
+.wrapper {
+  position: relative;
+  width: var(--size);
+  height: var(--size);
+}
+
+.noGlow::before {
+  display: none;
+}
+
+.dropping {
+  animation: panelFall 1s cubic-bezier(0.3, 0.7, 0.4, 1) forwards;
+  pointer-events: none;
+}
+
+@keyframes panelFall {
+  0% {
+    transform: rotate(var(--tilt)) translateY(var(--tiltHeight));
+  }
+
+  50% {
+    transform: rotate(var(--tilt)) translateX(-5px) translateY(-5px);
+  }
+
+  100% {
+    transform: translateY(120vh);
+  }
+}
+
 
 @media (max-width: 900px) {
     .profileContainer {
