@@ -3,6 +3,7 @@ import { useGame } from "../Context/GameContext.jsx"
 import profileLogo from "../ElectroCubicLogo_New.png"
 import styles from "./NavBar.module.css"
 import cipherHover from "./cipherHoverEffect.js"
+import CircularProgressAvatar from "../ProfilePic/CircularProgressAvatar.jsx"
 
 const SECTIONS = [
     { id: "home", label: "Home" },
@@ -101,12 +102,7 @@ function NavBar() {
         <nav className={styles.navbar} ref={navRef}>
             <div className={styles.brand}>
                 <div className={styles.brandInner}>
-                    <img
-                        src={profileLogo}
-                        className={styles.avatar}
-                        draggable="false"
-                        loading="lazy"
-                    />
+                    <CircularProgressAvatar src={profileLogo} />
                     <div>
                         <div className={styles.hero}>
                             <a
@@ -123,13 +119,6 @@ function NavBar() {
                         >@{name2.display} </div>
                     </div>
                 </div>
-            </div>
-
-            <div className={styles.progressBar}>
-                <div
-                    className={styles.progressFill}
-                    style={{ width: `${progress.percent}%` }}
-                />
             </div>
 
             <button

@@ -29,7 +29,6 @@ export function GameProvider({ children }) {
     const steps = [
       state.gridSolved,
       state.hasScrewdriver,
-      state.panelOpened,
       state.hasCog,
       state.cogInserted && state.coreInserted,
       state.corePowered,

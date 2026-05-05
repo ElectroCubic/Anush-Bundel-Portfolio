@@ -1,0 +1,65 @@
+.wrapper {
+  position: relative;
+  --segment-active: var(--accent-color1);
+  --segment-inactive: var(--secondary-color1);
+}
+
+.idleWrapper {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 3px solid var(--segment-inactive);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.svg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-90deg);
+  overflow: visible;
+}
+
+.avatar {
+  width: 85%;
+  height: 85%;
+  border-radius: 50%;
+  object-fit: cover;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.segment {
+  transition: stroke 0.4s ease;
+}
+
+.segment[data-active="true"] {
+  stroke: var(--segment-active);
+}
+
+.segment[data-active="false"] {
+  stroke: var(--segment-inactive);
+}
+
+.segment[data-animating="true"] {
+  animation: segmentDraw 0.4s ease forwards;
+}
+
+@keyframes segmentDraw {
+  0% {
+    stroke-dasharray: 0 var(--circumference);
+    stroke: white;
+  }
+  50% {
+    stroke-dasharray: var(--segment) var(--circumference);
+    stroke: white;
+  }
+  100% {
+    stroke-dasharray: var(--segment) var(--circumference);
+    stroke: var(--segment-active);
+  }
+}
