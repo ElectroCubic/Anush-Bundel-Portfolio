@@ -21,6 +21,7 @@ function CogMechanism() {
 
     {!state.cogRemoved && (
         <ScrewContainer
+            enabled={state.panelRemoved}
             screwArray={[
                 { id: 1, x: 0.5, y: 0.5 }
             ]}

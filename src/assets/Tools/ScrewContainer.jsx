@@ -2,7 +2,12 @@ import { useState, useRef, useEffect } from "react";
 import { useTool } from "../Context/ToolContext.jsx";
 import Screw from "./Screw.jsx";
 
-function ScrewContainer({ children, screwArray, onComplete }) {
+function ScrewContainer({
+  children,
+  screwArray,
+  onComplete,
+  enabled = true,
+}) {
   const { currentTool, dropEvent, setDropEvent, getToolTip, isNear } = useTool();
 
   const [screws, setScrews] = useState(screwArray);   // [{id, x, y}...]
@@ -34,6 +39,8 @@ function ScrewContainer({ children, screwArray, onComplete }) {
 
     useEffect(() => {
         if (!dropEvent) return;
+
+        if (!enabled) return;
 
         if (dropEvent.tool !== "screwdriver") return;
 
@@ -77,6 +84,7 @@ function ScrewContainer({ children, screwArray, onComplete }) {
           : { x: 0, y: 0 };
 
         const active =
+          enabled &&
           currentTool === "screwdriver" &&
           isNear(getToolTip(), world);
 
