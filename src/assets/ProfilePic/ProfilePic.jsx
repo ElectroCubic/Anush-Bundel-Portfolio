@@ -11,6 +11,8 @@ function ProfilePic() {
   const [clickCount, setClickCount] = useState(0);
   const [isDropping, setIsDropping] = useState(false);
 
+  const FALL_ANIM_DURATION = 1200;  // ms
+
   const handleClick = () => {
     if (!state.gridSolved) {
       setShowReal((v) => !v);
@@ -27,7 +29,7 @@ function ProfilePic() {
 
         setTimeout(() => {
           updateState("panelRemoved");
-        }, 1000); 
+        }, FALL_ANIM_DURATION); 
       }
 
       return next;
@@ -47,6 +49,13 @@ function ProfilePic() {
 
   return (
     <div className={styles.wrapper}>
+
+      <div className={styles.backContainer}>
+        <div className={styles.cogMechanism}>
+
+        </div>
+      </div>
+
       {!state.panelRemoved && (
         <button
           className={`
@@ -60,7 +69,8 @@ function ProfilePic() {
               ? `rotate(${tilt}deg) translateY(${tilt * 2}px)`
               : undefined,
               "--tilt": `${tilt}deg`,
-              "--tiltHeight": `${tilt * 2}px`
+              "--tiltHeight": `${tilt * 2}px`,
+              "--animDuration": `${FALL_ANIM_DURATION / 1000}s`
           }}
         >
           {!state.gridSolved && (

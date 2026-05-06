@@ -21,7 +21,8 @@ const SOLUTION = [
     "iterate", "player", "feedback",
 ];
 
-const DURATION = 400; // ms
+const SWAP_ANIM_DURATION = 400; // ms
+const ANIM_DELAY = 40; // ms
 
 function shuffleArray(originalArr) {
     const arr = [...originalArr];
@@ -215,7 +216,7 @@ function AboutSection() {
         requestAnimationFrame(() => {
             animations.forEach((el) => {
                 el.style.willChange = "transform";
-                el.style.transition = `transform ${DURATION}ms cubic-bezier(.2,.9,.2,1)`;
+                el.style.transition = `transform ${SWAP_ANIM_DURATION}ms cubic-bezier(.2,.9,.2,1)`;
                 el.style.transform = "translate(0px, 0px)";
             });
 
@@ -225,7 +226,7 @@ function AboutSection() {
                     el.style.transform = "";
                     el.style.willChange = "auto";
                 });
-            }, DURATION + 40);
+            }, SWAP_ANIM_DURATION + ANIM_DELAY);
 
             flipRef.current.pending = false;
 

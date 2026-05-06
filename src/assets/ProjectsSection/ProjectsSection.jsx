@@ -55,7 +55,11 @@ function ProjectsSection() {
 
   const deckCenter = useRef({ x: 0, y: 0 });
 
-  const dealDelay = 140; // milliseconds
+  const dealDelay = 140;    // ms
+  const arrowW = 44;        // px
+  const gap = 5;            // px
+  const minCardWidth = 255; // px
+  const maxCards = 5;
 
   const tapDeck = () => {
     const el = deckRef.current;
@@ -123,11 +127,6 @@ function ProjectsSection() {
   useEffect(() => {
     const el = carouselRef.current;
     if (!el) return;
-
-    const arrowW = 44; // CSS value
-    const gap = 5;
-    const minCardWidth = 255;
-    const maxCards = 5;
 
     const ro = new ResizeObserver(([entry]) => {
       const fullW = entry.contentRect.width;
@@ -262,6 +261,7 @@ function ProjectsSection() {
       id="projects"
       className={styles.projectsSection}
       onClick={() => setPoppedId(null)}
+      style={ {"--arrowWidth": `${arrowW}px`} }
     >
       <div className={styles.headingBar}>
         <h1 className={styles.heading}>Explore My Worlds</h1>

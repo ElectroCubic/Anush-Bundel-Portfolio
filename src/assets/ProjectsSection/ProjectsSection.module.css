@@ -230,8 +230,8 @@
 
 /* Arrows Buttons*/
 .arrow {
-  height: 44px;
-  width: 44px;
+  height: var(--arrowWidth);
+  width: var(--arrowWidth);
   border-radius: 999px;
   border: 1px solid var(--primary-color2);
   background: var(--bg-color2);
