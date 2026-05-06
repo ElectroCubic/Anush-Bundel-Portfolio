@@ -36,7 +36,7 @@
 
 .tabBtn {
   background: var(--bg-color3);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: 1px solid var(--secondary-color1);
   color: var(--text-color2);
   padding: 6px 16px;
   border-radius: 999px;
@@ -176,7 +176,7 @@
     scale(1);
 
   transition:
-    transform 440ms cubic-bezier(0.075, 0.82, 0.165, 1) var(--deal-delay, 0ms),
+    transform var(--deal-duration) cubic-bezier(0.075, 0.82, 0.165, 1) var(--deal-delay, 0ms),
     opacity 220ms ease-out var(--deal-delay, 0ms);
 
   animation: none;
@@ -216,8 +216,8 @@
     wobbleVertical 35s cubic-bezier(0.37, 0, 0.63, 1) infinite both;
 
   animation-delay:
-    calc(var(--wobble-phase) + 4.5s),
-    calc(var(--wobble-phase) + 4.5s);
+    calc(var(--wobble-phase) + var(--card-wobble-offset)),
+    calc(var(--wobble-phase) + var(--card-wobble-offset));
 }
 
 

@@ -37,7 +37,7 @@ function ProjectsSection() {
   const carouselRef = useRef(null);
 
   const cardRefs = useRef([]);
-  const raf1 = useRef(0);
+  const raf1 = useRef(0);       // Request Animation Frame ref
   const raf2 = useRef(0);
   const settleTimeoutRef = useRef(null);
 
@@ -55,11 +55,15 @@ function ProjectsSection() {
 
   const deckCenter = useRef({ x: 0, y: 0 });
 
-  const dealDelay = 140;    // ms
-  const arrowW = 44;        // px
-  const gap = 5;            // px
-  const minCardWidth = 255; // px
+  const CARD_WOBBLE_OFFSET_DURATION = 4.5;  // sec
+  const DEAL_DURATION = 440;                // ms
+  const DEAL_DELAY = 140;                   // ms
+  const SETTLE_BUFFER = 80;                 // ms
+  const arrowW = 44;                        // px
+  const gap = 5;                            // px
+  const minCardWidth = 255;                 // px
   const maxCards = 5;
+  const OBSERVER_ENTRY_THRESHOLD = 0.25;
 
   const tapDeck = () => {
     const el = deckRef.current;
@@ -91,10 +95,9 @@ function ProjectsSection() {
         const shuffled = shuffleArray(projects);
         setShuffledProjects(shuffled);
 
-        const duration = 4.5;
         const m = new Map();
         shuffled.forEach((p) =>
-          m.set(p.id, `-${(Math.random() * duration).toFixed(3)}s`)
+          m.set(p.id, `-${(Math.random() * CARD_WOBBLE_OFFSET_DURATION).toFixed(3)}s`)
         );
         setWobblePhaseById(m);
 
@@ -105,7 +108,7 @@ function ProjectsSection() {
 
         io.disconnect();
       },
-      { threshold: 0.25 }
+      { threshold: OBSERVER_ENTRY_THRESHOLD }
     );
 
     io.observe(el);
@@ -182,7 +185,7 @@ function ProjectsSection() {
     if (settleTimeoutRef.current) clearTimeout(settleTimeoutRef.current);
 
     const k = visible.length || 1;
-    const total = 440 + (k - 1) * 140 + 80;
+    const total = DEAL_DURATION + (k - 1) * DEAL_DELAY + SETTLE_BUFFER;
 
     settleTimeoutRef.current = setTimeout(() => setPhase("settled"), total);
   };
@@ -321,7 +324,9 @@ function ProjectsSection() {
                   poppedId === p.id ? styles.popped : "",
                 ].join(" ")}
                 style={{
-                  "--deal-delay": `${i * dealDelay}ms`,
+                  "--card-wobble-offset": `${CARD_WOBBLE_OFFSET_DURATION}s`,
+                  "--deal-duration": `${DEAL_DURATION}ms`,
+                  "--deal-delay": `${i * DEAL_DELAY}ms`,
                   "--wobble-phase": wobblePhaseById.get(p.id) ?? "0s",
                 }}
               />
