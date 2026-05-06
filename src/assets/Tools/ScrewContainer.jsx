@@ -10,6 +10,8 @@ function ScrewContainer({ children, screwArray, onComplete }) {
 
   const ref = useRef();
 
+  const UNSCREW_ANIM_DURATION = 450; // ms
+
   const removeScrew = (id) => {
     setRemovingIds((prev) => [...prev, id]);
 
@@ -27,7 +29,7 @@ function ScrewContainer({ children, screwArray, onComplete }) {
       });
 
       setRemovingIds((prev) => prev.filter((i) => i !== id));
-    }, 450); // CSS 
+    }, UNSCREW_ANIM_DURATION); 
   };
 
     useEffect(() => {
@@ -57,7 +59,14 @@ function ScrewContainer({ children, screwArray, onComplete }) {
     }, [dropEvent]);
 
   return (
-    <div ref={ref} style={{ position: "relative" }}>
+    <div 
+      ref={ref}
+      style={{ 
+        position: "relative",
+        width: "100%",
+        height: "100%",
+        "--animDuration": `${UNSCREW_ANIM_DURATION / 1000}s` }}
+    >
       {children}
 
       {screws.map((s) => {

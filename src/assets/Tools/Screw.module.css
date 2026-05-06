@@ -2,7 +2,7 @@
   position: absolute;
   width: 25px;
   height: 25px;
-  z-index: 10;
+  z-index: 1;
 }
 
 .screw img {
@@ -20,7 +20,7 @@
 }
 
 .screw img.removing {
-  animation: unscrew 0.45s cubic-bezier(0.4, 0, 0.5, 1);
+  animation: unscrew var(--animDuration) cubic-bezier(0.4, 0, 0.5, 1);
 }
 
 @keyframes unscrew {

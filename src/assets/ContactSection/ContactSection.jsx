@@ -5,7 +5,6 @@ import { faGithub, faLinkedin, faItchIo, faDiscord, faYoutube } from "@fortaweso
 import Button from "../Button/Button.jsx";
 import styles from "./ContactSection.module.css";
 import ScrewContainer from "../Tools/ScrewContainer.jsx";
-import cord from "../CordPlug.png";
 
 const LINKS = {
     github: "https://github.com/ElectroCubic",

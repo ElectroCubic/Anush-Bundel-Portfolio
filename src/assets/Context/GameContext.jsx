@@ -7,6 +7,7 @@ export function GameProvider({ children }) {
     gridSolved: true,
     panelLoose: false,
     panelRemoved: false,
+    cogRemoved: false,
     consoleUnlocked: false,
 
     hasScrewdriver: false,

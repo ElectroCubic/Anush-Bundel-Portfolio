@@ -9,8 +9,9 @@ import ContactSection from "./assets/ContactSection/ContactSection.jsx"
 
 import WipBanner from "./assets/WipBanner/WipBanner.jsx"
 
-import Tool from "./assets/Tools/Tool"
+import Tool from "./assets/Tools/Tool.jsx"
 import screwdriverImg from "./assets/Screwdriver.png"
+import cogImg from "./assets/Socket.png"
 
 function App() {
 
@@ -21,6 +22,24 @@ function App() {
             <NavBar />
             <WipBanner />
             <section id="home">
+                {state.hasCog && (
+                    <Tool
+                        config={{
+                            type: "cog",
+                            sprite: cogImg,
+                            size: { x: 90, y: 90 },
+                            offset: { x: 45, y: 45 },
+                            spawn: { x: 300, y: 200 },
+                            gravity: {
+                                initialVelocity: 0,
+                                acceleration: 0.45,
+                                interval: 16,
+                                maxVelocity: 50,
+                            },
+                        }}
+                    />
+                )}
+
                 <HeroSection />
             </section>
             <section id="about">

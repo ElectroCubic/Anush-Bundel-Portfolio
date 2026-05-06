@@ -1,8 +1,9 @@
-import { useState, useEffect } from "react";
-import { useGame } from "../Context/GameContext";
-import styles from "./ProfilePic.module.css";
-import realPic from "../AnushBundel.png";
-import logoPic from "../ElectroCubicLogo_New.png";
+import { useState, useEffect } from "react"
+import { useGame } from "../Context/GameContext"
+import styles from "./ProfilePic.module.css"
+import realPic from "../AnushBundel.png"
+import logoPic from "../ElectroCubicLogo_New.png"
+import CogMechanism from "./CogMechanism/CogMechanism.jsx";
 
 function ProfilePic() {
   const { state, updateState } = useGame();
@@ -49,13 +50,11 @@ function ProfilePic() {
 
   return (
     <div className={styles.wrapper}>
-
-      <div className={styles.backContainer}>
-        <div className={styles.cogMechanism}>
-
-        </div>
+      
+      <div className={styles.mechanismLayer}>
+        <CogMechanism />
       </div>
-
+    
       {!state.panelRemoved && (
         <button
           className={`
@@ -68,9 +67,10 @@ function ProfilePic() {
             transform: state.gridSolved && !isDropping
               ? `rotate(${tilt}deg) translateY(${tilt * 2}px)`
               : undefined,
-              "--tilt": `${tilt}deg`,
-              "--tiltHeight": `${tilt * 2}px`,
-              "--animDuration": `${FALL_ANIM_DURATION / 1000}s`
+
+            "--tilt": `${tilt}deg`,
+            "--tiltHeight": `${tilt * 2}px`,
+            "--animDuration": `${FALL_ANIM_DURATION / 1000}s`
           }}
         >
           {!state.gridSolved && (
@@ -105,4 +105,4 @@ function ProfilePic() {
   );
 }
 
-export default ProfilePic;
+export default ProfilePic

@@ -320,12 +320,12 @@ button.extraPill:active {
 .backContent {
   position: absolute;
   inset: 0;
-  z-index: 1;
+  z-index: 0;
 }
 
 .panel {
   position: relative;
-  z-index: 2;
+  z-index: 1;
   transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
