@@ -4,19 +4,29 @@ const GameContext = createContext();
 
 export function GameProvider({ children }) {
   const [state, setState] = useState({
-    gridSolved: false,
+    gridSolved: true,
     panelLoose: false,
     panelRemoved: false,
-    cogRemoved: false,
     consoleUnlocked: false,
-
-    hasScrewdriver: false,
-    hasCog: false,
-    hasCore: false,
-
     coreInserted: false,
     cogInserted: false,
     corePowered: false,
+  });
+
+  const [items, setItems] = useState({
+    screwdriver: {
+      location: "hidden",
+    },
+
+    cog: {
+      location: "cogMechanism",
+      pos: null,
+    },
+
+    core: {
+      location: "skillTree",
+      powered: false,
+    },
   });
 
   const updateState = (key, value = true) => {
@@ -26,12 +36,32 @@ export function GameProvider({ children }) {
     }));
   };
 
+  const moveItem = (itemId, newLocation) => {
+    setItems(prev => ({
+      ...prev,
+      [itemId]: {
+        ...prev[itemId],
+        location: newLocation,
+      }
+    }));
+  };
+
+  const updateItem = (itemId, updates) => {
+    setItems(prev => ({
+      ...prev,
+      [itemId]: {
+        ...prev[itemId],
+        ...updates,
+      }
+    }));
+  };
+
   // Progress calculation
   const progress = useMemo(() => {
     const steps = [
       state.gridSolved,
-      state.hasScrewdriver,
-      state.hasCog,
+      (items.screwdriver.location !== "hidden"),
+      (items.cog.location !== "cogMechanism"),
       state.cogInserted && state.coreInserted,
       state.corePowered,
       state.consoleUnlocked,
@@ -45,10 +75,10 @@ export function GameProvider({ children }) {
       total,
       percent: (completed / total) * 100,
     };
-  }, [state]);
+  }, [state, items]);
 
   return (
-    <GameContext.Provider value={{ state, updateState, progress }}>
+    <GameContext.Provider value={{ state, updateState, progress, items, moveItem, updateItem }}>
       {children}
     </GameContext.Provider>
   );

@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useRef } from "react"
 import { useGame } from "../../Context/GameContext.jsx"
 import ScrewContainer from "../../Tools/ScrewContainer.jsx"
 import styles from "./CogMechanism.module.css"
@@ -7,7 +7,8 @@ import cogImg2 from "../../CogGrey.png"
 import Cog from "./Cog.jsx"
 
 function CogMechanism() {
-  const { state, updateState } = useGame();
+  const { state, items, updateItem } = useGame();
+  const cogRef = useRef();
 
   return (
     <div className={styles.wrapper}>
@@ -58,18 +59,27 @@ function CogMechanism() {
             reverse
         />
 
-    {!state.cogRemoved && (
+    {items.cog.location === "cogMechanism" && (
         <ScrewContainer
             enabled={state.panelRemoved}
             screwArray={[
                 { id: 1, x: 0.2325, y: 0.1225 }
             ]}
             onComplete={() => {
-                updateState("cogRemoved");
-                updateState("hasCog"); 
+                const rect = cogRef.current?.getBoundingClientRect();
+                if (!rect) return;
+
+                updateItem("cog", {
+                    location: "inventory",
+                    pos: {
+                        x: rect.left,
+                        y: rect.top,
+                    }
+                });
             }}
         >
             <Cog
+                ref={cogRef}
                 src={cogImg2}
                 size="25%"
                 x="27%"

@@ -1,6 +1,8 @@
+import { forwardRef } from "react";
 import styles from "./Cog.module.css";
 
-function Cog({
+const Cog = forwardRef(function Cog(
+{
   src,
   size = "40%",
   x = "50%",
@@ -8,9 +10,13 @@ function Cog({
   speed = 8,
   reverse = false,
   shaft = false,
-}) {  
+},
+ref
+) {
+
   return (
     <div
+      ref={ref}
       className={styles.cog}
       style={{
         width: size,
@@ -32,6 +38,6 @@ function Cog({
       )}
     </div>
   );
-}
+});
 
 export default Cog;

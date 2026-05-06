@@ -15,21 +15,21 @@ import cogImg from "./assets/CogGrey.png"
 
 function App() {
 
-    const { state, updateState } = useGame();
+    const { items, moveItem, state } = useGame();
 
     return(
         <>
             <NavBar />
             <WipBanner />
             <section id="home">
-                {state.hasCog && (
+                {items.cog.location === "inventory" && (
                     <Tool
                         config={{
                             type: "cog",
                             sprite: cogImg,
                             size: { x: 90, y: 90 },
                             offset: { x: 45, y: 45 },
-                            spawn: { x: 300, y: 200 },
+                            spawn: items.cog.pos,
                             gravity: {
                                 initialVelocity: 0,
                                 acceleration: 0.45,
@@ -52,7 +52,7 @@ function App() {
                 <SkillsSection />
             </section>
             <section id="contact">
-                {state.hasScrewdriver && (
+                {items.screwdriver.location === "inventory" && (
                     <Tool
                         config={{
                             type: "screwdriver",
@@ -71,8 +71,8 @@ function App() {
                 )}
 
                 <ContactSection />
-                {!state.hasScrewdriver && (
-                    <button onClick={() => updateState("hasScrewdriver")}>
+                {items.screwdriver.location !== "inventory" && (
+                    <button onClick={() => moveItem("screwdriver", "inventory")}>
                         Get Screwdriver
                     </button>
                 )}
