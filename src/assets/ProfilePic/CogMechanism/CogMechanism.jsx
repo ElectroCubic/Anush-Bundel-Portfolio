@@ -54,7 +54,17 @@ function CogMechanism() {
             size="60%"
             x="25%"
             y="82%"
-            speed={3}
+            speed={20}
+            shaft={true}
+            reverse
+        />
+
+        <Cog
+            src={cogImg2}
+            size="10%"
+            x="89%"
+            y="81%"
+            speed={1}
             shaft={true}
             reverse
         />
