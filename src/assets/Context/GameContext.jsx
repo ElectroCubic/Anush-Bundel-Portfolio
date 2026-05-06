@@ -4,7 +4,7 @@ const GameContext = createContext();
 
 export function GameProvider({ children }) {
   const [state, setState] = useState({
-    gridSolved: true,
+    gridSolved: false,
     panelLoose: false,
     panelRemoved: false,
     cogRemoved: false,

@@ -5,6 +5,23 @@
   animation-direction: var(--direction);
 }
 
+.image {
+  width: 100%;
+  display: block;
+}
+
+.shaft {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 16%;
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: lightgrey;
+  border: 3px solid rgba(0,0,0,0.35);
+}
+
 @keyframes spin {
   from {
     transform:

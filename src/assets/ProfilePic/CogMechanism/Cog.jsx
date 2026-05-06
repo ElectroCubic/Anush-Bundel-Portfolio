@@ -7,11 +7,10 @@ function Cog({
   y = "50%",
   speed = 8,
   reverse = false,
-}) {
+  shaft = false,
+}) {  
   return (
-    <img
-      src={src}
-      draggable="false"
+    <div
       className={styles.cog}
       style={{
         width: size,
@@ -21,7 +20,17 @@ function Cog({
         "--speed": `${speed}s`,
         "--direction": reverse ? "reverse" : "normal",
       }}
-    />
+    >
+      <img
+        src={src}
+        draggable="false"
+        className={styles.image}
+      />
+
+      {shaft && (
+        <div className={styles.shaft} />
+      )}
+    </div>
   );
 }
 

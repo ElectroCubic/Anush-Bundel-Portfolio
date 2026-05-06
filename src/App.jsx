@@ -11,7 +11,7 @@ import WipBanner from "./assets/WipBanner/WipBanner.jsx"
 
 import Tool from "./assets/Tools/Tool.jsx"
 import screwdriverImg from "./assets/Screwdriver.png"
-import cogImg from "./assets/Socket.png"
+import cogImg from "./assets/CogGrey.png"
 
 function App() {
 
