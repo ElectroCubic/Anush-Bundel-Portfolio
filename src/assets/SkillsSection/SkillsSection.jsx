@@ -1,13 +1,13 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import { TREE } from "./treeData.js";
 import styles from "./SkillsSection.module.css";
-
 import useMediaQuery from "./useMediaQuery.js";
 import flattenTree from "./flattenTree.js";
 import useSkillTreeLayout from "./useSkillTreeLayout.js";
 import useSkillPathHighlight from "./useSkillPathHighlight.js";
 import SkillTreeSvg from "./SkillTreeSvg.jsx";
 import SkillTooltip from "./SkillTooltip.jsx";
-import { TREE } from "./treeData.js";
+
 
 function SkillsSection() {
   const isNarrow = useMediaQuery("(max-width: 1100px)");
@@ -32,6 +32,13 @@ function SkillsSection() {
   const sectionRef = useRef(null);
   const [revealed, setRevealed] = useState(false);
 
+  const OBSERVER_ENTRY_THRESHOLD = 0.3;
+  const TOOLTIP_MARGIN = 14;    // px
+  const TOOLTIP_PADDING = 10;   // px
+
+  const NARROW_TOOLTIP_PADDING = 12;  // px
+  const ARROW_GAP = 16;               // px
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -40,7 +47,7 @@ function SkillsSection() {
           observer.disconnect();
         }
       },
-      { threshold: 0.3 }
+      { threshold: OBSERVER_ENTRY_THRESHOLD }
     );
 
     if (sectionRef.current) observer.observe(sectionRef.current);
@@ -106,16 +113,13 @@ function SkillsSection() {
     const stageRect = stageEl.getBoundingClientRect();
     const tipRect = tipEl.getBoundingClientRect();
 
-    const margin = 14;
-    const pad = 10;
-
     let { left: x, top: y } = clientToStageXY(clientX, clientY);
 
     const spaceRight = stageRect.right - clientX;
     const spaceBottom = stageRect.bottom - clientY;
 
-    const ox = spaceRight < tipRect.width + margin ? -(tipRect.width + margin) : margin;
-    const oy = spaceBottom < tipRect.height + margin ? -(tipRect.height + margin) : margin;
+    const ox = spaceRight < tipRect.width + TOOLTIP_MARGIN ? -(tipRect.width + TOOLTIP_MARGIN) : TOOLTIP_MARGIN;
+    const oy = spaceBottom < tipRect.height + TOOLTIP_MARGIN ? -(tipRect.height + TOOLTIP_MARGIN) : TOOLTIP_MARGIN;
 
     tipEl.style.setProperty("--ox", `${ox}px`);
     tipEl.style.setProperty("--oy", `${oy}px`);
@@ -128,11 +132,11 @@ function SkillsSection() {
     let nudgeX = 0;
     let nudgeY = 0;
 
-    if (afterRect.right > stageRect.right) nudgeX -= (afterRect.right - stageRect.right) + pad;
-    if (afterRect.left < stageRect.left) nudgeX += (stageRect.left - afterRect.left) + pad;
+    if (afterRect.right > stageRect.right) nudgeX -= (afterRect.right - stageRect.right) + TOOLTIP_PADDING;
+    if (afterRect.left < stageRect.left) nudgeX += (stageRect.left - afterRect.left) + TOOLTIP_PADDING;
 
-    if (afterRect.bottom > stageRect.bottom) nudgeY -= (afterRect.bottom - stageRect.bottom) + pad;
-    if (afterRect.top < stageRect.top) nudgeY += (stageRect.top - afterRect.top) + pad;
+    if (afterRect.bottom > stageRect.bottom) nudgeY -= (afterRect.bottom - stageRect.bottom) + TOOLTIP_PADDING;
+    if (afterRect.top < stageRect.top) nudgeY += (stageRect.top - afterRect.top) + TOOLTIP_PADDING;
 
     if (nudgeX !== 0) tipEl.style.left = `${x + nudgeX}px`;
     if (nudgeY !== 0) tipEl.style.top = `${y + nudgeY}px`;
@@ -160,9 +164,6 @@ function SkillsSection() {
     const stageRect = stageEl.getBoundingClientRect();
     const tipRect = tipEl.getBoundingClientRect();
 
-    const pad = 12;
-    const arrowGap = 16;
-
     // Base position (centered on node)
     const base = svgToStageXY(c.x, c.y);
 
@@ -172,18 +173,18 @@ function SkillsSection() {
     // For Horizontal Space
     const halfW = tipRect.width / 2;
 
-    if (left - halfW < pad) {
-      left = halfW + pad;
+    if (left - halfW < NARROW_TOOLTIP_PADDING) {
+      left = halfW + NARROW_TOOLTIP_PADDING;
     }
 
-    if (left + halfW > stageRect.width - pad) {
-      left = stageRect.width - halfW - pad;
+    if (left + halfW > stageRect.width - NARROW_TOOLTIP_PADDING) {
+      left = stageRect.width - halfW - NARROW_TOOLTIP_PADDING;
     }
 
     // For Vertical space
-    const aboveTop = top - tipRect.height - arrowGap;
+    const aboveTop = top - tipRect.height - ARROW_GAP;
 
-    if (aboveTop < pad) {
+    if (aboveTop < NARROW_TOOLTIP_PADDING) {
       tipEl.classList.add(styles.tooltipBelow);
     } else {
       tipEl.classList.remove(styles.tooltipBelow);
