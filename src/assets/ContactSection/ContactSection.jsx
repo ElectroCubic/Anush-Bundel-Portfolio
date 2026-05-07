@@ -126,26 +126,21 @@ function ContactSection()
                             </div>
                         }
                     >
-                        <div className={styles.panelWrapper}>
-                            <div className={styles.machineInterior}>
+                        <div className={styles.machineInterior}>
 
-                                {/* <div className={styles.pipe1} />
-                                <div className={styles.pipe2} /> */}
+                            {/* <div className={styles.pipe1} />
+                            <div className={styles.pipe2} /> */}
 
-                                <div className={styles.machineGrid}>
-
-                                    <div className={styles.coreSlot}>
-                                        CORE
-                                    </div>
-
-                                    <div className={styles.cogSlot}>
-                                        COG
-                                    </div>
-
-                                    <button className={styles.lever}>
-                                        POWER
-                                    </button>
+                            <div className={styles.machineGrid}>
+                                <div className={styles.coreSlot}>
+                                    CORE
                                 </div>
+                                <div className={styles.cogSlot}>
+                                    COG
+                                </div>
+                                <button className={styles.lever}>
+                                    POWER
+                                </button>
                             </div>
                         </div>
                     </Panel>
