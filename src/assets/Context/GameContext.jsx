@@ -7,10 +7,11 @@ export function GameProvider({ children }) {
     gridSolved: false,
     panelLoose: false,
     panelRemoved: false,
-    consoleUnlocked: false,
-    coreInserted: false,
+    machinePanelRemoved: false,
     cogInserted: false,
     corePowered: false,
+    coreInserted: false,
+    consoleUnlocked: false,
   });
 
   const [items, setItems] = useState({
@@ -26,6 +27,7 @@ export function GameProvider({ children }) {
 
     core: {
       location: "skillTree",
+      pos: null,
       powered: false,
     },
   });

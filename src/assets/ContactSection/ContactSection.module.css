@@ -323,6 +323,13 @@ button.extraPill:active {
   z-index: 0;
 }
 
+.machinePanelWrapper {
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+  aspect-ratio: 1 / 1;
+}
+
 .machineInterior {
   position: absolute;
   inset: 0;
@@ -455,14 +462,24 @@ button.extraPill:active {
   transform: translateY(4px);
 }
 
-.panel {
-  position: relative;
-  z-index: 1;
-  transition: opacity 0.5s ease, transform 0.5s ease;
+.machineSlide {
+  animation:
+    machineSlide
+    var(--animDuration)
+    cubic-bezier(0.2, 0.7, 0.2, 1)
+    forwards;
+
+  pointer-events: none;
 }
 
-.panel.open {
-  transform: translateX(125%);
+@keyframes machineSlide {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(125%);
+  }
 }
 
 .footer {

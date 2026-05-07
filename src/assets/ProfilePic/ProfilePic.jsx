@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useGame } from "../Context/GameContext";
+import { useGame } from "../Context/GameContext.jsx";
 import styles from "./ProfilePic.module.css";
 import logoPic from "../Images/ElectroCubicLogo_New.png";
 import realPic from "../Images/AnushBundel.png";
@@ -40,25 +40,32 @@ function ProfilePic() {
 
   return (
     <div className={styles.wrapper}>
-      <div className={styles.mechanismLayer}>
-        <CogMechanism />
-      </div>
 
       <Panel
         isOpen={state.panelRemoved}
         onOpen={() => updateState("panelRemoved")}
+
         looseAfter={true}
         clickThreshold={5}
-        className={styles.noGlow}
+
         animationClass={styles.panelFall}
+
+        cover={
+          <img
+            src={logoPic}
+            className={styles.cover}
+            draggable="false"
+            loading="lazy"
+          />
+        }
       >
-        <img
-          src={logoPic}
-          className={styles.cover}
-          draggable="false"
-          loading="lazy"
-        />
+
+        <div className={styles.mechanismLayer}>
+          <CogMechanism />
+        </div>
+
       </Panel>
+
     </div>
   );
 }

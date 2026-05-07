@@ -5,6 +5,7 @@ import styles from "./Panel.module.css";
 
 function Panel({
   children,
+  cover,
   isOpen = false,
   onOpen,
   mode = "click",
@@ -14,32 +15,42 @@ function Panel({
   clickThreshold = 5,
   looseAfter = false,
   className = "",
-  size = "350px",
-  animationClass,
+  animationClass = "",
 }) {
 
   const { currentTool } = useTool();
-  const [clickCount, setClickCount] = useState(looseAfter ? 1 : 0);
-  const [isDropping, setIsDropping] = useState(false);
-  
-  const tilt = Math.min(clickCount * 3, 15);  // deg rotation per click
-  const FALL_DURATION = 1200;                 // ms
+
+  const [clickCount, setClickCount] = useState(
+    looseAfter ? 1 : 0
+  );
+
+  const [isAnimating, setIsAnimating] = useState(false);
+  const FALL_DURATION = 1200;
+  const tilt = Math.min(clickCount * 3, 15);
 
   const handleOpen = () => {
-    if (isOpen || isDropping) return;
+    if (isOpen || isAnimating) return;
 
-    setIsDropping(true);
+    setIsAnimating(true);
+
     setTimeout(() => {
       onOpen?.();
     }, FALL_DURATION);
   };
 
   const handleClick = () => {
+
     if (mode !== "click") return;
-    if (requiresTool && currentTool !== requiredTool)
+
+    if (
+      requiresTool &&
+      currentTool !== requiredTool
+    ) {
       return;
+    }
 
     setClickCount(prev => {
+
       const next = prev + 1;
 
       if (next >= clickThreshold) {
@@ -50,21 +61,21 @@ function Panel({
     });
   };
 
-  const panelContent = (
+  const coverPanel = (
     <button
       onClick={handleClick}
       className={`
         ${styles.panel}
-        ${isDropping ? animationClass : ""}
+        ${isAnimating ? animationClass : ""}
         ${className}
       `}
       style={{
-        transform: !isDropping
+        transform: !isAnimating
           ? `rotate(${tilt}deg) translateY(${tilt * 2}px)`
           : undefined,
       }}
     >
-      {children}
+      {cover}
     </button>
   );
 
@@ -72,25 +83,37 @@ function Panel({
     <div
       className={styles.wrapper}
       style={{
-        "--size": size,
         "--tilt": `${tilt}deg`,
         "--tiltHeight": `${tilt * 2}px`,
         "--animDuration": `${FALL_DURATION / 1000}s`,
       }}
     >
-      {!isOpen && (mode === "screws" ? (
-          <ScrewContainer
-            enabled={!isOpen}
-            requiredTool={requiredTool}
-            screwArray={screwArray}
-            onComplete={handleOpen}
-          >
-            {panelContent}
-          </ScrewContainer>
-        ) : (
-          panelContent
-        )
+
+      {/* HIDDEN CONTENT */}
+      <div
+        className={styles.contentLayer}
+        style={{
+          pointerEvents: isOpen ? "auto" : "none",
+        }}
+      >
+        {children}
+      </div>
+
+      {/* COVER */}
+      {!isOpen && (
+        mode === "screws"
+          ? (
+            <ScrewContainer
+              enabled={!isOpen}
+              screwArray={screwArray}
+              onComplete={handleOpen}
+            >
+              {coverPanel}
+            </ScrewContainer>
+          )
+          : coverPanel
       )}
+
     </div>
   );
 }
