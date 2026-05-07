@@ -21,25 +21,44 @@ function App() {
         <>
             <NavBar />
             <WipBanner />
-            <section id="home">
-                {items.cog.location === "inventory" && (
-                    <Tool
-                        config={{
-                            type: "cog",
-                            sprite: cogImg,
-                            size: { x: 90, y: 90 },
-                            offset: { x: 45, y: 45 },
-                            spawn: items.cog.pos,
-                            gravity: {
-                                initialVelocity: 0,
-                                acceleration: 0.45,
-                                interval: 16,
-                                maxVelocity: 50,
-                            },
-                        }}
-                    />
-                )}
 
+            {items.screwdriver.location === "inventory" && (
+                <Tool
+                    config={{
+                        type: "screwdriver",
+                        sprite: screwdriverImg,
+                        size: {x: 64, y: 64},
+                        offset: { x: 20, y: 45 },
+                        spawn: items.screwdriver.pos,
+                        gravity: {
+                            initialVelocity: 0,
+                            acceleration: 0.5,
+                            interval: 16,
+                            maxVelocity: 50,
+                        },
+                    }}
+                />
+            )}
+
+            {items.cog.location === "inventory" && (
+                <Tool
+                    config={{
+                        type: "cog",
+                        sprite: cogImg,
+                        size: { x: 90, y: 90 },
+                        offset: { x: 45, y: 45 },
+                        spawn: items.cog.pos,
+                        gravity: {
+                            initialVelocity: 0,
+                            acceleration: 0.45,
+                            interval: 16,
+                            maxVelocity: 50,
+                        },
+                    }}
+                />
+            )}
+            
+            <section id="home">
                 <HeroSection />
             </section>
             <section id="about">
@@ -52,30 +71,7 @@ function App() {
                 <SkillsSection />
             </section>
             <section id="contact">
-                {items.screwdriver.location === "inventory" && (
-                    <Tool
-                        config={{
-                            type: "screwdriver",
-                            sprite: screwdriverImg,
-                            size: {x: 64, y: 64},
-                            offset: { x: 20, y: 45 },
-                            spawn: { x: 200, y: 0 },
-                            gravity: {
-                                initialVelocity: 0,
-                                acceleration: 0.5,
-                                interval: 16,
-                                maxVelocity: 50,
-                            },
-                        }}
-                    />
-                )}
-
                 <ContactSection />
-                {items.screwdriver.location !== "inventory" && (
-                    <button onClick={() => moveItem("screwdriver", "inventory")}>
-                        Get Screwdriver
-                    </button>
-                )}
             </section>
         </>
     );

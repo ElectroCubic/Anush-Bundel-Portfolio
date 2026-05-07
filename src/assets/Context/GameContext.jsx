@@ -16,6 +16,7 @@ export function GameProvider({ children }) {
   const [items, setItems] = useState({
     screwdriver: {
       location: "hidden",
+      pos: null,
     },
 
     cog: {

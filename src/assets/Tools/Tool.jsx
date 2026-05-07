@@ -11,6 +11,13 @@ function Tool({ config }) {
   const { currentTool, setCurrentTool, setToolPos, setDropEvent } = useTool();
 
   const [pos, setPos] = useState(spawn);
+
+  useEffect(() => {
+    if (spawn) {
+      setPos(spawn);
+    }
+  }, [spawn]);
+
   const [isDropping, setIsDropping] = useState(true);
 
   // sync global pos
@@ -93,7 +100,10 @@ function Tool({ config }) {
         setCurrentTool(type);
         setIsDropping(false);
       }}
-      style={{ left: pos.x, top: pos.y }}
+      style={{
+        left: pos?.x ?? 0,
+        top: pos?.y ?? 0,
+      }}
     >
       <img
         src={sprite}

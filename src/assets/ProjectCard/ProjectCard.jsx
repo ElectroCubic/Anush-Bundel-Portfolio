@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState, forwardRef } from "react";
+import { useGame } from "../Context/GameContext";
 import PropTypes from "prop-types";
 import styles from "./ProjectCard.module.css";
+import screwdriverImg from "../Images/Screwdriver.png"
 
 const TAG_CATEGORY_CLASS = {
   engine: styles.tagEngine,
@@ -111,8 +113,38 @@ const ProjectCard = forwardRef(function ProjectCard(
   const type = getTypeFromTags(tags);
   const typeClass = getTypeClass(type);
   const videoRef = useRef(null);
-  const mouseHoverCardTime = 300;
+  const mouseHoverCardTime = 300; // ms
   const [isHoverCapable, setIsHoverCapable] = useState(false);
+
+  const { items, updateItem } = useGame();
+  const [pulls, setPulls] = useState(0);
+  const [taken, setTaken] = useState(false);
+
+  const handleScrewdriverClick = (e) => {
+    e.stopPropagation();
+
+    const rect = e.currentTarget.getBoundingClientRect();
+
+    setPulls(prev => {
+      const next = prev + 1;
+
+      if (next >= 3) {
+        setTaken(true);
+
+        setTimeout(() => {
+          updateItem("screwdriver", {
+            location: "inventory",
+            pos: {
+              x: rect.left,
+              y: rect.top,
+            }
+          });
+        }, 450);
+      }
+
+      return next;
+    });
+  };
 
   // Detect platform
   useEffect(() => {
@@ -223,6 +255,24 @@ const ProjectCard = forwardRef(function ProjectCard(
     >
       <div className={`${styles.thumbWrap} ${typeClass}`}>
         {displayImgOrVid(imgUrl)}
+
+        {title === "Chrono Bot" && !taken &&
+         items.screwdriver.location !== "inventory" && (
+          <button
+            className={styles.hiddenScrewdriver}
+            onClick={handleScrewdriverClick}
+            style={{
+              transform: `
+                rotate(${pulls * -4}deg)
+                translateY(${pulls * -4}px)
+                translateX(${pulls * 2}px)
+                scale(${(pulls / 3) + 1 })
+              `
+            }}
+          >
+            <img src={screwdriverImg} draggable="false" />
+          </button>
+        )}
       </div>
 
       <div className={styles.body}>
