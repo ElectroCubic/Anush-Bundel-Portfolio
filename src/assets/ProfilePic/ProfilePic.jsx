@@ -1,108 +1,54 @@
-import { useState, useEffect } from "react"
-import { useGame } from "../Context/GameContext"
-import styles from "./ProfilePic.module.css"
-import realPic from "../Images/AnushBundel.png"
-import logoPic from "../Images/ElectroCubicLogo_New.png"
+import { useState } from "react";
+import { useGame } from "../Context/GameContext";
+import styles from "./ProfilePic.module.css";
+import logoPic from "../Images/ElectroCubicLogo_New.png";
+import realPic from "../Images/AnushBundel.png";
 import CogMechanism from "../CogMechanism/CogMechanism.jsx";
+import Panel from "../Interactables/Panel/Panel.jsx";
 
 function ProfilePic() {
   const { state, updateState } = useGame();
-
   const [showReal, setShowReal] = useState(true);
-  const [clickCount, setClickCount] = useState(0);
-  const [isDropping, setIsDropping] = useState(false);
 
-  const FALL_ANIM_DURATION = 1200;  // ms
+  if (!state.gridSolved) {
+    return (
+      <button
+        className={styles.profileContainer}
+        onClick={() => setShowReal(v => !v)}
+      >
+        <img
+          src={logoPic}
+          className={`
+            ${styles.pic}
+            ${!showReal ? styles.visible : ""}
+          `}
+        />
 
-  const handleClick = () => {
-    if (!state.gridSolved) {
-      setShowReal((v) => !v);
-      return;
-    }
-
-    if (state.panelRemoved) return;
-
-    setClickCount((prev) => {
-      const next = prev + 1;
-
-      if (next > 5) {
-        setIsDropping(true);
-
-        setTimeout(() => {
-          updateState("panelRemoved");
-        }, FALL_ANIM_DURATION); 
-      }
-
-      return next;
-    });
-  };
-
-  useEffect(() => {
-    if (state.gridSolved && clickCount === 0) {
-      setClickCount(1);
-      updateState("panelLoose");
-    }
-  }, [state.gridSolved]);
-
-  const tilt = state.panelLoose
-    ? Math.min(clickCount * 3, 15)  // degree rotation per click
-    : 0;
+        <img
+          src={realPic}
+          className={`
+            ${styles.pic}
+            ${showReal ? styles.visible : ""}
+          `}
+        />
+      </button>
+    );
+  }
 
   return (
-    <div className={styles.wrapper}>
-      
+    <Panel
+      isOpen={state.panelRemoved}
+      onOpen={() => updateState("panelRemoved")}
+      coverImage={logoPic}
+      looseAfter={true}
+      clickThreshold={5}
+      className={styles.noGlow}
+    >
       <div className={styles.mechanismLayer}>
         <CogMechanism />
       </div>
-    
-      {!state.panelRemoved && (
-        <button
-          className={`
-            ${styles.profileContainer}
-            ${state.gridSolved ? styles.noGlow : ""}
-            ${isDropping ? styles.dropping : ""}
-          `}
-          onClick={handleClick}
-          style={{
-            transform: state.gridSolved && !isDropping
-              ? `rotate(${tilt}deg) translateY(${tilt * 2}px)`
-              : undefined,
-
-            "--tilt": `${tilt}deg`,
-            "--tiltHeight": `${tilt * 2}px`,
-            "--animDuration": `${FALL_ANIM_DURATION / 1000}s`
-          }}
-        >
-          {!state.gridSolved && (
-            <>
-              <img
-                src={logoPic}
-                className={`${styles.pic} ${styles.logo} ${
-                  !showReal ? styles.visible : ""
-                }`}
-                draggable="false"
-              />
-              <img
-                src={realPic}
-                className={`${styles.pic} ${styles.photo} ${
-                  showReal ? styles.visible : ""
-                }`}
-                draggable="false"
-              />
-            </>
-          )}
-
-          {state.gridSolved && (
-            <img
-              src={logoPic}
-              className={`${styles.pic} ${styles.visible}`}
-              draggable="false"
-            />
-          )}
-        </button>
-      )}
-    </div>
+    </Panel>
   );
 }
 
-export default ProfilePic
+export default ProfilePic;

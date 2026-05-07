@@ -5,72 +5,69 @@
 }
 
 .profileContainer {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    display: grid;
-    place-items: center;
-    isolation: isolate;
-    border: 0;
-    padding: 0;
-    background: transparent;
-    cursor: pointer;
-    transition: transform 0.25s ease;
-    transform-origin: top center;
-    z-index: 2;
+  position: relative;
+  width: 350px;
+  height: 350px;
+  border: 0;
+  padding: 0;
+  border-radius: 50%;
+  background: transparent;
+  display: grid;
+  place-items: center;
+  isolation: isolate;
+  cursor: pointer;
 }
 
 .profileContainer::before {
-    content: "";
-    position: absolute;
-    inset: calc(350px * -0.02);
-    border-radius: 50%;
+  content: "";
+  position: absolute;
+  inset: calc(350px * -0.02);
+  border-radius: 50%;
 
-    background: conic-gradient(
-        from 210deg,
-        var(--accent-color1) 0%,
-        var(--accent-color1) 25%,
-        var(--accent-color2) 75%,
-        var(--accent-color2) 100%
-    );
+  background: conic-gradient(
+    from 210deg,
+    var(--accent-color1) 0%,
+    var(--accent-color1) 25%,
+    var(--accent-color2) 75%,
+    var(--accent-color2) 100%
+  );
 
-    filter: blur(calc(350px * 0.04));
-    opacity: 0.67;
-    z-index: 0;
-    pointer-events: none;
+  filter: blur(calc(350px * 0.04));
+  opacity: 0.67;
+  pointer-events: none;
+  z-index: 0;
 }
 
 .pic {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    object-fit: cover;
-    display: block;
-    position: absolute;
-    inset: 0;
-    z-index: 1;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  border-radius: 50%;
+  object-fit: cover;
+  z-index: 1;
+  opacity: 0;
+  transform: scale(0.9);
 
-    opacity: 0;
-    transform: scale(0.9);
-    transition:
-        opacity 320ms ease,
-        transform 420ms cubic-bezier(0.2, 0.9, 0.3, 1);
+  transition:
+    opacity 320ms ease,
+    transform 420ms cubic-bezier(0.2, 0.9, 0.3, 1);
 }
 
 .logo {
-    object-fit: contain;
-    background: transparent;
+  object-fit: contain;
+  background: transparent;
 }
 
 .photo {
-    object-fit: cover;
-    object-position: center 50%;
+  object-fit: cover;
+  object-position: center 50%;
 }
 
 .visible {
-    opacity: 1;
-    transform: scale(1);
+  opacity: 1;
+  transform: scale(1);
 }
 
 .noGlow::before {
@@ -82,7 +79,11 @@
   inset: 0;
   border-radius: 50%;
   overflow: hidden;
-  contain: layout;
+  contain: layout paint;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 0;
 
   background:
     radial-gradient(
@@ -93,10 +94,6 @@
     );
 
   border: 4px solid rgba(255,255,255,0.05);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 0;
 }
 
 .mechanismLayer::before {
@@ -114,34 +111,15 @@
     inset 0 -20px 40px rgba(0,0,0,0.3);
 }
 
-.dropping {
-  animation: panelFall var(--animDuration) cubic-bezier(0.3, 0.7, 0.4, 1) forwards;
-  pointer-events: none;
-}
-
-@keyframes panelFall {
-  0% {
-    transform: rotate(var(--tilt)) translateY(var(--tiltHeight));
-  }
-
-  25% {
-    transform: rotate(calc(var(--tilt) + 5deg));
-  }
-
-  50% {
-    transform: rotate(calc(var(--tilt) - 5deg));
-  }
-
-  100% {
-    transform: translateY(120vh);
-  }
-}
-
-
 @media (max-width: 900px) {
   .wrapper {
     width: 240px;
     height: 240px;
+  }
+
+  .profileContainer::before {
+    inset: calc(240px * -0.02);
+    filter: blur(calc(240px * 0.04));
   }
 }
 
@@ -149,5 +127,10 @@
   .wrapper {
     width: 200px;
     height: 200px;
+  }
+
+  .profileContainer::before {
+    inset: calc(200px * -0.02);
+    filter: blur(calc(200px * 0.04));
   }
 }
