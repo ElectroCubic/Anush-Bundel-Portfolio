@@ -15,6 +15,7 @@ function Panel({
   looseAfter = false,
   className = "",
   size = "350px",
+  animationClass,
 }) {
 
   const { currentTool } = useTool();
@@ -54,7 +55,7 @@ function Panel({
       onClick={handleClick}
       className={`
         ${styles.panel}
-        ${isDropping ? styles.dropping : ""}
+        ${isDropping ? animationClass : ""}
         ${className}
       `}
       style={{

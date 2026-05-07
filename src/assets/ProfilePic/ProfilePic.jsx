@@ -50,6 +50,7 @@ function ProfilePic() {
         looseAfter={true}
         clickThreshold={5}
         className={styles.noGlow}
+        animationClass={styles.panelFall}
       >
         <img
           src={logoPic}
