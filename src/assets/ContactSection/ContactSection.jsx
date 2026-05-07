@@ -5,6 +5,7 @@ import { faGithub, faLinkedin, faItchIo, faDiscord, faYoutube } from "@fortaweso
 import Button from "../Button/Button.jsx";
 import styles from "./ContactSection.module.css";
 import ScrewContainer from "../Tools/ScrewContainer.jsx";
+import Panel from "../Interactables/Panel/Panel.jsx";
 
 const LINKS = {
     github: "https://github.com/ElectroCubic",
@@ -57,8 +58,26 @@ function ContactSection()
                     onComplete={() => setPanelOpen(true)}
                 >
                   <div className={styles.panelWrapper}>
-                    <div className={styles.backContent}>
-                        <p> Yay you found me! :D</p>
+                    <div className={styles.machineInterior}>
+
+                        {/* <div className={styles.pipe1} />
+                        <div className={styles.pipe2} /> */}
+
+                        <div className={styles.machineGrid}>
+
+                            <div className={styles.coreSlot}>
+                                CORE
+                            </div>
+
+                            <div className={styles.cogSlot}>
+                                COG
+                            </div>
+
+                            <button className={styles.lever}>
+                                POWER
+                            </button>
+
+                        </div>
                     </div>
 
                     <div className={`${styles.card} ${styles.panel} ${panelOpen ? styles.open : ""}`}>

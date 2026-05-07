@@ -5,7 +5,7 @@ import TilePanel from "../TilePanel/TilePanel.jsx"
 
 const words = [
     { id: "design", label: "Design" },
-    { id: "mechanics", label: "Mechanics" },
+    { id: "mechanic", label: "Mechanic" },
     { id: "systems", label: "Systems" },
     { id: "build", label: "Build" },
     { id: "gameplay", label: "Gameplay" },
@@ -17,12 +17,12 @@ const words = [
 
 const SOLUTION = [
     "design", "gameplay", "loops",
-    "build", "mechanics", "systems",
+    "build", "mechanic", "systems",
     "iterate", "player", "feedback",
 ];
 
 const SWAP_ANIM_DURATION = 400; // ms
-const ANIM_DELAY = 40; // ms
+const ANIM_DELAY = 40;          // ms
 
 function shuffleArray(originalArr) {
     const arr = [...originalArr];

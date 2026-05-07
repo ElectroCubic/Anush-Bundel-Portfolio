@@ -15,7 +15,7 @@ import cogImg from "./assets/Images/CogGrey.png"
 
 function App() {
 
-    const { items, moveItem, state } = useGame();
+    const { items, state } = useGame();
 
     return(
         <>

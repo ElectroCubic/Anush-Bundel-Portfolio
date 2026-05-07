@@ -15,8 +15,8 @@ export function GameProvider({ children }) {
 
   const [items, setItems] = useState({
     screwdriver: {
-      location: "hidden",
-      pos: null,
+      location: "inventory",
+      pos: {x: 200, y: 0},    // for temporary testing
     },
 
     cog: {
@@ -34,16 +34,6 @@ export function GameProvider({ children }) {
     setState((prev) => ({
       ...prev,
       [key]: value,
-    }));
-  };
-
-  const moveItem = (itemId, newLocation) => {
-    setItems(prev => ({
-      ...prev,
-      [itemId]: {
-        ...prev[itemId],
-        location: newLocation,
-      }
     }));
   };
 
@@ -79,7 +69,7 @@ export function GameProvider({ children }) {
   }, [state, items]);
 
   return (
-    <GameContext.Provider value={{ state, updateState, progress, items, moveItem, updateItem }}>
+    <GameContext.Provider value={{ progress, state, updateState, items, updateItem }}>
       {children}
     </GameContext.Provider>
   );
