@@ -21,6 +21,7 @@ const TAG_CATEGORY_BY_NAME = {
   Godot: "engine",
   Unity: "engine",
   Unreal: "engine",
+  Defold: "engine",
 
   React: "tool",
   "FL Studio": "tool",
@@ -46,6 +47,9 @@ const TAG_CATEGORY_BY_NAME = {
   Platformer: "genre",
   Horror: "genre",
   Shooter: "genre",
+  Mystery: "genre",
+  Arcade: "genre",
+  Strategy: "genre",
 
   Completed: "status",
   Paused: "status",
