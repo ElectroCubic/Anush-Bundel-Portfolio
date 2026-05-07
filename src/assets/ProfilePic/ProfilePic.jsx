@@ -18,6 +18,8 @@ function ProfilePic() {
       >
         <img
           src={logoPic}
+          draggable="false"
+          loading="lazy"
           className={`
             ${styles.pic}
             ${!showReal ? styles.visible : ""}
@@ -26,6 +28,7 @@ function ProfilePic() {
 
         <img
           src={realPic}
+          draggable="false"
           className={`
             ${styles.pic}
             ${showReal ? styles.visible : ""}
@@ -36,18 +39,26 @@ function ProfilePic() {
   }
 
   return (
-    <Panel
-      isOpen={state.panelRemoved}
-      onOpen={() => updateState("panelRemoved")}
-      coverImage={logoPic}
-      looseAfter={true}
-      clickThreshold={5}
-      className={styles.noGlow}
-    >
+    <div className={styles.wrapper}>
       <div className={styles.mechanismLayer}>
         <CogMechanism />
       </div>
-    </Panel>
+
+      <Panel
+        isOpen={state.panelRemoved}
+        onOpen={() => updateState("panelRemoved")}
+        looseAfter={true}
+        clickThreshold={5}
+        className={styles.noGlow}
+      >
+        <img
+          src={logoPic}
+          className={styles.cover}
+          draggable="false"
+          loading="lazy"
+        />
+      </Panel>
+    </div>
   );
 }
 

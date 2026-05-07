@@ -1,50 +1,71 @@
 import { useState } from "react";
 import { useTool } from "../../Context/ToolContext.jsx";
+import ScrewContainer from "../../Tools/ScrewContainer.jsx";
 import styles from "./Panel.module.css";
 
 function Panel({
   children,
   isOpen = false,
   onOpen,
+  mode = "click",
   requiresTool = false,
   requiredTool = "screwdriver",
-  coverImage,
-  className = "",
-  looseAfter = false,
+  screwArray = [],
   clickThreshold = 5,
+  looseAfter = false,
+  className = "",
   size = "350px",
 }) {
 
   const { currentTool } = useTool();
   const [clickCount, setClickCount] = useState(looseAfter ? 1 : 0);
   const [isDropping, setIsDropping] = useState(false);
+  
+  const tilt = Math.min(clickCount * 3, 15);  // deg rotation per click
+  const FALL_DURATION = 1200;                 // ms
 
-  const FALL_DURATION = 1200;  // ms
-
-  const handleClick = () => {
+  const handleOpen = () => {
     if (isOpen || isDropping) return;
 
-    // requires screwdriver
-    if (requiresTool && currentTool !== requiredTool) {
-      return;
-    }
+    setIsDropping(true);
+    setTimeout(() => {
+      onOpen?.();
+    }, FALL_DURATION);
+  };
 
-    setClickCount((prev) => {
+  const handleClick = () => {
+    if (mode !== "click") return;
+    if (requiresTool && currentTool !== requiredTool)
+      return;
+
+    setClickCount(prev => {
       const next = prev + 1;
 
       if (next >= clickThreshold) {
-        setIsDropping(true);
-
-        setTimeout(() => {
-          onOpen?.();
-        }, FALL_DURATION);
+        handleOpen();
       }
 
       return next;
     });
   };
 
-  const tilt = Math.min(clickCount * 3, 15);
+  const panelContent = (
+    <button
+      onClick={handleClick}
+      className={`
+        ${styles.panel}
+        ${isDropping ? styles.dropping : ""}
+        ${className}
+      `}
+      style={{
+        transform: !isDropping
+          ? `rotate(${tilt}deg) translateY(${tilt * 2}px)`
+          : undefined,
+      }}
+    >
+      {children}
+    </button>
+  );
 
   return (
     <div
@@ -56,31 +77,18 @@ function Panel({
         "--animDuration": `${FALL_DURATION / 1000}s`,
       }}
     >
-
-      <div className={styles.contentLayer}>
-        {children}
-      </div>
-
-      {!isOpen && (
-        <button
-          onClick={handleClick}
-          className={`
-            ${styles.panel}
-            ${isDropping ? styles.dropping : ""}
-            ${className}
-          `}
-          style={{
-            transform: !isDropping
-              ? `rotate(${tilt}deg) translateY(${tilt * 2}px)`
-              : undefined,
-          }}
-        >
-          <img
-            src={coverImage}
-            className={styles.cover}
-            draggable="false"
-          />
-        </button>
+      {!isOpen && (mode === "screws" ? (
+          <ScrewContainer
+            enabled={!isOpen}
+            requiredTool={requiredTool}
+            screwArray={screwArray}
+            onComplete={handleOpen}
+          >
+            {panelContent}
+          </ScrewContainer>
+        ) : (
+          panelContent
+        )
       )}
     </div>
   );
