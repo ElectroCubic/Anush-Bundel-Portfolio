@@ -1,14 +1,13 @@
 .wrapper {
-  --size: 350px;
   position: relative;
-  width: var(--size);
-  height: var(--size);
+  width: 350px;
+  height: 350px;
 }
 
 .profileContainer {
     position: relative;
-    width: var(--size);
-    height: var(--size);
+    width: 100%;
+    height: 100%;
     border-radius: 50%;
     display: grid;
     place-items: center;
@@ -25,7 +24,7 @@
 .profileContainer::before {
     content: "";
     position: absolute;
-    inset: calc(var(--size) * -0.02);
+    inset: calc(350px * -0.02);
     border-radius: 50%;
 
     background: conic-gradient(
@@ -36,7 +35,7 @@
         var(--accent-color2) 100%
     );
 
-    filter: blur(calc(var(--size) * 0.04));
+    filter: blur(calc(350px * 0.04));
     opacity: 0.67;
     z-index: 0;
     pointer-events: none;
@@ -83,6 +82,7 @@
   inset: 0;
   border-radius: 50%;
   overflow: hidden;
+  contain: layout;
 
   background:
     radial-gradient(
@@ -139,13 +139,15 @@
 
 
 @media (max-width: 900px) {
-    .wrapper {
-        --size: 240px;
-    }
+  .wrapper {
+    width: 240px;
+    height: 240px;
+  }
 }
 
 @media (max-width: 520px) {
-    .wrapper {
-        --size: 200px;
-    }
+  .wrapper {
+    width: 200px;
+    height: 200px;
+  }
 }
