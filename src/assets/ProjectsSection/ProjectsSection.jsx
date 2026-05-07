@@ -2,7 +2,7 @@ import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faArrowRight, faArrowLeft} from "@fortawesome/free-solid-svg-icons"
 import ProjectCard from "../ProjectCard/ProjectCard.jsx"
-import profilePic from "../ElectroCubicLogo_New.png"
+import profilePic from "../Images/ElectroCubicLogo_New.png"
 import styles from "./ProjectsSection.module.css"
 import { PROJECTS } from "./projectsData.js"
 import useMediaQuery from "../SkillsSection/useMediaQuery.js"; 

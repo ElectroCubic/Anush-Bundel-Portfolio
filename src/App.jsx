@@ -10,8 +10,8 @@ import ContactSection from "./assets/ContactSection/ContactSection.jsx"
 import WipBanner from "./assets/WipBanner/WipBanner.jsx"
 
 import Tool from "./assets/Tools/Tool.jsx"
-import screwdriverImg from "./assets/Screwdriver.png"
-import cogImg from "./assets/CogGrey.png"
+import screwdriverImg from "./assets/Images/Screwdriver.png"
+import cogImg from "./assets/Images/CogGrey.png"
 
 function App() {
 

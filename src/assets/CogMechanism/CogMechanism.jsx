@@ -1,9 +1,9 @@
 import { useState, useRef } from "react"
-import { useGame } from "../../Context/GameContext.jsx"
-import ScrewContainer from "../../Tools/ScrewContainer.jsx"
+import { useGame } from "../Context/GameContext.jsx"
+import ScrewContainer from "../Tools/ScrewContainer.jsx"
 import styles from "./CogMechanism.module.css"
-import cogImg1 from "../../CogBlue.png"
-import cogImg2 from "../../CogGrey.png"
+import cogImg1 from "../Images/CogBlue.png"
+import cogImg2 from "../Images/CogGrey.png"
 import Cog from "./Cog.jsx"
 
 function CogMechanism() {

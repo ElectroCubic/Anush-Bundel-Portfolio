@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react"
 import { useGame } from "../Context/GameContext"
 import styles from "./ProfilePic.module.css"
-import realPic from "../AnushBundel.png"
-import logoPic from "../ElectroCubicLogo_New.png"
-import CogMechanism from "./CogMechanism/CogMechanism.jsx";
+import realPic from "../Images/AnushBundel.png"
+import logoPic from "../Images/ElectroCubicLogo_New.png"
+import CogMechanism from "../CogMechanism/CogMechanism.jsx";
 
 function ProfilePic() {
   const { state, updateState } = useGame();

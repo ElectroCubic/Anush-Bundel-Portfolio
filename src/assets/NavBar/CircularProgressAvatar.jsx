@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useGame } from "../Context/GameContext";
+import { useGame } from "../Context/GameContext.jsx";
 import styles from "./CircularProgressAvatar.module.css";
 
 function CircularProgressAvatar({

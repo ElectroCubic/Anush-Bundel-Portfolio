@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from "react"
 import { useGame } from "../Context/GameContext.jsx"
-import profileLogo from "../ElectroCubicLogo_New.png"
+import profileLogo from "../Images/ElectroCubicLogo_New.png"
 import styles from "./NavBar.module.css"
 import cipherHover from "./cipherHoverEffect.js"
-import CircularProgressAvatar from "../ProfilePic/CircularProgressAvatar.jsx"
+import CircularProgressAvatar from "./CircularProgressAvatar.jsx"
 
 const SECTIONS = [
     { id: "home", label: "Home" },

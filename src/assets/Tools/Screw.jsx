@@ -1,5 +1,5 @@
 import styles from "./Screw.module.css";
-import screwImg from "../Screw.png";
+import screwImg from "../Images/Screw.png";
 
 function Screw({ x, y, isActive, isRemoving }) {
   return (
