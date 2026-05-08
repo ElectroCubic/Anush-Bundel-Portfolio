@@ -22,9 +22,20 @@
   z-index: 2;
 }
 
-.leverSection,
-.coreSection,
 .mechanismSection {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  contain: layout paint;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.leverSection,
+.coreSection {
   width: 100%;
   min-height: 260px;
 
@@ -35,13 +46,10 @@
   position: relative;
 }
 
-.coreSlot,
-.cogSlot {
+.coreSlot {
   width: 120px;
   height: 120px;
-
   border-radius: 14px;
-
   border: 2px dashed rgba(255,255,255,0.15);
 
   background:
@@ -54,9 +62,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-
   color: rgba(255,255,255,0.35);
-
   font-size: 0.9rem;
   letter-spacing: 0.12em;
 }
@@ -76,11 +82,8 @@
     );
 
   color: white;
-
   letter-spacing: 0.12em;
-
   border: 1px solid rgba(255,255,255,0.08);
-
   cursor: pointer;
 
   transition:

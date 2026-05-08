@@ -1,13 +1,22 @@
+import { useGame } from "../Context/GameContext.jsx"
 import styles from "./ContactPanel.module.css"
+import CogMechanism2 from "../CogMechanism/CogMechanism2.jsx"
 
 function ContactPanel()
 {
+    const { state, updateState } = useGame();
+
     return(
         <div className={styles.machineGrid}>
 
             <div className={styles.leverSection}>
-                <button className={styles.lever}>
-                    POWER
+                <button
+                    className={styles.lever}
+                    onClick={() =>
+                        updateState("electricityPoweredOn", !state.electricityPoweredOn)
+                    }
+                    >
+                    {state.electricityPoweredOn ? "POWER ON" : "POWER OFF"}
                 </button>
             </div>
 
@@ -18,9 +27,7 @@ function ContactPanel()
             </div>
 
             <div className={styles.mechanismSection}>
-                <div className={styles.cogSlot}>
-                    COG
-                </div>
+                <CogMechanism2 />
             </div>
 
         </div>

@@ -1,0 +1,33 @@
+.wrapper {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.cogSlot {
+  position: absolute;
+  width: 18%;
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border: 3px dashed rgba(255,255,255,0.18);
+
+  background:
+    radial-gradient(
+      circle at center,
+      rgba(255,255,255,0.03),
+      rgba(0,0,0,0.15)
+    );
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.slotShaft {
+  width: 18%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: rgba(220,220,220,0.3);
+  border: 3px solid rgba(0,0,0,0.45);
+}

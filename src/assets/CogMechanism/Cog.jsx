@@ -10,6 +10,7 @@ const Cog = forwardRef(function Cog(
   speed = 8,
   reverse = false,
   shaft = false,
+  paused = false,
 },
 ref
 ) {
@@ -25,6 +26,10 @@ ref
 
         "--speed": `${speed}s`,
         "--direction": reverse ? "reverse" : "normal",
+
+        animationPlayState: paused
+          ? "paused"
+          : "running",
       }}
     >
       <img

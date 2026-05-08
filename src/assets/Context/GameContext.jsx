@@ -8,6 +8,7 @@ export function GameProvider({ children }) {
     panelLoose: false,
     panelRemoved: false,
     machinePanelRemoved: false,
+    electricityPoweredOn: true,
     cogInserted: false,
     corePowered: false,
     coreInserted: false,
