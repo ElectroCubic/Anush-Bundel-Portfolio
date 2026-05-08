@@ -28,6 +28,7 @@ function App() {
                     config={{
                         type: "screwdriver",
                         sprite: screwdriverImg,
+                        interactionRadius: 25,
                         size: {x: 64, y: 64},
                         offset: { x: 20, y: 45 },
                         spawn: items.screwdriver.pos,
@@ -46,6 +47,7 @@ function App() {
                     config={{
                         type: "cog",
                         sprite: cogImg,
+                        interactionRadius: 70,
                         size: { x: 90, y: 90 },
                         offset: { x: 45, y: 45 },
                         spawn: items.cog.pos,
@@ -64,6 +66,7 @@ function App() {
                     config={{
                         type: "core",
                         sprite: coreImg,
+                        interactionRadius: 60,
                         size: { x: 90, y: 90 },
                         offset: { x: 45, y: 45 },
                         spawn: items.core.pos,

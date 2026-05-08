@@ -49,12 +49,12 @@ function CogMechanism() {
                 itemType="cog"
                 enabled={!powered}
                 inserted={state.cogInserted}
-                onInsert={(worldPos) => {
-                    updateState("cogInserted");
+                onInsert={(slotCenter) => {
+                    updateState("cogInserted", true);
 
                     updateItem("cog", {
-                        location: "machine",
-                        pos: worldPos,
+                        location: "coreMachine",
+                        pos: slotCenter,
                     });
                 }}
             >

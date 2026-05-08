@@ -3,7 +3,7 @@ import { useTool } from "../Context/ToolContext.jsx";
 import styles from "./Tool.module.css";
 
 function Tool({ config }) {
-  const { type, sprite, size, offset, gravity, spawn } = config;
+  const { type, sprite, size, offset, gravity, spawn, interactionRadius } = config;
 
   const width = size.x;
   const height = size.y;
@@ -85,6 +85,8 @@ function Tool({ config }) {
             x: pos.x + width / 2,
             y: pos.y + height / 2,
           },
+
+          radius: interactionRadius
         });
 
         setCurrentTool(null);
