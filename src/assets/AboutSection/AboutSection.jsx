@@ -78,17 +78,17 @@ function AboutSection() {
     }, [tiles]);
 
     const solved = useMemo(() => {
-
-        if (tiles.length === SOLUTION.length &&
-            tiles.every((t, idx) => t.id === SOLUTION[idx]))
-        {
-            updateState("gridSolved");
-            return true;
-        }
-
-        return false;
-
+        return (
+            tiles.length === SOLUTION.length &&
+            tiles.every((t, idx) => t.id === SOLUTION[idx])
+        );
     }, [tiles]);
+
+    useEffect(() => {
+        if (solved) {
+            updateState("gridSolved");
+        }
+    }, [solved]);
 
     const correctPlacedIds = useMemo(() => {
         const set = new Set();
