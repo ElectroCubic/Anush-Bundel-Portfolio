@@ -14,8 +14,9 @@ function Panel({
   screwArray = [],
   clickThreshold = 5,
   looseAfter = false,
-  className = "",
   animationClass = "",
+  persistent = false,
+  animationDuration = 1000,
 }) {
 
   const { currentTool } = useTool();
@@ -25,7 +26,6 @@ function Panel({
   );
 
   const [isAnimating, setIsAnimating] = useState(false);
-  const FALL_DURATION = 1200;
   const tilt = Math.min(clickCount * 3, 15);
 
   const handleOpen = () => {
@@ -34,11 +34,20 @@ function Panel({
     setIsAnimating(true);
 
     setTimeout(() => {
-      onOpen?.();
-    }, FALL_DURATION);
+      if (persistent) {
+        onOpen?.(true);
+      } else {
+        onOpen?.();
+      }
+    }, animationDuration);
   };
 
   const handleClick = () => {
+
+    if (persistent) {
+      onOpen?.(!isOpen);
+      return;
+    }
 
     if (mode !== "click") return;
 
@@ -56,20 +65,39 @@ function Panel({
     });
   };
 
+
+  const animStyle =
+    mode === "click"
+      ? {
+          transformOrigin: "top center",
+          transition: "transform 0.25s ease",
+
+          transform: !isAnimating
+            ? `rotate(${tilt}deg) translateY(${tilt * 2}px)`
+            : undefined,
+        }
+
+      : {
+          transition: `
+            transform
+            var(--animDuration)
+            cubic-bezier(0.2, 0.7, 0.2, 1)
+          `,
+        };
+
   const coverPanel = (
     <div
       onClick={handleClick}
       className={`
         ${styles.panel}
-        ${isAnimating ? animationClass : ""}
-        ${className}
+
+        ${
+          persistent ? 
+            (isOpen ? animationClass : "") : 
+            (isAnimating ? animationClass : "")
+        }
       `}
-      style={{
-        cursor: (mode === "click") ? "pointer" : "default",
-        transform: !isAnimating
-          ? `rotate(${tilt}deg) translateY(${tilt * 2}px)`
-          : undefined,
-      }}
+      style={animStyle}
     >
       {cover}
     </div>
@@ -81,14 +109,14 @@ function Panel({
       style={{
         "--tilt": `${tilt}deg`,
         "--tiltHeight": `${tilt * 2}px`,
-        "--animDuration": `${FALL_DURATION / 1000}s`,
+        "--animDuration": `${animationDuration / 1000}s`,
       }}
     >
 
       <div 
         className={styles.sizeLayer} 
         style={{
-          display: isOpen ? "block" : "none",
+          display: isOpen && !persistent ? "block" : "none",
         }}>
 
         {cover}
@@ -105,8 +133,7 @@ function Panel({
       </div>
 
       {/* COVER */}
-      {!isOpen && (
-        mode === "screws"
+      {(!isOpen || persistent) && (mode === "screws"
           ? (
             <ScrewContainer
               fullSize={true}

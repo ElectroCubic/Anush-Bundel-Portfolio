@@ -42,6 +42,7 @@ function ProfilePic() {
     <div className={styles.wrapper}>
       <Panel
         isOpen={state.panelRemoved}
+        animationDuration={1200}
         onOpen={() => updateState("panelRemoved")}
         looseAfter={true}
         clickThreshold={5}
