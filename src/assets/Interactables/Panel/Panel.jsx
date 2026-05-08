@@ -89,6 +89,11 @@ function Panel({
       }}
     >
 
+      {/* SIZING LAYER */}
+      <div className={styles.sizeLayer}>
+        {cover}
+      </div>
+
       {/* HIDDEN CONTENT */}
       <div
         className={styles.contentLayer}

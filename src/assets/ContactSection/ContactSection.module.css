@@ -43,12 +43,12 @@
 }
 
 .contactBlock {
+  position: relative;
   width: 100%;
-  max-width: 520px;
-  justify-self: end;
 }
 
 .card {
+  height: 100%;
   width: 100%;
   padding: 2rem 1.5rem;
   border-radius: 18px;
@@ -319,12 +319,10 @@ button.extraPill:active {
   position: relative;
 
   width: 100%;
-  min-height: 520px;
+  height: 100%;
 
   z-index: 0;
-
   border-radius: 18px;
-
   background:
     radial-gradient(circle at center,
       #2d2d2d 0%,

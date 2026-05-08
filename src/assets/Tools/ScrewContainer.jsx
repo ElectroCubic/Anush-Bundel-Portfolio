@@ -70,7 +70,10 @@ function ScrewContainer({
       ref={ref}
       style={{
         position: "absolute",
-        inset: 0,
+        top: 0,
+        left: 0,
+        width: "100%",
+        height: "100%",
         "--animDuration": `${UNSCREW_ANIM_DURATION / 1000}s` }}
     >
       {children}
