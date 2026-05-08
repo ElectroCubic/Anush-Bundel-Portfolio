@@ -7,9 +7,13 @@ import useSkillTreeLayout from "./useSkillTreeLayout.js";
 import useSkillPathHighlight from "./useSkillPathHighlight.js";
 import SkillTreeSvg from "./SkillTreeSvg.jsx";
 import SkillTooltip from "./SkillTooltip.jsx";
+import ScrewContainer from "../Tools/ScrewContainer.jsx";
+import { useGame } from "../Context/GameContext.jsx";
 
 
 function SkillsSection() {
+  const { state, items, updateItem } = useGame();
+
   const isNarrow = useMediaQuery("(max-width: 1100px)");
 
   const [activeId, setActiveId] = useState(null);
@@ -18,6 +22,7 @@ function SkillsSection() {
   const stageRef = useRef(null);
   const svgRef = useRef(null);
   const tooltipRef = useRef(null);
+  const coreRef = useRef(null);
 
   // Tooltip tracking
   const rafRef = useRef(0);
@@ -25,6 +30,10 @@ function SkillsSection() {
 
   const { nodes, edges, parentById } = useMemo(() => flattenTree(TREE), []);
   const { layout, centers, viewW, viewH } = useSkillTreeLayout({ nodes, isNarrow });
+
+  const coreCenter = centers.get("core");
+  const [corePos, setCorePos] = useState(null);
+
   const { isDimNode, isPathEdge } = useSkillPathHighlight({ activeId, parentById });
 
   const getNodeMeta = (id) => nodes.find((n) => n.id === id) ?? null;
@@ -38,6 +47,23 @@ function SkillsSection() {
 
   const NARROW_TOOLTIP_PADDING = 12;  // px
   const ARROW_GAP = 16;               // px
+
+  useEffect(() => {             // update core position
+    if (!coreCenter) return;
+
+    const update = () => {
+      setCorePos(
+        svgToStageXY(coreCenter.x, coreCenter.y)
+      );
+    };
+    update();
+    window.addEventListener("resize", update);
+    
+    return () => {
+      window.removeEventListener("resize", update);
+    };
+
+  }, [coreCenter, viewW, viewH]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -325,6 +351,48 @@ function SkillsSection() {
           revealed={revealed}
           depthById={depthById}
         />
+
+        {corePos && items.core.location === "skillTree" && (
+          <div className={styles.overlayLayer}>
+
+            <div
+              className={styles.coreOverlay}
+              style={{
+                left: `${corePos.left}px`,
+                top: `${corePos.top}px`,
+              }}
+            >
+
+              <ScrewContainer
+                enabled={true}
+                screwArray={[
+                  { id: 1, x: 0.4, y: 0.4 },
+                ]}
+                onComplete={() => {
+
+                  const rect = coreRef.current?.getBoundingClientRect();
+                  if (!rect) return;
+
+                  updateItem("core", {
+                    location: "inventory",
+                    pos: {
+                      x: rect.left,
+                      y: rect.top,
+                    }
+                  });
+                }}
+              >
+                <div
+                  ref={coreRef}
+                  className={styles.coreHitbox}
+                />
+
+              </ScrewContainer>
+
+            </div>
+
+          </div>
+        )}
 
         <SkillTooltip
           tooltip={tooltip}

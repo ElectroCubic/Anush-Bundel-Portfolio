@@ -40,7 +40,7 @@ function CogMechanism() {
             shaft={true}
         />
 
-        <Cog
+        <Cog 
             src={cogImg2}
             size="20%"
             x="8%"

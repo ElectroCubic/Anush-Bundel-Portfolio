@@ -42,21 +42,16 @@ function Panel({
 
     if (mode !== "click") return;
 
-    if (
-      requiresTool &&
-      currentTool !== requiredTool
-    ) {
+    if (requiresTool && currentTool !== requiredTool) {
       return;
     }
 
     setClickCount(prev => {
-
       const next = prev + 1;
 
       if (next >= clickThreshold) {
         handleOpen();
       }
-
       return next;
     });
   };
@@ -124,7 +119,6 @@ function Panel({
           )
           : coverPanel
       )}
-
     </div>
   );
 }

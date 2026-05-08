@@ -12,6 +12,7 @@ import WipBanner from "./assets/WipBanner/WipBanner.jsx"
 import Tool from "./assets/Tools/Tool.jsx"
 import screwdriverImg from "./assets/Images/Screwdriver.png"
 import cogImg from "./assets/Images/CogGrey.png"
+import coreImg from "./assets/Images/Socket.png"
 
 function App() {
 
@@ -48,6 +49,24 @@ function App() {
                         size: { x: 90, y: 90 },
                         offset: { x: 45, y: 45 },
                         spawn: items.cog.pos,
+                        gravity: {
+                            initialVelocity: 0,
+                            acceleration: 0.45,
+                            interval: 16,
+                            maxVelocity: 50,
+                        },
+                    }}
+                />
+            )}
+
+            {items.core.location === "inventory" && (
+                <Tool
+                    config={{
+                        type: "core",
+                        sprite: coreImg,
+                        size: { x: 90, y: 90 },
+                        offset: { x: 45, y: 45 },
+                        spawn: items.core.pos,
                         gravity: {
                             initialVelocity: 0,
                             acceleration: 0.45,

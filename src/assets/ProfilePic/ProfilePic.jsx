@@ -40,16 +40,12 @@ function ProfilePic() {
 
   return (
     <div className={styles.wrapper}>
-
       <Panel
         isOpen={state.panelRemoved}
         onOpen={() => updateState("panelRemoved")}
-
         looseAfter={true}
         clickThreshold={5}
-
         animationClass={styles.panelFall}
-
         cover={
           <img
             src={logoPic}
@@ -63,9 +59,7 @@ function ProfilePic() {
         <div className={styles.mechanismLayer}>
           <CogMechanism />
         </div>
-
       </Panel>
-
     </div>
   );
 }

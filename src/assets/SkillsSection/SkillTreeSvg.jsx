@@ -1,3 +1,4 @@
+import { useGame } from "../Context/GameContext";
 import styles from "./SkillsSection.module.css"
 
 const UI = {
@@ -100,6 +101,8 @@ function SkillTreeSvg({
   const nodeShadowDy = pick(UI.filters.nodeShadow.dy.narrow, UI.filters.nodeShadow.dy.wide, isNarrow);
   const nodeShadowStd = pick(UI.filters.nodeShadow.stdDev.narrow, UI.filters.nodeShadow.stdDev.wide, isNarrow);
   const coreGlowBlur = pick(UI.filters.coreGlowBlur.narrow, UI.filters.coreGlowBlur.wide, isNarrow);
+
+  const { items } = useGame();
 
   const renderLabel = (label, x, y) => {
     const lines = String(label).split("\n");
@@ -330,7 +333,7 @@ function SkillTreeSvg({
                   filter="url(#coreGlow)"
                 />
 
-                {hasIcon && (
+                {hasIcon && items.core.location !== "inventory" && (
                   <image
                     href={n.icon}
                     x={c.x - iconSize / 2}
