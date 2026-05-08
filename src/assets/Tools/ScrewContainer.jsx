@@ -7,6 +7,7 @@ function ScrewContainer({
   screwArray,
   onComplete,
   enabled = true,
+  fullSize = false,
 }) {
   const { currentTool, dropEvent, setDropEvent, getToolTip, isNear } = useTool();
 
@@ -37,44 +38,48 @@ function ScrewContainer({
     }, UNSCREW_ANIM_DURATION); 
   };
 
-    useEffect(() => {
-        if (!dropEvent) return;
+  useEffect(() => {
+      if (!dropEvent) return;
 
-        if (!enabled) return;
+      if (!enabled) return;
 
-        if (dropEvent.tool !== "screwdriver") return;
+      if (dropEvent.tool !== "screwdriver") return;
 
-        const rect = ref.current?.getBoundingClientRect();
-        if (!rect) return;
+      const rect = ref.current?.getBoundingClientRect();
+      if (!rect) return;
 
-        const tip = getToolTip();
+      const tip = getToolTip();
 
-        const target = screws.find((s) => {
-            const world = {
-              x: rect.left + s.x * rect.width,
-              y: rect.top + s.y * rect.height,
-            };
-            return isNear(tip, world);
-        });
+      const target = screws.find((s) => {
+          const world = {
+            x: rect.left + s.x * rect.width,
+            y: rect.top + s.y * rect.height,
+          };
+          return isNear(tip, world);
+      });
 
-        if (target) {
-            removeScrew(target.id);
-        }
+      if (target) {
+          removeScrew(target.id);
+      }
 
-        setDropEvent(null); // Reset drop point
+      setDropEvent(null); // Reset drop point
 
-    }, [dropEvent]);
+  }, [dropEvent]);
+
+  const containerStyle = fullSize ? 
+  {position: "relative",
+   width: "100%", 
+   height: "100%",
+   "--animDuration": `${UNSCREW_ANIM_DURATION / 1000}s`} : 
+   
+   {position: "absolute",
+    inset: 0,
+    "--animDuration": `${UNSCREW_ANIM_DURATION / 1000}s`}
 
   return (
     <div 
       ref={ref}
-      style={{
-        position: "absolute",
-        top: 0,
-        left: 0,
-        width: "100%",
-        height: "100%",
-        "--animDuration": `${UNSCREW_ANIM_DURATION / 1000}s` }}
+      style={containerStyle}
     >
       {children}
 

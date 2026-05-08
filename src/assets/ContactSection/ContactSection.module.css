@@ -44,11 +44,10 @@
 
 .contactBlock {
   position: relative;
-  width: 100%;
+  min-width: 520px;
 }
 
 .card {
-  height: 100%;
   width: 100%;
   padding: 2rem 1.5rem;
   border-radius: 18px;

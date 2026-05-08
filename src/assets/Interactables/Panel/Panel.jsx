@@ -62,7 +62,7 @@ function Panel({
   };
 
   const coverPanel = (
-    <button
+    <div
       onClick={handleClick}
       className={`
         ${styles.panel}
@@ -76,7 +76,7 @@ function Panel({
       }}
     >
       {cover}
-    </button>
+    </div>
   );
 
   return (
@@ -89,8 +89,12 @@ function Panel({
       }}
     >
 
-      {/* SIZING LAYER */}
-      <div className={styles.sizeLayer}>
+      <div 
+        className={styles.sizeLayer} 
+        style={{
+          display: isOpen ? "block" : "none",
+        }}>
+
         {cover}
       </div>
 
@@ -109,6 +113,7 @@ function Panel({
         mode === "screws"
           ? (
             <ScrewContainer
+              fullSize={true}
               enabled={!isOpen}
               screwArray={screwArray}
               onComplete={handleOpen}
