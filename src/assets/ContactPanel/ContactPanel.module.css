@@ -2,48 +2,37 @@
   position: relative;
 
   width: 100%;
-  height: 100%;
-
-  z-index: 0;
-  border-radius: 18px;
-  background:
-    radial-gradient(circle at center,
-      #2d2d2d 0%,
-      #171717 70%,
-      #101010 100%);
-
-  border: 2px solid rgba(255,255,255,0.05);
-
-  overflow: hidden;
+  min-height: 360px;
 
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.machineInterior::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-
-  box-shadow:
-    inset 0 0 40px rgba(0,0,0,0.8),
-    inset 0 0 80px rgba(0,0,0,0.55);
-
-  pointer-events: none;
-}
-
 .machineGrid {
   position: relative;
-  width: 80%;
-  height: 75%;
+  width: 100%;
+  height: 100%;
+  padding: 1rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 2rem;
+  align-items: center;
+  justify-items: center;
+  z-index: 2;
+}
+
+.leverSection,
+.coreSection,
+.mechanismSection {
+  width: 100%;
+  min-height: 260px;
 
   display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: center;
   align-items: center;
 
-  z-index: 2;
+  position: relative;
 }
 
 .coreSlot,
