@@ -53,15 +53,18 @@ function ContactSection()
             <div className={styles.contactBlock}>
                 <div className={styles.machinePanelWrapper}>
                     <Panel
-                        isOpen={state.machinePanelRemoved}
                         persistent={true}
+                        isOpen={state.machinePanelRemoved}
                         animationDuration={500}
                         mode="screws"
                         screwArray={[
                             { id: 1, x: 0.04, y: 0.88 },
                             { id: 2, x: 0.92, y: 0.88 }
                         ]}
-                        onOpen={(value) => updateState("machinePanelRemoved", value)}
+                        onOpen={(value) => {
+                            updateState("machinePanelRemoved", value);
+                            updateState("machinePanelUnlocked", true);
+                        }}
                         animationClass={styles.machineSlide}
                         cover={
                             <div className={styles.card}>

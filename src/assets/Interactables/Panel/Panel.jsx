@@ -9,21 +9,20 @@ function Panel({
   isOpen = false,
   onOpen,
   mode = "click",
+  persistent = false,
   requiresTool = false,
   requiredTool = "screwdriver",
   screwArray = [],
   clickThreshold = 5,
   looseAfter = false,
   animationClass = "",
-  persistent = false,
   animationDuration = 1000,
 }) {
 
   const { currentTool } = useTool();
 
-  const [clickCount, setClickCount] = useState(
-    looseAfter ? 1 : 0
-  );
+  const [clickCount, setClickCount] = useState(looseAfter ? 1 : 0);
+  const [isUnlocked, setIsUnlocked] = useState(false);
 
   const [isAnimating, setIsAnimating] = useState(false);
   const tilt = Math.min(clickCount * 3, 15);
@@ -35,16 +34,16 @@ function Panel({
 
     setTimeout(() => {
       if (persistent) {
-        onOpen?.(true);
-      } else {
-        onOpen?.();
+        setIsUnlocked(true);
       }
+      onOpen?.();
+
     }, animationDuration);
   };
 
   const handleClick = () => {
 
-    if (persistent) {
+    if (persistent && isUnlocked) {
       onOpen?.(!isOpen);
       return;
     }
@@ -61,10 +60,10 @@ function Panel({
       if (next >= clickThreshold) {
         handleOpen();
       }
+
       return next;
     });
   };
-
 
   const animStyle =
     mode === "click"
