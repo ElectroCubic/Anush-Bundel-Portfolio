@@ -21,13 +21,11 @@
 
 .panel {
   position: relative;
-
   width: 100%;
-  cursor: pointer;
+
   transform-origin: top center;
   transition: transform 0.25s ease;
 
   z-index: 3;
-
   user-select: none;
 }

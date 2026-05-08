@@ -70,6 +70,7 @@ function Panel({
         ${className}
       `}
       style={{
+        cursor: (mode === "click") ? "pointer" : "default",
         transform: !isAnimating
           ? `rotate(${tilt}deg) translateY(${tilt * 2}px)`
           : undefined,
