@@ -7,6 +7,7 @@ import Button from "../Button/Button.jsx";
 import styles from "./ContactSection.module.css";
 import ScrewContainer from "../Tools/ScrewContainer.jsx";
 import Panel from "../Interactables/Panel/Panel.jsx";
+import ContactPanel from "../ContactPanel/ContactPanel.jsx";
 
 const LINKS = {
     github: "https://github.com/ElectroCubic",
@@ -126,23 +127,7 @@ function ContactSection()
                             </div>
                         }
                     >
-                        <div className={styles.machineInterior}>
-
-                            {/* <div className={styles.pipe1} />
-                            <div className={styles.pipe2} /> */}
-
-                            <div className={styles.machineGrid}>
-                                <div className={styles.coreSlot}>
-                                    CORE
-                                </div>
-                                <div className={styles.cogSlot}>
-                                    COG
-                                </div>
-                                <button className={styles.lever}>
-                                    POWER
-                                </button>
-                            </div>
-                        </div>
+                        <ContactPanel />
                     </Panel>
                 </div>
             </div>
