@@ -80,7 +80,11 @@ function Tool({ config }) {
       if (currentTool === type) {
         setDropEvent({
           tool: type,
-          pos,
+
+          pos: {
+            x: pos.x + width / 2,
+            y: pos.y + height / 2,
+          },
         });
 
         setCurrentTool(null);

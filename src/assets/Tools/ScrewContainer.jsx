@@ -16,6 +16,7 @@ function ScrewContainer({
 
   const ref = useRef();
 
+  const SCREW_RADIUS = 25;           // px
   const UNSCREW_ANIM_DURATION = 450; // ms
 
   const removeScrew = (id) => {
@@ -55,7 +56,7 @@ function ScrewContainer({
             x: rect.left + s.x * rect.width,
             y: rect.top + s.y * rect.height,
           };
-          return isNear(tip, world);
+          return isNear(tip, world, SCREW_RADIUS);
       });
 
       if (target) {
@@ -93,7 +94,7 @@ function ScrewContainer({
         const active =
           enabled &&
           currentTool === "screwdriver" &&
-          isNear(getToolTip(), world);
+          isNear(getToolTip(), world, SCREW_RADIUS);
 
         return (
           <Screw 

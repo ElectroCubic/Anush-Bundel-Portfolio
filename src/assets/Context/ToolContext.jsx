@@ -10,7 +10,6 @@ export function ToolProvider({ children }) {
 
   const CONFIG = {
     tipOffset: { x: 58, y: 6 },
-    screwRadius: 25,
   };
 
   const getToolTip = () => ({
@@ -18,10 +17,11 @@ export function ToolProvider({ children }) {
     y: toolPos.y + CONFIG.tipOffset.y,
   });
 
-  const isNear = (a, b) => {
+  const isNear = (a, b, radius) => {
     const dx = a.x - b.x;
     const dy = a.y - b.y;
-    return Math.sqrt(dx * dx + dy * dy) < CONFIG.screwRadius;
+
+    return Math.sqrt(dx * dx + dy * dy) < radius;
   };
 
   return (

@@ -3,9 +3,10 @@ import styles from "./CogMechanism2.module.css"
 import cogImg1 from "../Images/CogBlue.png"
 import cogImg2 from "../Images/CogGrey.png"
 import Cog from "./Cog.jsx"
+import ItemSlot from "../Interactables/ItemSlot/ItemSlot.jsx";
 
 function CogMechanism() {
-  const { state, items, updateItem } = useGame();
+  const { state, items, updateItem, updateState } = useGame();
 
   const powered = state.electricityPoweredOn;
 
@@ -44,15 +45,29 @@ function CogMechanism() {
                 paused={!powered}
             />
         ) : (
-            <div
-                className={styles.cogSlot}
-                style={{
-                    left: "83%",
-                    top: "50%",
+            <ItemSlot
+                itemType="cog"
+                enabled={!powered}
+                inserted={state.cogInserted}
+                onInsert={(worldPos) => {
+                    updateState("cogInserted");
+
+                    updateItem("cog", {
+                        location: "machine",
+                        pos: worldPos,
+                    });
                 }}
             >
-                <div className={styles.slotShaft} />
-            </div>
+                <div
+                    className={styles.cogSlot}
+                    style={{
+                        left: "83%",
+                        top: "50%",
+                    }}
+                >
+                    <div className={styles.slotShaft} />
+                </div>
+            </ItemSlot>
         )}
 
         <Cog
