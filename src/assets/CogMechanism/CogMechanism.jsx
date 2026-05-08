@@ -9,6 +9,8 @@ import Cog from "./Cog.jsx"
 function CogMechanism() {
   const { state, items, updateItem } = useGame();
   const cogRef = useRef();
+  const powered = state.electricityPoweredOn;
+  const canRemoveCog = (state.panelRemoved && !powered);
 
   return (
     <div className={styles.wrapper}>
@@ -19,6 +21,7 @@ function CogMechanism() {
             y="30%"
             speed={6}
             shaft={true}
+            paused={!powered}
         />
 
         <Cog
@@ -29,6 +32,7 @@ function CogMechanism() {
             speed={6}
             reverse
             shaft={true}
+            paused={!powered}
         />
 
         <Cog
@@ -38,6 +42,7 @@ function CogMechanism() {
             y="76%"
             speed={6}
             shaft={true}
+            paused={!powered}
         />
 
         <Cog 
@@ -47,6 +52,7 @@ function CogMechanism() {
             y="22%"
             speed={3}
             shaft={true}
+            paused={!powered}
         />
 
         <Cog
@@ -55,8 +61,9 @@ function CogMechanism() {
             x="25%"
             y="82%"
             speed={20}
-            shaft={true}
             reverse
+            shaft={true}
+            paused={!powered}
         />
 
         <Cog
@@ -65,13 +72,14 @@ function CogMechanism() {
             x="89%"
             y="81%"
             speed={1}
-            shaft={true}
             reverse
+            shaft={true}
+            paused={!powered}
         />
 
     {items.cog.location === "cogMechanism" && (
         <ScrewContainer
-            enabled={state.panelRemoved}
+            enabled={canRemoveCog}
             screwArray={[
                 { id: 1, x: 0.2325, y: 0.1225 }
             ]}
@@ -96,6 +104,7 @@ function CogMechanism() {
                 y="16%"
                 speed={3}
                 reverse
+                paused={!powered}
             />
         </ScrewContainer>
     )}

@@ -68,6 +68,7 @@ function Panel({
   const animStyle =
     mode === "click"
       ? {
+          cursor: "pointer",
           transformOrigin: "top center",
           transition: "transform 0.25s ease",
 
@@ -77,6 +78,7 @@ function Panel({
         }
 
       : {
+          cursor: isUnlocked ? "pointer" : "default",
           transition: `
             transform
             var(--animDuration)
