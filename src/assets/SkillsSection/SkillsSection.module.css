@@ -140,7 +140,7 @@
 
   color: var(--text-color1);
   pointer-events: none;
-  z-index: 10;
+  z-index: 100;
 }
 
 .tooltipTitle {
@@ -165,6 +165,7 @@
 .tooltipNarrow {
   transform: translate(-50%, calc(-100% - 16px));
   max-width: min(90vw, 240px);
+  z-index: 100;
 }
 
 .tooltipNarrow::after {

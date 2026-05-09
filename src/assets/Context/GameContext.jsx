@@ -4,7 +4,7 @@ const GameContext = createContext();
 
 export function GameProvider({ children }) {
   const [state, setState] = useState({
-    gridSolved: true,
+    gridSolved: false,
     panelLoose: false,
     panelRemoved: false,
     machinePanelRemoved: false,
@@ -17,8 +17,8 @@ export function GameProvider({ children }) {
 
   const [items, setItems] = useState({
     screwdriver: {
-      location: "inventory",
-      pos: {x: 200, y: 0},    // for temporary testing
+      location: "hidden",
+      pos: null,    // for temporary testing
     },
 
     cog: {
