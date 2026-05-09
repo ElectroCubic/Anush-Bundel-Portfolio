@@ -5,7 +5,7 @@ import cogImg2 from "../Images/CogGrey.png"
 import Cog from "./Cog.jsx"
 import ItemSlot from "../Interactables/ItemSlot/ItemSlot.jsx";
 
-function CogMechanism() {
+function CogMechanism2() {
   const { state, items, updateItem, updateState } = useGame();
 
   const powered = state.electricityPoweredOn;
@@ -33,31 +33,49 @@ function CogMechanism() {
             paused={!powered}
         />
 
-        {state.cogInserted ? (
-            <Cog
-                src={cogImg2}
-                size="18%"
-                x="83%"
-                y="50%"
-                speed={5}
-                reverse
-                shaft={true}
-                paused={!powered}
-            />
-        ) : (
-            <ItemSlot
-                itemType="cog"
-                enabled={!powered}
-                inserted={state.cogInserted}
-                onInsert={(slotCenter) => {
-                    updateState("cogInserted", true);
+        <ItemSlot
+            itemType="cog"
+            inserted={state.cogInserted}
+            canInsert={!powered}
+            canRemove={!powered}
+            onInsert={(slotCenter) => {
+                updateState("cogInserted", true);
 
-                    updateItem("cog", {
-                        location: "coreMachine",
-                        pos: slotCenter,
-                    });
-                }}
-            >
+                updateItem("cog", {
+                    location: "coreMachine",
+                    pos: slotCenter,
+                });
+            }}
+
+            onRemove={(slotCenter) => {
+                updateState("cogInserted", false);
+
+                updateItem("cog", {
+                    location: "inventory",
+
+                    pos: {
+                        x: slotCenter.x - items.cog.offset.x,
+                        y: slotCenter.y - items.cog.offset.y,
+                    },
+                });
+            }}
+        >
+            {state.cogInserted ? (
+
+                <Cog
+                    src={cogImg2}
+                    size="18%"
+                    x="83%"
+                    y="50%"
+                    speed={5}
+                    reverse
+                    shaft={true}
+                    paused={!powered}
+                    interactive={true}
+                />
+
+            ) : (
+
                 <div
                     className={styles.cogSlot}
                     style={{
@@ -67,8 +85,9 @@ function CogMechanism() {
                 >
                     <div className={styles.slotShaft} />
                 </div>
-            </ItemSlot>
-        )}
+            )}
+
+        </ItemSlot>
 
         <Cog
             src={cogImg2}
@@ -104,4 +123,4 @@ function CogMechanism() {
   );
 }
 
-export default CogMechanism
+export default CogMechanism2

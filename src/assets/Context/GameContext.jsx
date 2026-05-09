@@ -4,7 +4,7 @@ const GameContext = createContext();
 
 export function GameProvider({ children }) {
   const [state, setState] = useState({
-    gridSolved: false,
+    gridSolved: true,
     panelLoose: false,
     panelRemoved: false,
     machinePanelRemoved: false,
@@ -17,18 +17,21 @@ export function GameProvider({ children }) {
 
   const [items, setItems] = useState({
     screwdriver: {
-      location: "hidden",
-      pos: null,    // for temporary testing
+      location: "inventory",
+      pos: {x: 200, y: 0},        // for temporary testing
+      offset: { x: 20, y: 45 },
     },
 
     cog: {
       location: "cogMechanism",
       pos: null,
+      offset: { x: 45, y: 45 },
     },
 
     core: {
       location: "skillTree",
       pos: null,
+      offset: { x: 45, y: 45 },
       powered: false,
     },
   });

@@ -11,6 +11,8 @@ const Cog = forwardRef(function Cog(
   reverse = false,
   shaft = false,
   paused = false,
+  interactive = false,
+  ...props
 },
 ref
 ) {
@@ -19,7 +21,9 @@ ref
     <div
       ref={ref}
       className={styles.cog}
+      {...props}
       style={{
+        pointerEvents: interactive ? "auto" : "none",
         width: size,
         left: x,
         top: y,

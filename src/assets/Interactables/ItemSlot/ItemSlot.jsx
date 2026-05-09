@@ -4,26 +4,25 @@ import { useTool } from "../../Context/ToolContext.jsx";
 function ItemSlot({
   children,
   itemType,
-  enabled = true,
   inserted = false,
+  canInsert = true,
+  canRemove = true,
   onInsert,
+  onRemove,
 }) {
 
-  const {
-    dropEvent,
-    setDropEvent,
-    isNear,
-  } = useTool();
-
+  const { dropEvent, setDropEvent, isNear } = useTool();
   const slotRef = useRef();
+
+  // INSERT LOGIC
 
   useEffect(() => {
 
     if (!dropEvent) return;
 
-    if (!enabled) return;
-
     if (inserted) return;
+
+    if (!canInsert) return;
 
     if (dropEvent.tool !== itemType) return;
 
@@ -35,23 +34,38 @@ function ItemSlot({
       y: rect.top + rect.height / 2,
     };
 
-    if (
-      isNear(
-        dropEvent.pos,
-        slotCenter,
-        dropEvent.radius
-      )
-    ) {
+    const success = isNear(dropEvent.pos, slotCenter, dropEvent.radius);
 
+    if (success) {
       onInsert?.(slotCenter);
     }
 
-    setDropEvent(null);
+    setDropEvent(null);   // Resets the drop point
 
   }, [dropEvent]);
 
+  // REMOVE LOGIC
+
+  const handleRemove = () => {
+
+    if (!inserted) return;
+
+    if (!canRemove) return;
+
+    const rect = slotRef.current?.getBoundingClientRect();
+    if (!rect) return;
+
+    const slotCenter = {
+      x: rect.left + rect.width / 2,
+      y: rect.top + rect.height / 2,
+    };
+
+    onRemove?.(slotCenter);
+  };
+
   return cloneElement(children, {
     ref: slotRef,
+    onClick: inserted ? handleRemove : undefined,
   });
 }
 

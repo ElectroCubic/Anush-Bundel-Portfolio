@@ -30,7 +30,7 @@ function App() {
                         sprite: screwdriverImg,
                         interactionRadius: 25,
                         size: {x: 64, y: 64},
-                        offset: { x: 20, y: 45 },
+                        offset: items.screwdriver.offset,
                         spawn: items.screwdriver.pos,
                         gravity: {
                             initialVelocity: 0,
@@ -49,7 +49,7 @@ function App() {
                         sprite: cogImg,
                         interactionRadius: 70,
                         size: { x: 90, y: 90 },
-                        offset: { x: 45, y: 45 },
+                        offset: items.cog.offset,
                         spawn: items.cog.pos,
                         gravity: {
                             initialVelocity: 0,
@@ -68,7 +68,7 @@ function App() {
                         sprite: coreImg,
                         interactionRadius: 60,
                         size: { x: 90, y: 90 },
-                        offset: { x: 45, y: 45 },
+                        offset: items.core.offset,
                         spawn: items.core.pos,
                         gravity: {
                             initialVelocity: 0,
