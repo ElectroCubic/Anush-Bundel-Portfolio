@@ -9,7 +9,9 @@ function Tool({ config }) {
   const height = size.y;
 
   const { currentTool, setCurrentTool, setToolPos, setDropEvent } = useTool();
-
+  
+  const isEquipped = currentTool === type;
+  
   const [pos, setPos] = useState(spawn);
 
   useEffect(() => {
@@ -18,7 +20,14 @@ function Tool({ config }) {
     }
   }, [spawn]);
 
-  const [isDropping, setIsDropping] = useState(true);
+  const [isDropping, setIsDropping] = useState(currentTool !== type);
+
+  useEffect(() => {
+    if (isEquipped) {
+      setIsDropping(false);
+    }
+
+  }, [currentTool]);
 
   // sync global pos
   useEffect(() => {
@@ -28,7 +37,7 @@ function Tool({ config }) {
   // follow mouse
   useEffect(() => {
     const move = (e) => {
-      if (currentTool === type) {
+      if (isEquipped) {
         const x = Math.max(
           0,
           Math.min(window.innerWidth - width, e.clientX - offset.x)
@@ -77,7 +86,7 @@ function Tool({ config }) {
   // drop
   useEffect(() => {
     const up = () => {
-      if (currentTool === type) {
+      if (isEquipped) {
         setDropEvent({
           tool: type,
 
@@ -109,6 +118,7 @@ function Tool({ config }) {
       style={{
         left: pos?.x ?? 0,
         top: pos?.y ?? 0,
+        cursor: isEquipped ? "grabbing" : "grab",
       }}
     >
       <img

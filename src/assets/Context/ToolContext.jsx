@@ -24,6 +24,11 @@ export function ToolProvider({ children }) {
     return Math.sqrt(dx * dx + dy * dy) < radius;
   };
 
+  const beginDragTool = (tool, pos) => {
+    setToolPos(pos);
+    setCurrentTool(tool);
+  };
+
   return (
     <ToolContext.Provider
         value={{
@@ -35,6 +40,7 @@ export function ToolProvider({ children }) {
             setDropEvent,
             getToolTip,
             isNear,
+            beginDragTool,
         }}
     >
       {children}

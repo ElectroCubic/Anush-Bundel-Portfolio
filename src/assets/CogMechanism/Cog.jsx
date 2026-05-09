@@ -1,4 +1,5 @@
 import { forwardRef } from "react";
+import { useTool } from "../Context/ToolContext.jsx";
 import styles from "./Cog.module.css";
 
 const Cog = forwardRef(function Cog(
@@ -12,28 +13,36 @@ const Cog = forwardRef(function Cog(
   shaft = false,
   paused = false,
   interactive = false,
+  itemType = null,
   ...props
 },
 ref
 ) {
 
+  const { currentTool } = useTool();
+
+  const isDragging = currentTool === itemType;
+
   return (
     <div
+      {...props}
       ref={ref}
       className={styles.cog}
-      {...props}
       style={{
-        pointerEvents: interactive ? "auto" : "none",
+        cursor: interactive
+          ? (isDragging ? "grabbing" : "grab")
+          : "default",
+
+        pointerEvents: interactive
+          ? "auto"
+          : "none",
         width: size,
         left: x,
         top: y,
-
         "--speed": `${speed}s`,
         "--direction": reverse ? "reverse" : "normal",
 
-        animationPlayState: paused
-          ? "paused"
-          : "running",
+        animationPlayState: paused ? "paused" : "running",
       }}
     >
       <img

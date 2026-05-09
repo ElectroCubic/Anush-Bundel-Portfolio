@@ -72,6 +72,7 @@ function CogMechanism2() {
                     shaft={true}
                     paused={!powered}
                     interactive={true}
+                    itemType="cog"
                 />
 
             ) : (

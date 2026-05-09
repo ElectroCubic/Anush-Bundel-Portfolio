@@ -11,7 +11,7 @@ function ItemSlot({
   onRemove,
 }) {
 
-  const { dropEvent, setDropEvent, isNear } = useTool();
+  const { dropEvent, setDropEvent, isNear, beginDragTool } = useTool();
   const slotRef = useRef();
 
   // INSERT LOGIC
@@ -60,12 +60,17 @@ function ItemSlot({
       y: rect.top + rect.height / 2,
     };
 
+    beginDragTool(itemType, {
+      x: slotCenter.x - 45,
+      y: slotCenter.y - 45,
+    });
+
     onRemove?.(slotCenter);
   };
 
   return cloneElement(children, {
     ref: slotRef,
-    onClick: inserted ? handleRemove : undefined,
+    onMouseDown: inserted ? handleRemove : undefined,
   });
 }
 

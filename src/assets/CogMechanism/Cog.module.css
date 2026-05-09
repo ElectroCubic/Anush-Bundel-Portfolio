@@ -6,6 +6,10 @@
   animation-direction: var(--direction);
 }
 
+.interactive {
+  cursor: grab;
+}
+
 .image {
   width: 100%;
   height: 100%;
