@@ -14,6 +14,7 @@ const Cog = forwardRef(function Cog(
   paused = false,
   interactive = false,
   itemType = null,
+  locked = false,
   ...props
 },
 ref
@@ -30,7 +31,11 @@ ref
       className={styles.cog}
       style={{
         cursor: interactive
-          ? (isDragging ? "grabbing" : "grab")
+          ? (
+              locked
+                ? "not-allowed"
+                : (isDragging ? "grabbing" : "grab")
+            )
           : "default",
 
         pointerEvents: interactive

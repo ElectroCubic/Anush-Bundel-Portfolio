@@ -73,6 +73,7 @@ function CogMechanism2() {
                     paused={!powered}
                     interactive={true}
                     itemType="cog"
+                    locked={powered}
                 />
 
             ) : (
