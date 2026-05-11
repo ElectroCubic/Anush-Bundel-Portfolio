@@ -4,7 +4,7 @@ export const TREE = {
     id: "core",
     label: "Core Skills",
     type: "core",
-    icon: "/icons/cog.svg",
+    icon: "/icons/dodecahedron.png",
     desc: "Strong foundation in DSA, OOPS architecture, scalable system design, and real-world problem solving.",
     children: [
         {

@@ -12,7 +12,7 @@ import WipBanner from "./assets/WipBanner/WipBanner.jsx"
 import Tool from "./assets/Tools/Tool.jsx"
 import screwdriverImg from "./assets/Images/Screwdriver.png"
 import cogImg from "./assets/Images/CogGrey.png"
-import coreImg from "./assets/Images/Socket.png"
+import coreImg from "./assets/Images/Core.png"
 
 function App() {
 
@@ -47,7 +47,7 @@ function App() {
                     config={{
                         type: "cog",
                         sprite: cogImg,
-                        interactionRadius: 70,
+                        interactionRadius: 80,
                         size: { x: 90, y: 90 },
                         offset: items.cog.offset,
                         spawn: items.cog.pos,
@@ -67,7 +67,7 @@ function App() {
                         type: "core",
                         sprite: coreImg,
                         interactionRadius: 60,
-                        size: { x: 90, y: 90 },
+                        size: { x: 70, y: 70 },
                         offset: items.core.offset,
                         spawn: items.core.pos,
                         gravity: {

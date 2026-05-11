@@ -31,7 +31,7 @@ export function GameProvider({ children }) {
     core: {
       location: "skillTree",
       pos: null,
-      offset: { x: 45, y: 45 },
+      offset: { x: 35, y: 35 },
       powered: false,
     },
   });

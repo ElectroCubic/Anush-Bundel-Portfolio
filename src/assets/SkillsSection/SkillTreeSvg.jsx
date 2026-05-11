@@ -333,7 +333,7 @@ function SkillTreeSvg({
                   filter="url(#coreGlow)"
                 />
 
-                {hasIcon && items.core.location !== "inventory" && (
+                {hasIcon && items.core.location === "skillTree" && (
                   <image
                     href={n.icon}
                     x={c.x - iconSize / 2}

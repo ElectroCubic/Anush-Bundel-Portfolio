@@ -14,23 +14,31 @@
   width: 100%;
   height: 100%;
   padding: 1rem;
+
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
+
   gap: 2rem;
+
   align-items: center;
   justify-items: center;
+
   z-index: 2;
 }
 
 .mechanismSection {
   position: absolute;
   inset: 0;
+
   overflow: hidden;
   contain: layout paint;
+
   display: flex;
   justify-content: center;
   align-items: center;
+
   z-index: 0;
+
   pointer-events: none;
 }
 
@@ -47,33 +55,86 @@
 }
 
 .coreSlot {
-  width: 120px;
-  height: 120px;
-  border-radius: 14px;
-  border: 2px dashed rgba(255,255,255,0.15);
+  position: relative;
+
+  width: 130px;
+  aspect-ratio: 1;
+
+  border-radius: 50%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  overflow: hidden;
 
   background:
-    linear-gradient(
-      180deg,
-      rgba(255,255,255,0.04),
-      rgba(0,0,0,0.25)
+    radial-gradient(
+      circle at center,
+      #161616 0%,
+      #0d0d0d 55%,
+      #050505 100%
     );
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: rgba(255,255,255,0.35);
-  font-size: 0.9rem;
-  letter-spacing: 0.12em;
+  border:
+    4px solid rgba(255,255,255,0.08);
+
+  box-shadow:
+    inset 0 0 18px rgba(255,255,255,0.04),
+    inset 0 0 40px rgba(0,0,0,0.95),
+    0 0 20px rgba(0,0,0,0.45);
 }
 
+/* INNER ENERGY RING */
+
+.coreSlot::before {
+  content: "";
+
+  position: absolute;
+
+  width: 72%;
+  aspect-ratio: 1;
+
+  border-radius: 50%;
+
+  border:
+    2px solid rgba(90,140,255,0.22);
+
+  box-shadow:
+    0 0 10px rgba(90,140,255,0.18),
+    inset 0 0 10px rgba(90,140,255,0.08);
+}
+
+/* OUTER CONTAINMENT RING */
+
+.coreSlot::after {
+  content: "";
+
+  position: absolute;
+
+  width: 88%;
+  aspect-ratio: 1;
+
+  border-radius: 50%;
+
+  border:
+    1px dashed rgba(255,255,255,0.12);
+
+  opacity: 0.6;
+}
+
+/* INSERTED CORE */
+
 .insertedCore {
-  width: 120px;
-  height: 120px;
+  position: relative;
+  width: 70px;
+  height: 70px;
 
   display: flex;
   justify-content: center;
   align-items: center;
+
+  z-index: 3;
 
   cursor: grab;
 }
@@ -81,9 +142,18 @@
 .coreImage {
   width: 100%;
   height: 100%;
+
   object-fit: contain;
+
   pointer-events: none;
+
+  filter:
+    drop-shadow(0 0 12px rgba(120,180,255,0.25));
 }
+
+/* =========================
+   POWER LEVER
+========================= */
 
 .lever {
   width: 160px;
@@ -100,17 +170,25 @@
     );
 
   color: white;
+
   letter-spacing: 0.12em;
-  border: 1px solid rgba(255,255,255,0.08);
+
+  border:
+    1px solid rgba(255,255,255,0.08);
+
   cursor: pointer;
 
   transition:
     transform 0.15s ease,
-    filter 0.2s ease;
+    filter 0.2s ease,
+    box-shadow 0.25s ease;
 }
 
 .lever:hover {
   filter: brightness(1.1);
+
+  box-shadow:
+    0 0 18px rgba(255,255,255,0.08);
 }
 
 .lever:active {

@@ -2,7 +2,7 @@ import { useGame } from "../Context/GameContext.jsx"
 import styles from "./ContactPanel.module.css"
 import CogMechanism2 from "../CogMechanism/CogMechanism2.jsx"
 import ItemSlot from "../Interactables/ItemSlot/ItemSlot.jsx";
-import coreImg from "../Images/Socket.png";
+import coreImg from "../Images/Core.png";
 
 function ContactPanel()
 {
@@ -51,23 +51,19 @@ function ContactPanel()
                         });
                     }}
                 >
-                    {state.coreInserted ? (
+                    <div className={styles.coreSlot}>
 
-                        <div className={styles.insertedCore}>
-                            <img
-                                src={coreImg}
-                                draggable="false"
-                                className={styles.coreImage}
-                            />
-                        </div>
+                        {state.coreInserted && (
+                            <div className={styles.insertedCore}>
+                                <img
+                                    src={coreImg}
+                                    draggable="false"
+                                    className={styles.coreImage}
+                                />
+                            </div>
+                        )}
 
-                    ) : (
-
-                        <div className={styles.coreSlot}>
-                            CORE
-                        </div>
-
-                    )}
+                    </div>
                 </ItemSlot>
             </div>
 
