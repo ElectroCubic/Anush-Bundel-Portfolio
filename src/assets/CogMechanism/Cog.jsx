@@ -48,6 +48,8 @@ ref
         "--direction": reverse ? "reverse" : "normal",
 
         animationPlayState: paused ? "paused" : "running",
+
+        ...props.style,
       }}
     >
       <img

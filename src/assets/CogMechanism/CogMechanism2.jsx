@@ -60,35 +60,42 @@ function CogMechanism2() {
                 });
             }}
         >
-            {state.cogInserted ? (
+            <div
+                className={styles.cogSlot}
+                style={{
+                    left: "83%",
+                    top: "50%",
+                }}
+            >
+
+                {/* ALWAYS EXISTING SYNCHRONIZED COG */}
 
                 <Cog
                     src={cogImg2}
-                    size="18%"
-                    x="83%"
+                    size="100%"
+                    x="50%"
                     y="50%"
                     speed={5}
                     reverse
                     shaft={true}
                     paused={!powered}
-                    interactive={true}
+                    interactive={state.cogInserted}
                     itemType="cog"
                     locked={powered}
+
+                    style={{
+                        opacity: state.cogInserted ? 1 : 0,
+                        pointerEvents: state.cogInserted
+                            ? "auto"
+                            : "none",
+                    }}
                 />
 
-            ) : (
-
-                <div
-                    className={styles.cogSlot}
-                    style={{
-                        left: "83%",
-                        top: "50%",
-                    }}
-                >
+                {!state.cogInserted && (
                     <div className={styles.slotShaft} />
-                </div>
-            )}
+                )}
 
+            </div>
         </ItemSlot>
 
         <Cog
