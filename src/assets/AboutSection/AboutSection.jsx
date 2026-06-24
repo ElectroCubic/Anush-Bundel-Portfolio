@@ -1,6 +1,7 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react"
 import styles from "./AboutSection.module.css"
 import TilePanel from "../TilePanel/TilePanel.jsx"
+import FolderTabs from "../FolderTabs/FolderTabs.jsx"
 
 const words = [
     { id: "design", label: "Design" },
@@ -369,6 +370,9 @@ function AboutSection() {
                     })}
                 </div>
             </div>
+
+            <FolderTabs />
+
         </div>
     );
 }
