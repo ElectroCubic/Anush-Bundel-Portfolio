@@ -64,7 +64,7 @@ export const PROJECTS = [
     title: "Space Slime Invasion",
     description: "Defend your spacehip from hordes of Space Slimes invading and activate the slip-drive in time to save humanity from extinction.",
     tags: ["Defold", "Platformer", "Shooter", "Game Jam", "Programmer"],
-    projectLink: "https://electrocubic.itch.io/dream-sequencer",
+    projectLink: "https://electrocubic.itch.io/space-slime-invasion",
     category: "Featured",
   },
   {
