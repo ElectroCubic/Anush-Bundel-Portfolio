@@ -4,7 +4,7 @@ import ProfilePic from "../ProfilePic/ProfilePic.jsx"
 import Button from "../Button/Button.jsx"
 import styles from "./HeroSection.module.css"
 
-const resumeName = "Anush Bundel Resume Game Dev.pdf";
+const resumeName = "Anush_Bundel_Resume_Game_Dev.pdf";
 
 function HeroSection() 
 {
@@ -14,8 +14,8 @@ function HeroSection()
 
             <div className={styles.headline}>
                 <h1> Building Worlds Never Imagined Before.</h1>
-                <p> Designing games and interactive systems with a focus on 
-                    <span className="hl"> mechanics,</span><span className="hl2"> feedback,</span> and <span className="hl3">player experience.</span> </p>
+                <p> Designing systems and experiences with a focus on 
+                    <span className="hl"> mechanics,</span><span className="hl2"> game feel,</span> and <span className="hl3">player immersion.</span> </p>
 
                 <div className={styles.ctaButton}>
                     <Button className={styles.heroCta} onClick={() => scrollTo("projects", 150)}>
