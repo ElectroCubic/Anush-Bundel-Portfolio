@@ -4,7 +4,7 @@ import ProfilePic from "../ProfilePic/ProfilePic.jsx"
 import Button from "../Button/Button.jsx"
 import styles from "./HeroSection.module.css"
 
-const resumeName = "Anush_Bundel_Resume_Game_Dev.pdf";
+const resumeDriveLink = "https://drive.google.com/uc?export=download&id=1MXBoUCbQQXZdOxOMAFIouXEzYgXAgrd2";
 
 function HeroSection() 
 {
@@ -37,8 +37,7 @@ function HeroSection()
 
 function downloadResume() {
     const link = document.createElement("a");
-    link.href = "/" + resumeName;
-    link.download = resumeName;
+    link.href = resumeDriveLink;
     document.body.appendChild(link);
     link.click();
     link.remove();
