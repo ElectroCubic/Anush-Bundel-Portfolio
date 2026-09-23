@@ -4,7 +4,7 @@ import ProfilePic from "../ProfilePic/ProfilePic.jsx"
 import Button from "../Button/Button.jsx"
 import styles from "./HeroSection.module.css"
 
-const resumeDriveLink = "https://drive.google.com/uc?export=download&id=1MXBoUCbQQXZdOxOMAFIouXEzYgXAgrd2";
+const resumeDriveLink = "https://drive.google.com/uc?export=download&id=1THBsSY9CHPGdv_3KYUcuUs27ZFHh6OEI";
 
 function HeroSection() 
 {
