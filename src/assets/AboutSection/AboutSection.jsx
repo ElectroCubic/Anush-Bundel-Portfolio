@@ -371,7 +371,7 @@ function AboutSection() {
                 </div>
             </div>
 
-            <FolderTabs />
+            {/* <FolderTabs /> */}
 
         </div>
     );
